@@ -1,0 +1,23 @@
+# Cloud Build: builds the Docker image with the right build-time env and pushes it to Artifact Registry.
+# Invoked by scripts/deploy.sh:
+#   gcloud builds submit --config cloudbuild.yaml --substitutions=_IMAGE=...,_SITE_URL=...
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --build-arg=NEXT_PUBLIC_SITE_URL=${_SITE_URL}
+      - --build-arg=NEXT_PUBLIC_POSTHOG_KEY=${_POSTHOG_KEY}
+      - --build-arg=NEXT_PUBLIC_POSTHOG_HOST=${_POSTHOG_HOST}
+      - --build-arg=NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=${_GSC_TOKEN}
+      - -t
+      - ${_IMAGE}
+      - .
+images:
+  - ${_IMAGE}
+substitutions:
+  _SITE_URL: https://serialexit.com
+  _POSTHOG_KEY: ""
+  _POSTHOG_HOST: ""
+  _GSC_TOKEN: ""
+options:
+  logging: CLOUD_LOGGING_ONLY

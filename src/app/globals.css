@@ -1,0 +1,370 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ==========================================================================
+   SERIAL EXIT — design tokens
+   Dark, cinematic, institutional. Molten amber is the only accent.
+
+   Motion rule for this file: anything that animates continuously or on
+   hover animates `transform` and/or `opacity` ONLY (compositor-only, no
+   layout, no paint) so it stays at a locked 60fps on mid-range devices.
+   ========================================================================== */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-sans-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-display), ui-monospace, monospace;
+  --font-serif: var(--font-serif-italic), Georgia, serif;
+
+  /* Brand-bound amber scale: every `amber-*` utility now matches the 3D
+     scene, embers and gradients (Tailwind's default amber is a different,
+     yellower hue). */
+  /* Brass: ornament colour (hairlines, frames, numerals). Amber stays for CTAs, light and active states. */
+  --color-brass: #d9a65a;
+  --color-amber-200: #ffd2a8;
+  --color-amber-300: #ffb37a;
+  --color-amber-400: #ff9a4d;
+  --color-amber-500: #ff7a1a;
+  --color-amber-600: #e0620a;
+  --color-amber-700: #b85a14;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+}
+
+:root {
+  color-scheme: dark;
+  --background: #050505;
+  --foreground: #f4f1ec;
+  --card: #111112;
+  --muted: #0b0b0c;
+  /* #a8a29a on #050505 ≈ 8.4:1 — passes WCAG AA for body text */
+  --muted-foreground: #a8a29a;
+  --border: rgba(255, 255, 255, 0.08);
+  --ring: #ff7a1a;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+  --brass: #d9a65a;
+  --header-h: 4rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: auto; /* Lenis owns smooth scrolling */
+    background: var(--background);
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    overflow-x: clip; /* clip (not hidden) so position:sticky keeps working */
+  }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection {
+    background: rgba(255, 122, 26, 0.3);
+    color: #f4f1ec;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #050505; }
+  ::-webkit-scrollbar-thumb { background: #1c1c1d; border: 2px solid #050505; }
+  ::-webkit-scrollbar-thumb:hover { background: #2a2a2b; }
+}
+
+/* Lenis recommended resets */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+
+@layer utilities {
+  .font-mono-display {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+  .font-serif-italic {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--color-amber-500);
+  }
+  .text-amber-gradient {
+    background: linear-gradient(135deg, #ffb37a 0%, #ff7a1a 60%, #b85a14 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---- Glass card ----------------------------------------------------
+     No backdrop-filter on cards: they sit on flat near-black, where a blur
+     is invisible but costs GPU every scroll frame. Use `.glass-blur` only
+     where a card genuinely overlaps imagery. */
+  .glass-dark {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.008) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+  }
+  .glass-blur {
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+  /* Hover: an amber edge-light pseudo-element fades in (opacity) and the card
+     lifts (transform). Nothing that repaints is animated. */
+  .glass-dark-hover {
+    position: relative;
+    transition: transform 600ms var(--ease-out-expo);
+  }
+  .glass-dark-hover::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    border: 1px solid rgba(255, 122, 26, 0.55);
+    box-shadow: 0 0 0 1px rgba(255, 122, 26, 0.18), 0 0 80px -20px rgba(255, 122, 26, 0.35);
+    opacity: 0;
+    transition: opacity 600ms var(--ease-out-expo);
+  }
+  .glass-dark-hover:hover,
+  .glass-dark-hover:focus-within { transform: translate3d(0, -3px, 0); }
+  .glass-dark-hover:hover::after,
+  .glass-dark-hover:focus-within::after { opacity: 1; }
+
+  .bg-hairline-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .mask-line { overflow: hidden; display: block; }
+
+  .animate-float { animation: se-float 8s ease-in-out infinite; }
+  .animate-marquee { animation: se-marquee 40s linear infinite; }
+  .animate-marquee-rev { animation: se-marquee 40s linear infinite reverse; }
+  .animate-scroll-dot { animation: se-scroll-dot 2.2s var(--ease-out-expo) infinite; }
+}
+
+/* ---- Keyframes (transform / opacity only) ---------------------------- */
+@keyframes se-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -8px, 0); } }
+@keyframes se-marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+@keyframes se-scroll-dot {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translate3d(0, 18px, 0); opacity: 0; }
+}
+
+/* ---- Hero entrance: pure CSS so it plays at first paint, before React
+   hydrates (no JS-gated opacity:0 delaying LCP). Delays come from --d. ---- */
+@keyframes se-rise {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes se-mask-up {
+  from { transform: translate3d(0, 110%, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@keyframes se-fade { from { opacity: 0; } to { opacity: 1; } }
+.se-rise { animation: se-rise 900ms var(--ease-out-expo) both; animation-delay: var(--d, 0s); }
+.se-fade { animation: se-fade 1000ms var(--ease-out-expo) both; animation-delay: var(--d, 0s); }
+.se-mask-up { display: block; animation: se-mask-up 1000ms var(--ease-out-expo) both; animation-delay: var(--d, 0s); }
+
+/* ---- Embers: CSS-only drifting particles (replaces 9 JS-driven loops) -- */
+@keyframes se-ember {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  12% { opacity: var(--o, 0.6); }
+  100% { transform: translate3d(0, -110vh, 0); opacity: 0; }
+}
+.se-ember {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 9999px;
+  background: rgba(255, 122, 26, 0.9);
+  box-shadow: 0 0 8px rgba(255, 122, 26, 0.7);
+  animation: se-ember var(--dur, 16s) linear var(--delay, 0s) infinite;
+  will-change: transform, opacity;
+}
+
+/* ---- Hero 3D layer fade-in ------------------------------------------------ */
+.se-hero-3d { opacity: 0; transition: opacity 1400ms var(--ease-out-expo); }
+.se-hero-3d[data-ready="true"] { opacity: 1; }
+
+/* ---- Film grain: a tiny pre-rendered noise tile. No blend mode, no SVG
+   filter — just a static, low-opacity layer. ---------------------------- */
+.se-grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.07;
+  background-image: url("/images/grain.png");
+  background-size: 160px 160px;
+  transform: translateZ(0);
+}
+
+/* ---- Cursor spotlight + ring (desktop, fine pointer only) ------------- */
+.se-spotlight {
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 55;
+  width: 520px; height: 520px;
+  margin: -260px 0 0 -260px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 122, 26, 0.11) 0%, rgba(255, 122, 26, 0.04) 30%, transparent 70%);
+  opacity: 0;
+  transition: opacity 400ms ease;
+  will-change: transform;
+}
+.se-cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 122, 26, 0.55);
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 300ms ease;
+}
+.se-cursor-ring > span {
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: rgba(255, 122, 26, 0.08);
+  transform: scale(1);
+  opacity: 0;
+  transition: transform 350ms var(--ease-out-expo), opacity 350ms var(--ease-out-expo);
+}
+.se-cursor-ring[data-active="true"] > span { opacity: 1; transform: scale(1.5); }
+.se-cursor-ring[data-label="true"] > span { opacity: 1; transform: scale(1.9); }
+.se-cursor-label {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font: 500 8px/1 var(--font-mono), ui-monospace, monospace; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #ffb37a; opacity: 0; transition: opacity 250ms ease;
+}
+.se-cursor-ring[data-label="true"] .se-cursor-label { opacity: 1; }
+.se-cursor-ring[data-down="true"] > span { transform: scale(0.8); opacity: 1; }
+
+/* ---- Skip link -------------------------------------------------------- */
+.se-skip {
+  position: fixed;
+  left: 1rem; top: 1rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-amber-500);
+  color: #050505;
+  font-weight: 500;
+  transform: translate3d(0, -200%, 0);
+}
+.se-skip:focus { transform: translate3d(0, 0, 0); }
+
+/* ---- Luxury frame: hairline outer border + inset brass line ---------- */
+.se-frame { position: relative; border: 1px solid rgba(255, 255, 255, 0.1); background: #050505; }
+.se-frame::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  z-index: 25;
+  pointer-events: none;
+  border: 1px solid rgba(217, 166, 90, 0.28);
+}
+
+/* ---- Brass diamond on section hairlines ------------------------------ */
+.se-ornament { position: absolute; left: 50%; top: 0; z-index: 3; width: 168px; height: 9px; transform: translate(-50%, -50%); pointer-events: none; }
+.se-ornament::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(217, 166, 90, 0.55) 30%, rgba(217, 166, 90, 0.55) 70%, transparent);
+}
+.se-ornament::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 7px; height: 7px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: #050505; border: 1px solid rgba(217, 166, 90, 0.85);
+}
+
+/* ---- Looping layers pause automatically when off-screen --------------- */
+[data-inview="false"] .se-loop { animation-play-state: paused; }
+
+/* ---- Photo-layer motion (transform / opacity only) --------------------- */
+@keyframes se-rays { from { transform: translate3d(0, 0, 0); opacity: 0.55; } to { transform: translate3d(24px, 16px, 0); opacity: 0.85; } }
+@keyframes se-flicker {
+  0%, 100% { opacity: 0.9; } 8% { opacity: 0.78; } 14% { opacity: 1; } 30% { opacity: 0.86; }
+  41% { opacity: 0.97; } 57% { opacity: 0.8; } 72% { opacity: 1; } 86% { opacity: 0.88; }
+}
+@keyframes se-kenburns { from { transform: scale(1); } to { transform: scale(1.05); } }
+@keyframes se-stamp {
+  from { opacity: 0; transform: rotate(-12deg) scale(1.5); }
+  to { opacity: 1; transform: rotate(-6deg) scale(1); }
+}
+@keyframes se-shine { from { transform: translate3d(-160%, 0, 0) skewX(-18deg); } to { transform: translate3d(320%, 0, 0) skewX(-18deg); } }
+@keyframes se-card-in { from { opacity: 0; transform: translate3d(0, 24px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+@keyframes se-fade-up { from { opacity: 0; transform: translate3d(0, 8px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+.se-rays { animation: se-rays 14s ease-in-out infinite alternate; will-change: transform, opacity; }
+.se-flicker { animation: se-flicker 7s linear infinite; }
+.se-kb { animation: se-kenburns 18s ease-in-out infinite alternate; will-change: transform; }
+.se-stamp { animation: se-stamp 450ms var(--ease-lux) both; }
+.se-seal-shine {
+  position: absolute; top: 0; bottom: 0; left: 0; width: 32%;
+  background: linear-gradient(90deg, transparent, rgba(255, 244, 220, 0.75), transparent);
+  transform: translate3d(-160%, 0, 0) skewX(-18deg);
+  animation: se-shine 700ms ease-out 450ms both;
+}
+.se-fade-up { animation: se-fade-up 500ms var(--ease-lux) both; }
+/* entrance for stacked photo layers: hidden until the frame has been seen, then staggered by --d */
+.se-ent { opacity: 0; }
+[data-seen="true"] .se-ent { animation: se-fade 900ms var(--ease-lux) both; animation-delay: var(--d, 0s); }
+[data-seen="true"] .se-ent-card { opacity: 0; animation: se-card-in 800ms var(--ease-lux) both; animation-delay: var(--d, 0s); }
+
+/* ---- Primary CTA: one gold shine sweep on hover/focus ------------------ */
+.se-cta-shine { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.se-cta-shine::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 38%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: translate3d(-160%, 0, 0) skewX(-18deg);
+}
+.group:hover .se-cta-shine::after, .group:focus-visible .se-cta-shine::after {
+  transition: transform 800ms var(--ease-lux);
+  transform: translate3d(380%, 0, 0) skewX(-18deg);
+}
+
+/* ---- Reduced motion --------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .se-ember, .se-grain, .se-spotlight, .se-cursor-ring { display: none; }
+  .se-rays, .se-flicker, .se-kb { animation: none !important; }
+  .se-ent, .se-ent-card { opacity: 1 !important; animation: none !important; }
+}
