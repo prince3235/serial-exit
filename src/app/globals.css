@@ -314,6 +314,14 @@ html.lenis, html.lenis body { height: auto; }
 /* ---- Looping layers pause automatically when off-screen --------------- */
 [data-inview="false"] .se-loop { animation-play-state: paused; }
 
+/* ---- Content-visibility: skip rendering off-screen sections ----------- */
+/* Sections below the fold defer paint+layout until near-viewport.
+   auto lets the browser decide when to do the work (native lazy rendering). */
+.se-section-lazy {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
 /* ---- Photo-layer motion (transform / opacity only) --------------------- */
 @keyframes se-rays { from { transform: translate3d(0, 0, 0); opacity: 0.55; } to { transform: translate3d(24px, 16px, 0); opacity: 0.85; } }
 @keyframes se-flicker {

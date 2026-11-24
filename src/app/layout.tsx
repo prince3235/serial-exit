@@ -19,6 +19,7 @@ const interTight = localFont({
   ],
   variable: "--font-sans-tight",
   display: "swap",
+  preload: true,
   fallback: ["system-ui", "Arial"],
 });
 

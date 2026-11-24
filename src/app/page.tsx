@@ -4,18 +4,21 @@ import dynamic from "next/dynamic";
 import { useCallback, useState } from "react";
 import { Navbar } from "@/components/serial-exit/navbar";
 import { Hero } from "@/components/serial-exit/hero";
-import { CoreIdea } from "@/components/serial-exit/core-idea";
-import { Opportunities } from "@/components/serial-exit/opportunities";
-import { Process } from "@/components/serial-exit/process";
-import { Showcase } from "@/components/serial-exit/showcase";
-import { Partners } from "@/components/serial-exit/partners";
-import { Comparison } from "@/components/serial-exit/comparison";
-import { Mission } from "@/components/serial-exit/mission";
-import { Contact } from "@/components/serial-exit/contact";
-import { Footer } from "@/components/serial-exit/footer";
-import { BackToTop } from "@/components/serial-exit/back-to-top";
-import { ChapterRail } from "@/components/serial-exit/chapter-rail";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { ChapterRail } from "@/components/serial-exit/chapter-rail";
+import { BackToTop } from "@/components/serial-exit/back-to-top";
+
+/* All below-the-fold sections are dynamically imported so they are code-split
+   out of the initial JS chunk. The Hero is above-the-fold so it is static. */
+const CoreIdea    = dynamic(() => import("@/components/serial-exit/core-idea").then(m => m.CoreIdea));
+const Opportunities = dynamic(() => import("@/components/serial-exit/opportunities").then(m => m.Opportunities));
+const Process     = dynamic(() => import("@/components/serial-exit/process").then(m => m.Process));
+const Showcase    = dynamic(() => import("@/components/serial-exit/showcase").then(m => m.Showcase));
+const Partners    = dynamic(() => import("@/components/serial-exit/partners").then(m => m.Partners));
+const Comparison  = dynamic(() => import("@/components/serial-exit/comparison").then(m => m.Comparison));
+const Mission     = dynamic(() => import("@/components/serial-exit/mission").then(m => m.Mission));
+const Contact     = dynamic(() => import("@/components/serial-exit/contact").then(m => m.Contact));
+const Footer      = dynamic(() => import("@/components/serial-exit/footer").then(m => m.Footer));
 
 /* The portal is only needed after a click — keep it out of the initial bundle. */
 const PartnerPortal = dynamic(() => import("@/components/serial-exit/partner-portal").then((m) => m.PartnerPortal), {
