@@ -31,14 +31,13 @@ export const OPPORTUNITY_MEDIA = {
 
 /**
  * Partners: one image per list row, SAME ORDER as the partners list in src/content/site.ts.
- * Index 4 (Search Funds) is null until its image is generated: the UI must handle a missing image.
  */
 export const PARTNER_MEDIA: (MediaAsset | null)[] = [
   { id: "advisory", base: "/images/partners/01-ma-advisory", width: 1024, height: 1536, widths: [640, 1024], alpha: false }, // 01 M&A Advisory Firms
   { id: "banks", base: "/images/partners/02-investment-banks", width: 1024, height: 1536, widths: [640, 1024], alpha: false }, // 02 Investment Banks
   { id: "equity", base: "/images/partners/03-private-equity", width: 1024, height: 1536, widths: [640, 1024], alpha: false }, // 03 Private Equity Firms
   { id: "venture", base: "/images/partners/04-venture-capital", width: 1024, height: 1536, widths: [640, 1024], alpha: false }, // 04 Venture Capital Firms
-  null, // 05 Search Funds  <- image pending
+  { id: "search", base: "/images/partners/05-search-funds", width: 1024, height: 1536, widths: [640, 1024], alpha: false }, // 05 Search Funds
   { id: "family", base: "/images/partners/06-family-offices", width: 1024, height: 1536, widths: [640, 1024], alpha: false }, // 06 Family Offices
   { id: "strategic", base: "/images/partners/07-strategic-acquirers", width: 1024, height: 1536, widths: [640, 1024], alpha: false }, // 07 Strategic Acquirers
 ];

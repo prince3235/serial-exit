@@ -49,7 +49,7 @@ scripts/                 postbuild, hero image optimizer, deploy.sh
   desktops a transparent three.js layer (obsidian shards + amber dust, pointer parallax) loads at idle; it pauses when
   off-screen or the tab is hidden, caps DPR at 1.5, self-downgrades on slow frames and falls back on context loss.
   Phones, touch devices, low-end machines and `prefers-reduced-motion` users get the poster only.
-* **Photo sections.** Opportunities and Partners use real photography (AVIF/WebP, listed in `src/content/media.ts`). To add or swap an image: export 640 + 1024px AVIF and WebP into `public/images/...`, then edit `media.ts`. The Search Funds photo (partner row 05) is still pending.
+* **Photo sections.** Opportunities and Partners use real photography (AVIF/WebP, listed in `src/content/media.ts`). To add or swap an image: export 640 + 1024px AVIF and WebP into `public/images/...`, then edit `media.ts`. All 7 partner photos are fully integrated.
 * **Wow layer.** Flashlight Vault (`vault-layer.tsx`), Deal Journey shard (inside `process.tsx`), wax-seal stamp (`brass-seal.tsx`), chapter rail (`chapter-rail.tsx`) and cursor labels (add `data-cursor="Word"` to any element). All loops pause off-screen and respect reduced motion.
 * **Hero 3D reliability.** The WebGL layer never self-destructs on slow frames; it steps quality down (tiers 0-3, see `data-hero3d` on the container) and falls back to the poster only on WebGL context loss.
 * **Entrance animation is CSS**, so it plays at first paint instead of waiting for hydration. There is no preloader.
