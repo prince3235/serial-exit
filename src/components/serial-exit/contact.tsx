@@ -21,6 +21,7 @@ type FormState = {
   phone: string;
   role: string;
   message: string;
+  whatsappConsent: boolean;
   // honeypot — must stay empty
   website: string;
 };
@@ -33,6 +34,7 @@ const initial: FormState = {
   phone: "",
   role: "",
   message: "",
+  whatsappConsent: false,
   website: "",
 };
 
@@ -53,7 +55,7 @@ export function Contact() {
 
   const activeTab = contact.tabs.find((t) => t.key === tab)!;
 
-  const update = (k: keyof FormState, v: string) => {
+  const update = (k: keyof FormState, v: string | boolean) => {
     setForm((p) => ({ ...p, [k]: v }));
     if (errors[k]) setErrors((p) => ({ ...p, [k]: undefined }));
   };
@@ -144,6 +146,7 @@ export function Contact() {
                 {contact.tabs.map((t) => (
                   <button
                     key={t.key}
+                    type="button"
                     role="tab"
                     aria-selected={tab === t.key}
                     onClick={() => {
@@ -204,11 +207,11 @@ export function Contact() {
                   </motion.div>
                 ) : (
                   <motion.form
-                    key={`form-${tab}`}
+                    key="form"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.4, ease: EASE }}
+                    transition={{ duration: 0.3, ease: EASE }}
                     onSubmit={onSubmit}
                     noValidate
                     className="mt-8 flex flex-col gap-5"
@@ -265,6 +268,20 @@ export function Contact() {
                         autoComplete="tel"
                       />
                     </div>
+
+                    {/* Explicit WhatsApp opt-in consent (Meta Cloud API policy) */}
+                    <label className="flex cursor-pointer items-start gap-3 border border-white/[0.06] bg-[#050505]/70 px-4 py-3 text-[0.8125rem] text-foreground/75 transition-colors duration-300 hover:border-white/[0.12]">
+                      <input
+                        type="checkbox"
+                        checked={form.whatsappConsent}
+                        onChange={(e) => update("whatsappConsent", e.target.checked)}
+                        className="mt-0.5 h-4 w-4 shrink-0 accent-amber-500"
+                      />
+                      <span className="leading-snug">
+                        I consent to receive confidential enquiry acknowledgements and updates via{" "}
+                        <span className="text-amber-300">WhatsApp</span> (optional, requires phone number).
+                      </span>
+                    </label>
 
                     {/* Role / type — dropdown */}
                     <div className="flex flex-col gap-2">

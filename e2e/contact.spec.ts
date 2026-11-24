@@ -34,7 +34,7 @@ test.describe("Contact form", () => {
     await page.getByLabel(/full name/i).fill("Aarav Gupta");
     await page.getByLabel(/company/i).fill("Meridian Capital");
     await page.getByLabel(/work email/i).fill("aarav.gupta@meridiancapital.in");
-    await page.getByLabel(/phone/i).fill("+91 90000 11223");
+    await page.getByRole("textbox", { name: /phone/i }).fill("+91 90000 11223");
     await page.getByRole("combobox", { name: /role/i }).selectOption("Private Equity Firm");
     await page
       .getByLabel(/message/i)
@@ -58,7 +58,9 @@ test.describe("Contact form", () => {
 
     // Switch to Business Owner
     await page.getByRole("tab", { name: /business owner/i }).click();
-    await page.waitForTimeout(800);
+    await expect
+      .poll(async () => await select.locator("option").allTextContents())
+      .toContain("Business Sale");
     options = await select.locator("option").allTextContents();
     expect(options).toContain("Business Sale");
     expect(options).not.toContain("Private Equity Firm");

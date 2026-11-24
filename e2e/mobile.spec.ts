@@ -10,7 +10,7 @@ test.describe("Mobile", () => {
     await page.getByRole("button", { name: /open menu/i }).click();
     await page.waitForTimeout(800);
     await expect(page.getByRole("link", { name: /how it works/i }).first()).toBeVisible();
-    await expect(page.getByRole("link", { name: /mission/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /opportunities/i }).first()).toBeVisible();
   });
 
   test("no horizontal scroll on mobile", async ({ page }) => {
@@ -30,5 +30,18 @@ test.describe("Mobile", () => {
     const box = await h1.boundingBox();
     expect(box).toBeTruthy();
     expect(box!.x).toBeGreaterThanOrEqual(0);
+  });
+
+  test("our partners cards stack cleanly on mobile", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("load");
+    const cards = page.locator("#our-partners article");
+    await expect(cards).toHaveCount(2);
+    await cards.first().scrollIntoViewIfNeeded();
+    const box1 = await cards.nth(0).boundingBox();
+    const box2 = await cards.nth(1).boundingBox();
+    expect(box1).toBeTruthy();
+    expect(box2).toBeTruthy();
+    expect(box2!.y).toBeGreaterThan(box1!.y);
   });
 });

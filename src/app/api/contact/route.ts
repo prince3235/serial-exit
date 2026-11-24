@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import { FieldValue } from "@google-cloud/firestore";
 import { z } from "zod";
-import { getFirestore } from "@/lib/firestore";
 import { rateLimit } from "@/lib/rate-limit";
 import { clientIp, hashIp, isSameOrigin } from "@/lib/request";
-import { SITE_URL } from "@/lib/site";
+import { normalizeEmail, normalizePhone } from "@/lib/comms/phone";
+import { getPartnerDestinations } from "@/lib/comms/partners";
+import { sendClientWelcomeEmail, sendPartnerAlertEmail } from "@/lib/comms/resend";
+import { runLeadAutomation } from "@/lib/comms/orchestrator";
+import {
+  createCommunication,
+  logAutomationEvent,
+  upsertLead,
+} from "@/lib/comms/store";
+import type { LeadRecord } from "@/lib/comms/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -12,20 +19,13 @@ export const dynamic = "force-dynamic";
 /**
  * POST /api/contact
  *
- * Validates an enquiry, stores it in Firestore (collection `enquiries`) and
- * forwards it by email via Resend when RESEND_API_KEY is set.
+ * Captures a website enquiry into the unified Firestore Lead Capture Engine,
+ * triggers automated Resend welcome & partner alert emails, triggers consented
+ * Meta WhatsApp Cloud API template messages, and syncs to Google Sheets.
  *
- * Delivery guarantee: the request only succeeds if AT LEAST ONE durable
- * channel (Firestore or email) accepted the enquiry. A lead is never
- * silently dropped.
- *
- * Note: work is awaited BEFORE responding. On Cloud Run, CPU is throttled
- * once the response is sent, so "fire-and-forget" email calls can stall.
- *
- * Env (all optional): RESEND_API_KEY, CONTACT_NOTIFY_EMAIL, CONTACT_FROM_EMAIL,
- * FIRESTORE_DATABASE_ID, IP_HASH_SALT.
+ * Delivery guarantee: succeeds only if AT LEAST ONE durable channel (Firestore
+ * or Resend email) accepts the enquiry.
  */
-
 const schema = z.object({
   tab: z.enum(["partner", "owner"]).catch("partner"),
   name: z.string().trim().min(1, "Required").max(200),
@@ -34,6 +34,7 @@ const schema = z.object({
   phone: z.string().trim().max(40).optional().default(""),
   role: z.string().trim().min(1, "Required").max(100),
   message: z.string().trim().min(12, "Too short").max(5000),
+  whatsappConsent: z.boolean().optional().default(false),
   website: z.string().optional().default(""), // honeypot
 });
 
@@ -53,7 +54,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Bound the body size before parsing.
   const raw = await req.text();
   if (raw.length > 20_000) return json({ ok: false, error: "Payload too large" }, 413);
 
@@ -79,94 +79,115 @@ export async function POST(req: NextRequest) {
   // Honeypot — pretend success, store nothing.
   if (data.website) return json({ ok: true });
 
-  const record = {
-    tab: data.tab,
-    name: data.name,
-    company: data.company,
-    email: data.email,
-    phone: data.phone || null,
-    role: data.role,
-    message: data.message,
-    ipHash: hashIp(ip),
-    source: SITE_URL,
-  };
+  const normalizedPhone = normalizePhone(data.phone);
+  const whatsappConsent = Boolean(data.whatsappConsent && normalizedPhone);
+  const ipHash = hashIp(ip);
 
-  const [stored, emailed] = await Promise.all([saveToFirestore(record), notifyByEmail(record)]);
-
-  if (!stored && !emailed) {
-    return json({ ok: false, error: "We couldn't submit your enquiry right now. Please try again shortly." }, 500);
-  }
-  return json({ ok: true });
-}
-
-type Record_ = {
-  tab: string;
-  name: string;
-  company: string;
-  email: string;
-  phone: string | null;
-  role: string;
-  message: string;
-  ipHash: string;
-  source: string;
-};
-
-async function saveToFirestore(record: Record_): Promise<boolean> {
+  // Try unified Firestore Lead Capture Engine first
   try {
-    await getFirestore()
-      .collection("enquiries")
-      .add({ ...record, createdAt: FieldValue.serverTimestamp() });
-    return true;
-  } catch (err) {
-    console.error("[/api/contact] firestore write failed", err);
-    return false;
-  }
-}
-
-/** Forward the enquiry via Resend. Returns false when unconfigured or on failure. */
-async function notifyByEmail(record: Record_): Promise<boolean> {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return false;
-
-  const to = process.env.CONTACT_NOTIFY_EMAIL || "partners@serialexit.com";
-  const from = process.env.CONTACT_FROM_EMAIL || "Serial Exit <onboarding@resend.dev>";
-  const kind = record.tab === "owner" ? "Business Owner" : "Partner";
-
-  const text = [
-    `New enquiry received via ${new URL(SITE_URL).host}`,
-    ``,
-    `Type:     ${kind}`,
-    `Name:     ${record.name}`,
-    `Company:  ${record.company}`,
-    `Email:    ${record.email}`,
-    `Phone:    ${record.phone || "—"}`,
-    `Role:     ${record.role}`,
-    ``,
-    `Message:`,
-    record.message,
-  ].join("\n");
-
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        reply_to: record.email,
-        subject: `New ${kind} enquiry — ${record.name} (${record.company})`,
-        text,
-      }),
-      signal: AbortSignal.timeout(6000),
+    const { lead, isNew, isDuplicateSubmission } = await upsertLead({
+      name: data.name,
+      company: data.company,
+      email: data.email,
+      phone: data.phone,
+      tab: data.tab,
+      role: data.role,
+      message: data.message,
+      source: "website",
+      whatsappConsent,
+      consentSource: whatsappConsent ? "website_checkbox" : "none",
+      ipHash,
     });
-    if (!res.ok) {
-      console.error("[/api/contact] resend rejected", res.status, await res.text().catch(() => ""));
-      return false;
+
+    if (isDuplicateSubmission) {
+      await logAutomationEvent({
+        leadId: lead.id,
+        leadCode: lead.leadCode,
+        event: "enquiry.duplicate_suppressed",
+        status: "skipped",
+        detail: "Duplicate website submission within 10-minute window suppressed.",
+      });
+      return json({ ok: true, duplicate: true, leadCode: lead.leadCode });
     }
-    return true;
+
+    // Record the inbound website submission in communications
+    await createCommunication({
+      leadId: lead.id,
+      leadCode: lead.leadCode,
+      leadName: lead.name,
+      channel: "email",
+      direction: "inbound",
+      recipientType: "client",
+      recipient: lead.email || data.email,
+      templateOrSubject: `Website Enquiry (${data.role})`,
+      content: data.message,
+      status: "delivered",
+      attempts: 1,
+    });
+
+    await logAutomationEvent({
+      leadId: lead.id,
+      leadCode: lead.leadCode,
+      event: isNew ? "enquiry.captured" : "enquiry.merged_existing",
+      status: "ok",
+      detail: `${isNew ? "Created" : "Merged"} website lead ${lead.leadCode} (${lead.name})`,
+    });
+
+    // Run full automation pipeline (awaited before response so serverless runtimes complete cleanly)
+    await runLeadAutomation(lead, { isNewLead: isNew });
+
+    return json({ ok: true, leadCode: lead.leadCode });
   } catch (err) {
-    console.error("[/api/contact] resend failed", err);
-    return false;
+    console.error("[/api/contact] Firestore pipeline unavailable, attempting Resend fallback", err);
+
+    const now = new Date().toISOString();
+    const fallbackLead: LeadRecord = {
+      id: "fallback",
+      leadCode: "SE-DIRECT",
+      name: data.name,
+      company: data.company,
+      email: normalizeEmail(data.email),
+      phone: normalizedPhone,
+      tab: data.tab,
+      role: data.role,
+      latestMessage: data.message,
+      latestMessageHash: "",
+      source: "website",
+      whatsappConsent,
+      consentSource: whatsappConsent ? "website_checkbox" : "none",
+      consentTimestamp: whatsappConsent ? now : null,
+      status: "new",
+      enquiryCount: 1,
+      lastContactAt: now,
+      lastInboundWhatsappAt: null,
+      createdAt: now,
+      updatedAt: now,
+      ipHash,
+      syncStatus: { sheets: "failed", lastSyncedAt: null, error: "Firestore unavailable" },
+      deliverySummary: {
+        clientEmail: "queued",
+        clientWhatsapp: "skipped_unconfigured",
+        partner1Email: "queued",
+        partner1Whatsapp: "skipped_unconfigured",
+        partner2Email: "queued",
+        partner2Whatsapp: "skipped_unconfigured",
+      },
+    };
+
+    const partners = getPartnerDestinations();
+    const results = await Promise.all([
+      sendClientWelcomeEmail(fallbackLead),
+      ...partners.map((p) => sendPartnerAlertEmail(fallbackLead, p)),
+    ]);
+    const anyEmailed = results.some((r) => r.ok);
+
+    if (!anyEmailed) {
+      return json(
+        { ok: false, error: "We couldn't submit your enquiry right now. Please try again shortly." },
+        500
+      );
+    }
+    return json({ ok: true, leadCode: fallbackLead.leadCode });
   }
 }
 

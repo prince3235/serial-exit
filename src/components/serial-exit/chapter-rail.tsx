@@ -10,10 +10,9 @@ const CHAPTERS = [
   { id: "opportunities", label: "What we originate" },
   { id: "process", label: "How it works" },
   { id: "showcase", label: "Verified deals" },
-  { id: "partners", label: "Partners" },
   { id: "comparison", label: "Why Serial Exit" },
-  { id: "mission", label: "Mission" },
   { id: "contact", label: "Contact" },
+  { id: "our-partners", label: "Our Partners" },
 ] as const;
 
 /**

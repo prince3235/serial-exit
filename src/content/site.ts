@@ -22,9 +22,7 @@ export const nav = {
   links: [
     { label: "Platform", href: "#core-idea" },
     { label: "How It Works", href: "#process" },
-    { label: "Partners", href: "#partners" },
     { label: "Opportunities", href: "#showcase" },
-    { label: "Mission", href: "#mission" },
   ],
   cta: { label: "Partner With Us", href: "#contact" },
 } as const;
@@ -169,48 +167,8 @@ export const showcase = {
   ],
 } as const;
 
-export const partners = {
-  index: "05",
-  eyebrow: "Who We Work With",
-  title: "Built for the people who close transactions, not browse listings.",
-  intro:
-    "Serial Exit is built for firms and principals who treat deal flow as a relationship, not a marketplace. Business owners are the secondary audience — every opportunity begins with them.",
-  imageAlt:
-    "Silhouetted executives around a boardroom table against a skyline at dusk, graded to the Serial Exit amber palette.",
-  groups: [
-    {
-      title: "M&A Advisory Firms",
-      desc: "A confidential pipeline of verified opportunities that fit a specific mandate — not a feed to filter.",
-    },
-    {
-      title: "Investment Banks",
-      desc: "Off-market origination that complements live coverage, with introductions made under a clean framework.",
-    },
-    {
-      title: "Private Equity Firms",
-      desc: "Proprietary deal flow aligned to thesis, sector and cheque size, introduced before auction dynamics apply.",
-    },
-    {
-      title: "Venture Capital Firms",
-      desc: "Late-stage and growth opportunities where the business is real, the intent is verified and the fit is clear.",
-    },
-    {
-      title: "Search Funds",
-      desc: "Curated, qualified targets matched to search criteria — including intent and readiness to transact.",
-    },
-    {
-      title: "Family Offices",
-      desc: "Direct, private access to established businesses and principals, with discretion built into the process.",
-    },
-    {
-      title: "Strategic Acquirers",
-      desc: "Verified targets that advance a specific strategic objective, introduced ahead of any broad process.",
-    },
-  ],
-} as const;
-
 export const comparison = {
-  index: "06",
+  index: "05",
   eyebrow: "Serial Exit vs Public Marketplaces",
   title: "Two different models. Two different outcomes.",
   left: {
@@ -235,24 +193,53 @@ export const comparison = {
   },
 } as const;
 
-export const mission = {
+/**
+ * Our Partners — two principal business partners.
+ * PLACEHOLDER DATA: Replace all bracketed placeholders with client-provided details.
+ */
+export const ourPartners = {
   index: "07",
-  eyebrow: "Mission",
-  statement:
-    "To build India's most trusted off-market deal origination network.",
-  supporting:
-    "Creating better connections between exceptional businesses and the right financial or strategic partners.",
-  positioningLines: [
-    "Verified Off-Market Opportunities.",
-    "Trusted Partners.",
-    "Better Transactions.",
+  eyebrow: "Our Partners",
+  title: "Principal Partners",
+  intro: "",
+  people: [
+    {
+      id: "partner-1",
+      name: "[Partner 1 Name]",
+      designation: "[Partner 1 Designation]",
+      firm: "",
+      bio: "[Short description placeholder — awaiting client-provided bio.]",
+      photo: "" as string,
+      initials: "01",
+    },
+    {
+      id: "partner-2",
+      name: "[Partner 2 Name]",
+      designation: "[Partner 2 Designation]",
+      firm: "",
+      bio: "[Short description placeholder — awaiting client-provided bio.]",
+      photo: "" as string,
+      initials: "02",
+    },
   ],
-  imageAlt:
-    "Dark marble boardroom with an amber strip light, an illuminated world-map wall and a night city skyline.",
-} as const;
+} satisfies {
+  index: string;
+  eyebrow: string;
+  title: string;
+  intro: string;
+  people: Array<{
+    id: string;
+    name: string;
+    designation: string;
+    firm: string;
+    bio: string;
+    photo: string;
+    initials: string;
+  }>;
+};
 
 export const contact = {
-  index: "08",
+  index: "06",
   eyebrow: "Contact",
   title: "Let's discuss what's next.",
   intro:
@@ -316,7 +303,6 @@ export const footer = {
         { label: "Core Idea", href: "#core-idea" },
         { label: "Opportunities", href: "#opportunities" },
         { label: "Process", href: "#process" },
-        { label: "Mission", href: "#mission" },
       ],
     },
     {
@@ -324,8 +310,8 @@ export const footer = {
       links: [
         { label: "Partner With Us", href: "#contact" },
         { label: "Verified Opportunities", href: "#showcase" },
-        { label: "Who We Work With", href: "#partners" },
         { label: "Comparison", href: "#comparison" },
+        { label: "Our Partners", href: "#our-partners" },
       ],
     },
   ],

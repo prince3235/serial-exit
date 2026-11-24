@@ -64,9 +64,7 @@ export function Navbar({ onOpenPortal }: { onOpenPortal?: () => void }) {
   const navLabelMap: Record<string, string> = {
     Platform: t.nav.platform,
     "How It Works": t.nav.howItWorks,
-    Partners: t.nav.partners,
     Opportunities: t.nav.opportunities,
-    Mission: t.nav.mission,
   };
 
   const chip =

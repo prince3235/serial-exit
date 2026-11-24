@@ -1,12 +1,14 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Lock, X, ShieldCheck, Building2, TrendingUp, Banknote, Handshake, type LucideIcon } from "lucide-react";
+import { Lock, X, ShieldCheck, Building2, TrendingUp, Banknote, Handshake, Users, Briefcase, type LucideIcon } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useI18n } from "@/i18n/provider";
 import { useFocusTrap } from "@/hooks/use-focus-trap";
 import { VerifiedSeal } from "./verified-seal";
 import { Button } from "./button";
+import { ClientDashboard } from "./client-dashboard";
+import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -127,7 +129,7 @@ export function PartnerPortal({ open, onClose }: { open: boolean; onClose: () =>
           transition={{ duration: 0.4, ease: EASE }}
         >
           <motion.div
-            className="relative my-auto w-full max-w-5xl border border-white/[0.08] bg-[#0B0B0C] p-6 sm:p-10 lg:p-14"
+            className="relative my-auto w-full max-w-6xl border border-white/[0.08] bg-[#0B0B0C] p-6 sm:p-10 lg:p-12"
             initial={{ y: 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 24, opacity: 0 }}
@@ -202,13 +204,21 @@ function Unlocked({
   onLock: () => void;
   onClose: () => void;
 }) {
+  const [view, setView] = useState<"enquiries" | "mandates">("enquiries");
+
   return (
     <div>
       <div className="flex flex-col gap-4 pr-10 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <span className="font-mono-display text-[0.625rem] tracking-[0.3em] text-amber-500">{t.portal.eyebrow}</span>
-          <h2 className="mt-3 font-sans text-2xl font-medium tracking-[-0.01em] text-foreground sm:text-3xl">{t.portal.title}</h2>
-          <p className="mt-3 max-w-xl text-[0.875rem] leading-relaxed text-muted-foreground">{t.portal.intro}</p>
+          <h2 className="mt-3 font-sans text-2xl font-medium tracking-[-0.01em] text-foreground sm:text-3xl">
+            {view === "enquiries" ? "Client Enquiries & Communication" : t.portal.title}
+          </h2>
+          <p className="mt-2 max-w-xl text-[0.875rem] leading-relaxed text-muted-foreground">
+            {view === "enquiries"
+              ? "Manage incoming website and WhatsApp enquiries, automated client welcomes, partner alerts, and Google Sheets sync."
+              : t.portal.intro}
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <span className="inline-flex items-center gap-2 border border-amber-500/40 bg-amber-500/[0.06] px-3 py-1.5">
@@ -222,11 +232,45 @@ function Unlocked({
         </div>
       </div>
 
-      <div className="mt-8 flex items-center gap-3">
-        <span className="font-mono-display text-[0.625rem] tracking-[0.3em] text-foreground/60">{t.portal.caseStudiesTitle}</span>
-        <span className="h-px flex-1 bg-white/[0.08]" />
-        <VerifiedSeal size={28} label="Verified" />
+      {/* Portal Section Switcher */}
+      <div className="mt-6 flex flex-wrap items-center gap-2 border-b border-white/[0.08] pb-4">
+        <button
+          type="button"
+          onClick={() => setView("enquiries")}
+          className={cn(
+            "inline-flex items-center gap-2 border px-4 py-2 font-mono-display text-[0.625rem] tracking-[0.2em] transition-colors",
+            view === "enquiries"
+              ? "border-amber-500/60 bg-amber-500/10 text-amber-200"
+              : "border-white/10 text-foreground/70 hover:border-white/25 hover:text-foreground"
+          )}
+        >
+          <Users className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
+          CLIENT MANAGEMENT
+        </button>
+        <button
+          type="button"
+          onClick={() => setView("mandates")}
+          className={cn(
+            "inline-flex items-center gap-2 border px-4 py-2 font-mono-display text-[0.625rem] tracking-[0.2em] transition-colors",
+            view === "mandates"
+              ? "border-amber-500/60 bg-amber-500/10 text-amber-200"
+              : "border-white/10 text-foreground/70 hover:border-white/25 hover:text-foreground"
+          )}
+        >
+          <Briefcase className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
+          {t.portal.caseStudiesTitle}
+        </button>
       </div>
+
+      {view === "enquiries" ? (
+        <ClientDashboard />
+      ) : (
+        <>
+          <div className="mt-8 flex items-center gap-3">
+            <span className="font-mono-display text-[0.625rem] tracking-[0.3em] text-foreground/60">{t.portal.caseStudiesTitle}</span>
+            <span className="h-px flex-1 bg-white/[0.08]" />
+            <VerifiedSeal size={28} label="Verified" />
+          </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {cases.map((c, i) => {
@@ -277,6 +321,8 @@ function Unlocked({
         <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-500/60" aria-hidden="true" />
         {t.portal.caseStudiesNote}
       </p>
+        </>
+      )}
 
       <div className="mt-8 border-t border-white/[0.08] pt-6">
         <Button href="#contact" size="md" withArrow onClick={onClose}>

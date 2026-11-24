@@ -25,9 +25,7 @@ const en = {
   nav: {
     platform: "Platform",
     howItWorks: "How It Works",
-    partners: "Partners",
     opportunities: "Opportunities",
-    mission: "Mission",
     cta: "Partner With Us",
     language: "Language",
     portal: "Partner Portal",
@@ -74,34 +72,15 @@ const en = {
     disclaimer:
       "Illustrative example. Actual opportunities are shared only with verified partners.",
   },
-  partners: {
-    index: "05",
-    eyebrow: "Who We Work With",
-    title: "Built for the people who close transactions, not browse listings.",
-    intro:
-      "Serial Exit is built for firms and principals who treat deal flow as a relationship, not a marketplace. Business owners are the secondary audience — every opportunity begins with them.",
-  },
   comparison: {
-    index: "06",
+    index: "05",
     eyebrow: "Serial Exit vs Public Marketplaces",
     title: "Two different models. Two different outcomes.",
     leftLabel: "Public Listing Platforms",
     rightLabel: "Serial Exit",
   },
-  mission: {
-    index: "07",
-    eyebrow: "Mission",
-    statement: "To build India's most trusted off-market deal origination network.",
-    supporting:
-      "Creating better connections between exceptional businesses and the right financial or strategic partners.",
-    lines: [
-      "Verified Off-Market Opportunities.",
-      "Trusted Partners.",
-      "Better Transactions.",
-    ],
-  },
   contact: {
-    index: "08",
+    index: "06",
     eyebrow: "Contact",
     title: "Let's discuss what's next.",
     intro:
@@ -153,9 +132,7 @@ const hi: Dict = {
   nav: {
     platform: "प्लेटफ़ॉर्म",
     howItWorks: "कैसे काम करता है",
-    partners: "साझेदार",
     opportunities: "अवसर",
-    mission: "उद्देश्य",
     cta: "हमारे साथ जुड़ें",
     language: "भाषा",
     portal: "पार्टनर पोर्टल",
@@ -202,34 +179,15 @@ const hi: Dict = {
     disclaimer:
       "उदाहरण मात्र। वास्तविक अवसर केवल सत्यापित साझेदारों के साथ साझा किए जाते हैं।",
   },
-  partners: {
-    index: "05",
-    eyebrow: "हम किसके साथ काम करते हैं",
-    title: "लेन-देन पूरे करने वालों के लिए बनाया गया, लिस्टिंग देखने वालों के लिए नहीं।",
-    intro:
-      "सीरियल एग्ज़िट उन फर्मों और व्यक्तियों के लिए बनाया गया है जो डील फ्लो को संबंध मानते हैं, बाज़ार नहीं। व्यवसाय मालिक द्वितीयक श्रोता हैं — हर अवसर उनसे शुरू होता है।",
-  },
   comparison: {
-    index: "06",
+    index: "05",
     eyebrow: "सीरियल एग्ज़िट बनाम सार्वजनिक मार्केटप्लेस",
     title: "दो अलग मॉडल। दो अलग परिणाम।",
     leftLabel: "सार्वजनिक लिस्टिंग प्लेटफ़ॉर्म",
     rightLabel: "सीरियल एग्ज़िट",
   },
-  mission: {
-    index: "07",
-    eyebrow: "उद्देश्य",
-    statement: "भारत का सबसे भरोसेमंद ऑफ-मार्केट डील ओरिजिनेशन नेटवर्क बनाना।",
-    supporting:
-      "उत्कृष्ट व्यवसायों और उपयुक्त वित्तीय या रणनीतिक साझेदारों के बीच बेहतर संबंध स्थापित करना।",
-    lines: [
-      "सत्यापित ऑफ-मार्केट अवसर।",
-      "भरोसेमंद साझेदार।",
-      "बेहतर लेन-देन।",
-    ],
-  },
   contact: {
-    index: "08",
+    index: "06",
     eyebrow: "संपर्क",
     title: "आइए आगे क्या है उस पर चर्चा करें।",
     intro:
