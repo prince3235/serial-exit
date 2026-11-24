@@ -214,7 +214,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 /* ---- Hero 3D layer fade-in ------------------------------------------------ */
-.se-hero-3d { opacity: 0; transition: opacity 1400ms var(--ease-out-expo); }
+.se-hero-3d { opacity: 0; transition: opacity 350ms var(--ease-out-expo); }
 .se-hero-3d[data-ready="true"] { opacity: 1; }
 
 /* ---- Film grain: a tiny pre-rendered noise tile. No blend mode, no SVG

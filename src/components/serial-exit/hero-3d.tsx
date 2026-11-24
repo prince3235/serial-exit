@@ -47,8 +47,8 @@ export function Hero3D({ onReady, onFail }: { onReady: () => void; onFail: () =>
     const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
     let idleId = 0;
     let timerId = 0;
-    if (w.requestIdleCallback) idleId = w.requestIdleCallback(load, { timeout: 1800 });
-    else timerId = window.setTimeout(load, 900);
+    if (w.requestIdleCallback) idleId = w.requestIdleCallback(load, { timeout: 100 });
+    else timerId = window.setTimeout(load, 50);
 
     return () => {
       cancelled = true;
