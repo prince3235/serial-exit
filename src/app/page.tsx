@@ -10,8 +10,10 @@ import { BackToTop } from "@/components/serial-exit/back-to-top";
 
 /* All below-the-fold sections are dynamically imported so they are code-split
    out of the initial JS chunk. The Hero is above-the-fold so it is static. */
+const ProofStrip  = dynamic(() => import("@/components/serial-exit/proof-strip").then(m => m.ProofStrip));
 const CoreIdea    = dynamic(() => import("@/components/serial-exit/core-idea").then(m => m.CoreIdea));
 const Opportunities = dynamic(() => import("@/components/serial-exit/opportunities").then(m => m.Opportunities));
+const WhySerialExit = dynamic(() => import("@/components/serial-exit/why-serial-exit").then(m => m.WhySerialExit));
 const Process     = dynamic(() => import("@/components/serial-exit/process").then(m => m.Process));
 const Showcase    = dynamic(() => import("@/components/serial-exit/showcase").then(m => m.Showcase));
 const OurPartners = dynamic(() => import("@/components/serial-exit/our-partners").then(m => m.OurPartners));
@@ -42,8 +44,10 @@ export default function Home() {
       <div className="flex min-h-screen flex-col">
         <main id="main" tabIndex={-1} className="flex-1 outline-none">
           <Hero />
+          <ProofStrip />
           <CoreIdea />
           <Opportunities />
+          <WhySerialExit />
           <Process />
           <Showcase />
           <Contact />

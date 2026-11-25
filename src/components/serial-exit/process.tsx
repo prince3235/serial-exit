@@ -31,7 +31,7 @@ export function Process() {
   return (
     <SectionShell id="process" className="border-t border-white/[0.06] bg-[#050505]">
       <SectionHeading index={process.index} eyebrow={process.eyebrow} title={process.title} intro={process.intro} />
-      <div className="mt-16 hidden lg:mt-24 lg:block">
+      <div className="mt-8 hidden lg:mt-10 lg:block">
         <PinnedSequence />
       </div>
       <div className="mt-14 lg:hidden">
@@ -88,9 +88,9 @@ function PinnedSequence() {
 
   return (
     <div ref={ref} style={{ height: `${N * 92}vh` }} className="relative">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+      <div className="sticky top-0 flex h-[100svh] items-center justify-between overflow-hidden">
         {/* Left rail */}
-        <div className="relative w-[42%] pr-12">
+        <div className="relative w-[38%] pr-10">
           <div className="relative" style={{ height: N * ROW }}>
             {/* track, filled line and gliding marker — all share x = 0 with the row dots */}
             <span aria-hidden="true" className="absolute left-0 w-px bg-white/10" style={{ top: ROW / 2, height: (N - 1) * ROW }} />
@@ -112,9 +112,9 @@ function PinnedSequence() {
           </div>
         </div>
 
-        {/* Right: step detail (all stacked, cross-fading) + the evolving shard (xl and up) */}
-        <div className="flex min-w-0 flex-1 items-center gap-6">
-          <div className="relative h-[60vh] min-w-0 flex-1">
+        {/* Right: step detail (all stacked, cross-fading) + the evolving shard (focal moment) */}
+        <div className="flex min-w-0 flex-1 items-center justify-between gap-8 pl-4">
+          <div className="relative h-[48vh] min-w-0 flex-1">
             {STEPS.map((step, i) => (
               <StepDetail key={step.key} i={i} n={step.n} title={step.title} desc={step.desc} progress={progress} />
             ))}
@@ -122,7 +122,7 @@ function PinnedSequence() {
           <JourneyShard progress={progress} />
         </div>
 
-        {/* Background numeral cross-fades with the step */}
+        {/* Background numeral cross-fades with the step — visible ghost outline */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
           {STEPS.map((step, i) => (
             <Numeral key={step.key} i={i} n={step.n} progress={progress} />
@@ -206,15 +206,15 @@ function JourneyShard({ progress }: { progress: MotionValue<number> }) {
   const c3 = cumulative(3);
   const c4 = cumulative(4);
   return (
-    <div aria-hidden="true" className="pointer-events-none hidden aspect-square w-[clamp(240px,23vw,360px)] shrink-0 xl:block">
+    <div aria-hidden="true" className="pointer-events-none hidden aspect-square w-[clamp(260px,28vw,420px)] shrink-0 lg:block">
       <svg viewBox="0 0 400 400" className="h-full w-full" fill="none">
         <defs>
           <linearGradient id={gFacet} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#ffb37a" stopOpacity="0.2" />
-            <stop offset="1" stopColor="#ff7a1a" stopOpacity="0.04" />
+            <stop offset="0" stopColor="#ffb37a" stopOpacity="0.25" />
+            <stop offset="1" stopColor="#ff7a1a" stopOpacity="0.06" />
           </linearGradient>
           <radialGradient id={gGlow}>
-            <stop offset="0" stopColor="#ff9a4d" stopOpacity="0.55" />
+            <stop offset="0" stopColor="#ff9a4d" stopOpacity="0.65" />
             <stop offset="1" stopColor="#ff7a1a" stopOpacity="0" />
           </radialGradient>
         </defs>
@@ -268,10 +268,13 @@ function JourneyShard({ progress }: { progress: MotionValue<number> }) {
 }
 
 function Numeral({ i, n, progress }: { i: number; n: string; progress: MotionValue<number> }) {
-  const p = presence(i, 0.045, 0);
+  const p = presence(i, 0.12, 0);
   const opacity = useTransform(progress, p.input, p.op);
   return (
-    <motion.span style={{ opacity }} className="absolute font-mono-display text-[40vw] font-medium leading-none text-amber-500">
+    <motion.span
+      style={{ opacity }}
+      className="absolute select-none font-mono-display text-[35vw] font-semibold leading-none text-amber-500/[0.10] [-webkit-text-stroke:1.5px_rgba(255,122,26,0.3)]"
+    >
       {n}
     </motion.span>
   );

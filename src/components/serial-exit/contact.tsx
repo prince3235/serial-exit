@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { ArrowRight, ShieldCheck, Mail, Phone, MapPin } from "lucide-react";
 import { contact, site } from "@/content/site";
 import { SectionShell } from "./section-shell";
@@ -416,6 +417,18 @@ export function Contact() {
                         Encrypted in transit · Bilateral NDA
                       </p>
                     </div>
+
+                    <p className="mt-1 text-[0.75rem] leading-relaxed text-muted-foreground">
+                      By submitting this enquiry, you agree to our{" "}
+                      <Link href="/terms" className="text-amber-400 underline underline-offset-2 hover:text-amber-300">
+                        Terms of Service
+                      </Link>{" "}
+                      and{" "}
+                      <Link href="/privacy" className="text-amber-400 underline underline-offset-2 hover:text-amber-300">
+                        Privacy Policy
+                      </Link>
+                      . All discussions remain strictly confidential.
+                    </p>
                   </motion.form>
                 )}
               </AnimatePresence>

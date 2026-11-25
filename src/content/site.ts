@@ -64,26 +64,36 @@ export const opportunities = {
       n: "01",
       title: "Business Sales",
       desc: "Confidentially connect owners of established, profitable businesses with the right acquirers, on terms that protect legacy and value.",
+      typicalFor: "Profitable Indian enterprises (₹50–500 Cr EV) seeking full or majority succession exits.",
+      icon: "Building2",
     },
     {
       n: "02",
       title: "Acquisitions",
       desc: "Source verified targets aligned to a buyer's industry, size and strategic thesis — before those businesses are publicly listed.",
+      typicalFor: "PE sponsors, family offices, and strategic corporates executing inorganic market roll-ups.",
+      icon: "TrendingUp",
     },
     {
       n: "03",
       title: "Growth Capital",
       desc: "Introduce founders raising primary or secondary capital to investors whose mandate, check size and timeline genuinely fit.",
+      typicalFor: "High-growth businesses scaling capacity, geographic reach, or institutional governance.",
+      icon: "Coins",
     },
     {
       n: "04",
       title: "Debt Financing",
       desc: "Match businesses with senior debt, mezzanine or structured credit providers suited to their cash-flow profile and stage.",
+      typicalFor: "CapEx expansion, promoter leverage refinancing, and non-dilutive working capital lines.",
+      icon: "Scale",
     },
     {
       n: "05",
       title: "Strategic Partnerships",
       desc: "Arrange commercial, technology or joint-venture structures where outright acquisition is not the intended outcome.",
+      typicalFor: "Cross-border tech transfer, co-manufacturing JVs, and strategic equity alliances.",
+      icon: "Handshake",
     },
   ],
 } as const;
@@ -138,28 +148,32 @@ export const showcase = {
     "Illustrative example. Actual opportunities are shared only with verified partners.",
   cards: [
     {
-      sector: "Manufacturing",
+      refId: "SE-0142",
+      sector: "Precision Manufacturing",
       size: "₹100–500 Cr",
       location: "Western India",
       transaction: "Strategic Sale",
       status: "Verified",
     },
     {
-      sector: "Healthcare Services",
+      refId: "SE-0284",
+      sector: "Healthcare Diagnostics",
       size: "₹50–150 Cr",
       location: "South India",
       transaction: "Growth Capital",
       status: "Verified",
     },
     {
-      sector: "Industrial Distribution",
+      refId: "SE-0391",
+      sector: "Industrial Logistics & Distribution",
       size: "₹200–750 Cr",
       location: "North India",
       transaction: "Acquisition",
       status: "Verified",
     },
     {
-      sector: "Specialty Chemicals",
+      refId: "SE-0518",
+      sector: "Specialty Performance Chemicals",
       size: "₹150–400 Cr",
       location: "Western India",
       transaction: "Debt Funding",
@@ -175,7 +189,7 @@ export const ourPartners = {
   index: "06",
   eyebrow: "Our Partners",
   title: "Principal Partners",
-  intro: "",
+  intro: "The principals leading Serial Exit's origination network and partner mandate execution across India.",
   people: [
     {
       id: "partner-1",
@@ -185,6 +199,8 @@ export const ourPartners = {
       bio: "Building India's verified off-market deal origination network for M&A advisory, investment banking and venture partners.",
       photo: "/images/partners/brijesh-patel.webp",
       initials: "BP",
+      linkedin: "https://www.linkedin.com/company/serial-exit/",
+      credentials: "", // TODO(owner): Add academic/professional accreditations if desired (e.g., CSUSB alumnus)
     },
     {
       id: "partner-2",
@@ -194,6 +210,8 @@ export const ourPartners = {
       bio: "Leading strategic deal origination across investment banking, project & debt financing, and institutional capital mandates.",
       photo: "/images/partners/sunil-sen.webp",
       initials: "SS",
+      linkedin: "https://www.linkedin.com/company/serial-exit/",
+      credentials: "", // TODO(owner): Add academic/professional accreditations if desired (e.g., IIM Ahmedabad alumnus)
     },
   ],
 } satisfies {
@@ -209,6 +227,8 @@ export const ourPartners = {
     bio: string;
     photo: string;
     initials: string;
+    linkedin?: string;
+    credentials?: string;
   }>;
 };
 

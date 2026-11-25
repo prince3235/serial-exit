@@ -132,12 +132,20 @@ export function Footer({ onOpenPortal }: { onOpenPortal?: () => void }) {
           <p className="max-w-3xl text-[0.75rem] leading-relaxed text-foreground/65">
             {t.footer.legal}
           </p>
-          <div className="mt-6 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-            <p className="font-mono-display text-[0.625rem] tracking-[0.25em] text-foreground/65">
-              {t.footer.copyright}
-            </p>
-            <p className="font-mono-display text-[0.625rem] tracking-[0.25em] text-foreground/65">
-              Verified · Confidential · Relationship-Driven · Privacy-friendly analytics
+          <div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <div className="flex flex-wrap items-center gap-3 font-mono-display text-[0.6875rem] tracking-[0.22em] text-foreground/70">
+              <span>{t.footer.copyright}</span>
+              <span className="text-white/20" aria-hidden="true">·</span>
+              <Link href="/privacy" className="transition-colors hover:text-amber-300">
+                Privacy Policy
+              </Link>
+              <span className="text-white/20" aria-hidden="true">·</span>
+              <Link href="/terms" className="transition-colors hover:text-amber-300">
+                Terms of Service
+              </Link>
+            </div>
+            <p className="font-mono-display text-[0.6875rem] tracking-[0.25em] text-foreground/60">
+              Verified · Confidential · Relationship-Driven
             </p>
           </div>
         </div>

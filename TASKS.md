@@ -22,19 +22,19 @@ Standard: Institutional-Grade Luxury Aesthetic (#050505, #ff7a1a, #d9a65a)
 
 ## P1 — Section Upgrades
 
-- [ ] **P1-1** Process (pinned section): Remove gap under heading; `h-[100svh]` with vertically centered content; visible on 1366x768; ghost step number clearly visible; enlarged right focal visual. Keep mobile `VerticalStepper`.
+- [x] **P1-1** Process (pinned section): Remove gap under heading; `h-[100svh]` with vertically centered content; visible on 1366x768; ghost step number clearly visible; enlarged right focal visual. Keep mobile `VerticalStepper`.
   - *Acceptance Criteria*: Centered layout without dead gap; ghost step numbers prominent; mobile stepper intact.
-- [ ] **P1-2** Showcase deal cards -> "confidential dossier" style: Reference IDs (e.g. SE-0142), redaction bars, "NDA required" tag, thin paper-like header. Single "Verified" indicator per card. Labels >= 11px. Add CTA ("Request access to live deal flow" -> #contact).
+- [x] **P1-2** Showcase deal cards -> "confidential dossier" style: Reference IDs (e.g. SE-0142), redaction bars, "NDA required" tag, thin paper-like header. Single "Verified" indicator per card. Labels >= 11px. Add CTA ("Request access to live deal flow" -> #contact).
   - *Acceptance Criteria*: Dossier aesthetic; unique illustrative reference IDs; single verified badge; access CTA below grid.
-- [ ] **P1-3** Opportunities bento: Align title baselines; remove dead space in card 1; subtle icon per card; "Typical for: ..." line. Retain 4+2 / 2x3 responsive grid.
+- [x] **P1-3** Opportunities bento: Align title baselines; remove dead space in card 1; subtle icon per card; "Typical for: ..." line. Retain 4+2 / 2x3 responsive grid.
   - *Acceptance Criteria*: Consistent baseline typography; concise hierarchy; icons and transaction criteria clear.
-- [ ] **P1-4** Partners: Consistent photo treatment (harmonized monochrome/dark luxury tone); left-aligned header; LinkedIn icon links; optional credentials support with `TODO(owner)` placeholders.
+- [x] **P1-4** Partners: Consistent photo treatment (harmonized monochrome/dark luxury tone); left-aligned header; LinkedIn icon links; optional credentials support with `TODO(owner)` placeholders.
   - *Acceptance Criteria*: Crystal-clear 1024x1024 retina portraits with cohesive dark tone; left-aligned section header; verified LinkedIn links.
-- [ ] **P1-5** Proof strip under hero: 4 structurally-true facts ("5 transaction types", "100% off-market", "India-wide coverage", "Verified before introduced"). Zero fabricated numbers.
+- [x] **P1-5** Proof strip under hero: 4 structurally-true facts ("5 transaction types", "100% off-market", "India-wide coverage", "Verified before introduced"). Zero fabricated numbers.
   - *Acceptance Criteria*: Institutional proof strip below hero; clean typography and border styling.
-- [ ] **P1-6** "Why Serial Exit" block: 3 institutional differentiators placed post-Opportunities using existing primitives.
+- [x] **P1-6** "Why Serial Exit" block: 3 institutional differentiators placed post-Opportunities using existing primitives.
   - *Acceptance Criteria*: 3 core differentiators clearly articulating advantages over public brokers/marketplaces.
-- [ ] **P1-7** Legal pages: `/privacy` and `/terms` (App Router pages), footer links, contact form consent notice. Mark text DRAFT in `OWNER_TODO.md` for legal review. Add routes to `sitemap.ts`. Matching chrome.
+- [x] **P1-7** Legal pages: `/privacy` and `/terms` (App Router pages), footer links, contact form consent notice. Mark text DRAFT in `OWNER_TODO.md` for legal review. Add routes to `sitemap.ts`. Matching chrome.
   - *Acceptance Criteria*: Dedicated `/privacy` and `/terms` pages matching brand theme; sitemap inclusion; footer & contact links.
 
 ---
