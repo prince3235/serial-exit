@@ -28,16 +28,47 @@ const FADE = 0.05; // half-width of a cross-fade zone, as a fraction of total sc
 const BOUNDS = Array.from({ length: N - 1 }, (_, k) => (k + 1) / N); // step boundaries in [0,1]
 
 export function Process() {
+  const reduce = useReducedMotion();
+
   return (
-    <SectionShell id="process" className="border-t border-white/[0.06] bg-[#050505] pb-8 pt-16 sm:pb-12 sm:pt-20 lg:pb-16 lg:pt-24">
+    <SectionShell id="process" className="border-t border-white/[0.06] bg-[#050505] pb-8 pt-12 sm:pb-12 sm:pt-16 lg:pb-16 lg:pt-20">
       <SectionHeading index={process.index} eyebrow={process.eyebrow} title={process.title} intro={process.intro} />
-      <div className="mt-4 hidden lg:mt-6 lg:block">
-        <PinnedSequence />
-      </div>
-      <div className="mt-10 lg:hidden">
-        <VerticalStepper />
-      </div>
+      
+      {reduce ? (
+        <div className="mt-12">
+          <StaticProcess />
+        </div>
+      ) : (
+        <>
+          <div className="mt-4 hidden lg:mt-6 lg:block">
+            <PinnedSequence />
+          </div>
+          <div className="mt-10 lg:hidden">
+            <VerticalStepper />
+          </div>
+        </>
+      )}
     </SectionShell>
+  );
+}
+
+function StaticProcess() {
+  return (
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
+      {STEPS.map((step) => (
+        <div key={step.key} className="glass-dark border border-white/10 p-6">
+          <span className="font-mono-display text-[0.6875rem] tracking-[0.3em] text-amber-500">
+            0{step.n}
+          </span>
+          <h3 className="mt-3 font-sans text-xl font-medium tracking-tight text-foreground">
+            {step.title}
+          </h3>
+          <p className="mt-2 text-[0.875rem] leading-relaxed text-muted-foreground">
+            {step.desc}
+          </p>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -268,12 +299,12 @@ function JourneyShard({ progress }: { progress: MotionValue<number> }) {
 }
 
 function Numeral({ i, n, progress }: { i: number; n: string; progress: MotionValue<number> }) {
-  const p = presence(i, 0.12, 0);
+  const p = presence(i, 0.22, 0);
   const opacity = useTransform(progress, p.input, p.op);
   return (
     <motion.span
       style={{ opacity }}
-      className="absolute select-none font-mono-display text-[35vw] font-semibold leading-none text-amber-500/[0.10] [-webkit-text-stroke:1.5px_rgba(255,122,26,0.3)]"
+      className="absolute select-none font-mono-display text-[32vw] font-bold leading-none text-amber-500/[0.12] [-webkit-text-stroke:2px_rgba(255,122,26,0.35)]"
     >
       {n}
     </motion.span>
@@ -283,13 +314,15 @@ function Numeral({ i, n, progress }: { i: number; n: string; progress: MotionVal
 function VerticalStepper() {
   return (
     <div className="relative">
-      <div aria-hidden="true" className="absolute bottom-2 left-[7px] top-2 w-px bg-gradient-to-b from-amber-500 via-amber-500/40 to-white/10" />
+      {/* Synchronized hairline progress tracker */}
+      <div aria-hidden="true" className="absolute bottom-2 left-[7px] top-2 w-px bg-white/10" />
+      <div aria-hidden="true" className="absolute bottom-2 left-[7px] top-2 w-px bg-gradient-to-b from-amber-500 via-amber-500/60 to-transparent" />
       <ol className="flex flex-col gap-10">
         {STEPS.map((step, i) => (
           <Reveal key={step.key} delay={i * 0.05} as="li" className="relative pl-10">
-            <span className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full border border-amber-500/70 bg-[#050505]" />
+            <span className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full border border-amber-500/80 bg-[#050505] shadow-[0_0_10px_rgba(255,122,26,0.5)]" />
             <div className="flex items-baseline gap-3">
-              <span className="font-mono-display text-[0.625rem] tracking-[0.3em] text-amber-500">{step.n}</span>
+              <span className="font-mono-display text-[0.6875rem] tracking-[0.3em] text-amber-500 font-medium">0{step.n}</span>
               <h3 className="font-sans text-xl font-medium tracking-[-0.01em] text-foreground sm:text-2xl">{step.title}</h3>
             </div>
             <p className="mt-2 max-w-md text-[0.875rem] leading-relaxed text-muted-foreground">{step.desc}</p>
