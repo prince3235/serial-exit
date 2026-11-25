@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck — dormant: not mounted on the public site (portal launch deferred)
 "use client";
 

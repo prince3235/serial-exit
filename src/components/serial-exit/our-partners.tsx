@@ -63,9 +63,9 @@ function PartnerCard({ person }: { person: Partner }) {
               src={person.photo}
               alt={`${person.name} — ${person.designation}`}
               fill
-              unoptimized
-              className="object-cover object-center grayscale contrast-[1.08] brightness-[0.96] transition-all duration-500 group-hover:grayscale-0 group-hover:contrast-100"
+              className="object-cover object-center grayscale contrast-[1.08] brightness-[0.98] transition-all duration-500 group-hover:grayscale-0 group-hover:contrast-100"
               sizes="(min-width: 640px) 256px, 224px"
+              quality={95}
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_25%,rgba(255,122,26,0.12),transparent_70%)]">

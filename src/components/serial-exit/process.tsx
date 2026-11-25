@@ -29,12 +29,12 @@ const BOUNDS = Array.from({ length: N - 1 }, (_, k) => (k + 1) / N); // step bou
 
 export function Process() {
   return (
-    <SectionShell id="process" className="border-t border-white/[0.06] bg-[#050505]">
+    <SectionShell id="process" className="border-t border-white/[0.06] bg-[#050505] pb-8 pt-16 sm:pb-12 sm:pt-20 lg:pb-16 lg:pt-24">
       <SectionHeading index={process.index} eyebrow={process.eyebrow} title={process.title} intro={process.intro} />
-      <div className="mt-8 hidden lg:mt-10 lg:block">
+      <div className="mt-4 hidden lg:mt-6 lg:block">
         <PinnedSequence />
       </div>
-      <div className="mt-14 lg:hidden">
+      <div className="mt-10 lg:hidden">
         <VerticalStepper />
       </div>
     </SectionShell>
