@@ -44,18 +44,18 @@ export function Showcase() {
                 {/* Thin paper-like dossier header */}
                 <div className="flex items-center justify-between border-b border-white/[0.08] bg-white/[0.02] px-5 py-3">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono-display text-[0.6875rem] font-semibold tracking-[0.25em] text-amber-400">
+                    <span className="font-mono-display text-[0.6875rem] font-medium tracking-[0.25em] text-amber-400">
                       {(card as { refId?: string }).refId ?? `SE-0${i + 1}42`}
                     </span>
                     <span className="text-[0.6875rem] text-muted-foreground/60">·</span>
                     <span className="font-mono-display text-[0.6875rem] tracking-[0.2em] text-muted-foreground">
-                      DOSSIER 0{i + 1}
+                      ILLUSTRATIVE DOSSIER 0{i + 1}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {/* "NDA Required" tag */}
-                    <span className="inline-flex items-center gap-1 border border-white/10 bg-black/40 px-2 py-0.5 font-mono-display text-[0.6875rem] tracking-[0.2em] text-foreground/70">
+                    <span className="inline-flex items-center gap-1 border border-white/10 bg-black/40 px-2.5 py-0.5 font-mono-display text-[0.6875rem] tracking-[0.2em] text-foreground/80">
                       <Lock className="h-2.5 w-2.5 text-amber-400" />
                       NDA REQUIRED
                     </span>
@@ -70,24 +70,29 @@ export function Showcase() {
                       <h3 className="font-sans text-lg font-medium tracking-[-0.01em] text-foreground sm:text-xl">
                         {card.sector}
                       </h3>
-                      {/* Redaction bar representing masked company identity */}
-                      <div className="mt-2 flex items-center gap-2" aria-label="Target name redacted">
-                        <span className="h-3.5 w-28 rounded-xs bg-white/15" />
-                        <span className="font-mono-display text-[0.6875rem] tracking-[0.2em] text-muted-foreground/60">
+                      {/* Redaction bar with subtle transform shimmer */}
+                      <div className="mt-2.5 flex items-center gap-2" aria-label="Target name redacted">
+                        <span className="relative h-3.5 w-32 overflow-hidden rounded-xs bg-white/15">
+                          <span
+                            aria-hidden="true"
+                            className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-full"
+                          />
+                        </span>
+                        <span className="font-mono-display text-[0.6875rem] tracking-[0.2em] text-muted-foreground/75">
                           [REDACTED]
                         </span>
                       </div>
                     </div>
 
-                    {/* Single Verified Badge */}
+                    {/* Single Verified Badge per card */}
                     <span className="inline-flex shrink-0 items-center gap-1.5 border border-amber-500/40 bg-amber-500/10 px-2.5 py-1 font-mono-display text-[0.6875rem] tracking-[0.2em] text-amber-300">
                       <ShieldCheck className="h-3.5 w-3.5 text-amber-400" />
                       VERIFIED
                     </span>
                   </div>
 
-                  {/* Mandate specifications */}
-                  <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-white/[0.06] pt-4 sm:grid-cols-3">
+                  {/* Mandate specifications in 3-col mono grid */}
+                  <dl className="mt-6 grid grid-cols-3 gap-x-4 gap-y-3 border-t border-white/[0.06] pt-4">
                     <DataRow label="Target Size" value={card.size} />
                     <DataRow label="Geography" value={card.location} />
                     <DataRow label="Structure" value={card.transaction} />

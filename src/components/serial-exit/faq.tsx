@@ -47,27 +47,26 @@ export function Faq() {
     setOpenIndex((prev) => (prev === i ? null : i));
   };
 
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQS.map((item) => ({
-      "@type": "Question",
-      name: item.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.a,
-      },
-    })),
+  const handleKeyDown = (e: React.KeyboardEvent, i: number) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const next = (i + 1) % FAQS.length;
+      document.getElementById(`faq-question-${next}`)?.focus();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const prev = (i - 1 + FAQS.length) % FAQS.length;
+      document.getElementById(`faq-question-${prev}`)?.focus();
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      document.getElementById(`faq-question-0`)?.focus();
+    } else if (e.key === "End") {
+      e.preventDefault();
+      document.getElementById(`faq-question-${FAQS.length - 1}`)?.focus();
+    }
   };
 
   return (
     <SectionShell id="faq" className="border-t border-white/[0.06] bg-[#050505]">
-      {/* FAQ Schema JSON-LD for Search Engines */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-
       <SectionHeading
         index={t.faq.index}
         eyebrow={t.faq.eyebrow}
@@ -85,10 +84,11 @@ export function Faq() {
                   <button
                     type="button"
                     onClick={() => toggle(i)}
+                    onKeyDown={(e) => handleKeyDown(e, i)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-answer-${i}`}
                     id={`faq-question-${i}`}
-                    className="flex w-full items-start justify-between gap-4 py-6 text-left"
+                    className="flex w-full items-start justify-between gap-4 py-6 text-left focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-500/80"
                   >
                     <div className="flex items-start gap-3">
                       <HelpCircle className="mt-1 h-4 w-4 shrink-0 text-amber-500" strokeWidth={1.5} />

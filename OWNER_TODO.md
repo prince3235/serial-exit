@@ -21,3 +21,10 @@ This document tracks items that require official input, credential provision, or
 - [ ] **WhatsApp Cloud API (`WHATSAPP_ACCESS_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`)**: Meta Business Manager production token and approved message templates (`serial_exit_welcome`, `serial_exit_partner_alert`).
 - [ ] **Google Sheets Sync (`GOOGLE_SHEETS_SPREADSHEET_ID`)**: Target spreadsheet ID shared with Google Cloud Service Account for automated lead sync.
 - [ ] **Firebase / Firestore Service Account**: Production database credentials (`FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY`).
+
+## 5. Copy & Differentiator Adjustments (Chunk C5)
+- [ ] **Why Serial Exit copy alignment**:
+  - Replaced "Zero public listings" with process-based "Confidential by default"
+  - Replaced "Proprietary Origination / transition to public intermediaries" with "Relationship-Led Origination / prior to public market dissemination"
+  - Replaced "Pre-Verified Qualification / realistic valuation parameters" with "Verified Before Introduced / governance alignment"
+  - Removed unverifiable claims ("audited", "without brokers/intermediaries", "100% absolutes"). Owner to review and approve before live marketing.

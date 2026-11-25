@@ -51,6 +51,7 @@ export function Button({
   magnetic = true,
   withArrow = false,
   ariaLabel,
+  disabled,
 }: {
   children: React.ReactNode;
   href?: string;
@@ -62,6 +63,7 @@ export function Button({
   magnetic?: boolean;
   withArrow?: boolean;
   ariaLabel?: string;
+  disabled?: boolean;
 }) {
   const cls = cn(
     interactive,
@@ -120,7 +122,7 @@ export function Button({
       {inner}
     </Link>
   ) : (
-    <button type={type} aria-label={ariaLabel} onClick={onClick} className={cls}>
+    <button type={type} aria-label={ariaLabel} onClick={onClick} disabled={disabled} className={cls}>
       {inner}
     </button>
   );

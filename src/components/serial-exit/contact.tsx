@@ -318,6 +318,7 @@ export function Contact() {
                       </label>
                     </div>
 
+                    {/* Field order: Name & Company, then Role/Type directly after */}
                     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       <Field
                         label={contact.fields.name}
@@ -337,6 +338,46 @@ export function Contact() {
                       />
                     </div>
 
+                    {/* Role / type — select directly after name/company */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="role" className="font-mono-display text-[0.6875rem] tracking-[0.25em] text-foreground/75 font-medium">
+                        {contact.fields.role}
+                        <span className="ml-1 text-amber-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <select
+                          id="role"
+                          value={form.role}
+                          onChange={(e) => update("role", e.target.value)}
+                          aria-invalid={!!errors.role}
+                          aria-describedby={errors.role ? "role-err" : undefined}
+                          className={cn(
+                            "w-full appearance-none border border-white/[0.16] bg-[#050505] px-4 py-3.5 text-[0.9375rem] text-foreground transition-colors duration-300 hover:border-white/[0.28] focus:border-amber-500/80 focus:outline-none",
+                            errors.role && "border-amber-500/80",
+                            !form.role && "text-foreground/65"
+                          )}
+                        >
+                          <option value="" disabled>
+                            Select…
+                          </option>
+                          {activeTab.roleOptions.map((o) => (
+                            <option key={o} value={o} className="bg-[#050505] text-foreground">
+                              {o}
+                            </option>
+                          ))}
+                        </select>
+                        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-amber-500">
+                          ▾
+                        </span>
+                      </div>
+                      {errors.role && (
+                        <p id="role-err" className="text-[0.75rem] text-amber-400">
+                          {errors.role}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Email & Phone */}
                     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       <Field
                         label={contact.fields.email}
@@ -357,8 +398,8 @@ export function Contact() {
                       />
                     </div>
 
-                    {/* Explicit WhatsApp opt-in consent (Meta Cloud API policy) */}
-                    <label className="flex cursor-pointer items-start gap-3 border border-white/[0.06] bg-[#050505]/70 px-4 py-3 text-[0.8125rem] text-foreground/75 transition-colors duration-300 hover:border-white/[0.12]">
+                    {/* Explicit WhatsApp opt-in consent (Meta Cloud API policy) grouped with phone */}
+                    <label className="flex cursor-pointer items-start gap-3 border border-white/[0.08] bg-[#050505]/70 px-4 py-3 text-[0.8125rem] text-foreground/80 transition-colors duration-300 hover:border-white/[0.16]">
                       <input
                         type="checkbox"
                         checked={form.whatsappConsent}
@@ -367,45 +408,15 @@ export function Contact() {
                       />
                       <span className="leading-snug">
                         I consent to receive confidential enquiry acknowledgements and updates via{" "}
-                        <span className="text-amber-300">WhatsApp</span> (optional, requires phone number).
+                        <span className="text-amber-300 font-medium">WhatsApp</span> (optional, requires phone number).
                       </span>
                     </label>
 
-                    {/* Role / type — dropdown */}
-                    <div className="flex flex-col gap-2">
-                      <label htmlFor="role" className="font-mono-display text-[0.625rem] tracking-[0.25em] text-foreground/65">
-                        {contact.fields.role}
-                      </label>
-                      <div className="relative">
-                        <select
-                          id="role"
-                          value={form.role}
-                          onChange={(e) => update("role", e.target.value)}
-                          className={cn(
-                            "w-full appearance-none border border-white/[0.16] bg-[#050505] px-4 py-3.5 text-[0.9375rem] text-foreground transition-colors duration-300 hover:border-white/[0.28] focus:border-amber-500/80 focus:outline-none",
-                            !form.role && "text-foreground/65"
-                          )}
-                        >
-                          <option value="" disabled>
-                            Select…
-                          </option>
-                          {activeTab.roleOptions.map((o) => (
-                            <option key={o} value={o} className="bg-[#050505] text-foreground">
-                              {o}
-                            </option>
-                          ))}
-                        </select>
-                        <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-amber-500">
-                          ▾
-                        </span>
-                      </div>
-                      {errors.role && <p className="text-[0.75rem] text-amber-400">{errors.role}</p>}
-                    </div>
-
                     {/* Message */}
                     <div className="flex flex-col gap-2">
-                      <label htmlFor="message" className="font-mono-display text-[0.625rem] tracking-[0.25em] text-foreground/65">
+                      <label htmlFor="message" className="font-mono-display text-[0.6875rem] tracking-[0.25em] text-foreground/75 font-medium">
                         {contact.fields.message}
+                        <span className="ml-1 text-amber-500">*</span>
                       </label>
                       <textarea
                         id="message"
@@ -417,18 +428,25 @@ export function Contact() {
                             ? contact.fields.messagePartnerPlaceholder
                             : contact.fields.messageOwnerPlaceholder
                         }
+                        aria-invalid={!!errors.message}
+                        aria-describedby={errors.message ? "message-err" : undefined}
                         className={cn(
-                          "w-full resize-none border border-white/[0.16] bg-[#050505] px-4 py-3.5 text-[0.9375rem] text-foreground placeholder:text-foreground/50 transition-colors duration-300 hover:border-white/[0.28] focus:border-amber-500/80 focus:outline-none"
+                          "w-full resize-none border border-white/[0.16] bg-[#050505] px-4 py-3.5 text-[0.9375rem] text-foreground placeholder:text-foreground/50 transition-colors duration-300 hover:border-white/[0.28] focus:border-amber-500/80 focus:outline-none",
+                          errors.message && "border-amber-500/80"
                         )}
                       />
-                      {errors.message && <p className="text-[0.75rem] text-amber-400">{errors.message}</p>}
+                      {errors.message && (
+                        <p id="message-err" className="text-[0.75rem] text-amber-400">
+                          {errors.message}
+                        </p>
+                      )}
                     </div>
 
                     <div className="mt-2 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-                      <Button type="submit" size="lg" withArrow magnetic={false}>
+                      <Button type="submit" size="lg" withArrow magnetic={false} disabled={submitting}>
                         {submitting ? "Sending…" : contact.submit}
                       </Button>
-                      <p className="font-mono-display text-[0.625rem] tracking-[0.25em] text-foreground/70">
+                      <p className="font-mono-display text-[0.6875rem] tracking-[0.24em] text-foreground/75">
                         Encrypted in transit · Bilateral NDA
                       </p>
                     </div>
