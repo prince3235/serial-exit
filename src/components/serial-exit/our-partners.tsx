@@ -71,7 +71,7 @@ function PartnerCard({ person }: { person: Partner }) {
               src={person.photo}
               alt={`${person.name} — ${person.designation}`}
               fill
-              className="object-cover object-center"
+              className="object-cover object-top"
               sizes="112px"
             />
           ) : (

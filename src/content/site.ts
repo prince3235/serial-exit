@@ -11,10 +11,11 @@ export const site = {
   tagline: "Verified Off-Market Opportunities. Trusted Partners. Better Transactions.",
   positioning: "Public markets show you what is already available. Serial Exit focuses on what may become available next.",
   contact: {
-    email: "partners@serialexit.com", // PLACEHOLDER — replace with real address
-    phone: "+91 00000 00000",          // PLACEHOLDER — replace with real number
-    location: "India",
-    linkedin: "https://www.linkedin.com/company/serialexit", // PLACEHOLDER
+    email: "teamserialexit@gmail.com",
+    phone: "+91 70436 26625",
+    phones: ["+91 70436 26625", "+91 74248 00486"],
+    location: "Ahmedabad, India",
+    linkedin: "https://www.linkedin.com/company/serial-exit/",
   },
 } as const;
 
@@ -167,7 +168,6 @@ export const showcase = {
 
 /**
  * Our Partners — two principal business partners.
- * PLACEHOLDER DATA: Replace all bracketed placeholders with client-provided details.
  */
 export const ourPartners = {
   index: "06",
@@ -177,21 +177,21 @@ export const ourPartners = {
   people: [
     {
       id: "partner-1",
-      name: "[Partner 1 Name]",
-      designation: "[Partner 1 Designation]",
-      firm: "",
-      bio: "[Short description placeholder — awaiting client-provided bio.]",
-      photo: "" as string,
-      initials: "01",
+      name: "Brijesh Patel",
+      designation: "Co-Founder & COO",
+      firm: "Serial Exit",
+      bio: "Building India's verified off-market deal origination network for M&A advisory, investment banking and venture partners.",
+      photo: "/images/partners/brijesh-patel.webp",
+      initials: "BP",
     },
     {
       id: "partner-2",
-      name: "[Partner 2 Name]",
-      designation: "[Partner 2 Designation]",
-      firm: "",
-      bio: "[Short description placeholder — awaiting client-provided bio.]",
-      photo: "" as string,
-      initials: "02",
+      name: "Sunil Sen",
+      designation: "Co-Founder & CEO",
+      firm: "Serial Exit",
+      bio: "Leading strategic deal origination across investment banking, project & debt financing, and institutional capital mandates.",
+      photo: "/images/partners/sunil-sen.webp",
+      initials: "SS",
     },
   ],
 } satisfies {

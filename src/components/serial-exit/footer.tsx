@@ -97,15 +97,17 @@ export function Footer({ onOpenPortal }: { onOpenPortal?: () => void }) {
                   {site.contact.email}
                 </a>
               </li>
-              <li>
-                <a
-                  href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
-                  className="group flex items-center gap-3 text-[0.875rem] text-foreground/70 transition-colors duration-300 hover:text-amber-300"
-                >
-                  <Phone className="h-4 w-4 text-amber-500 transition-colors duration-300 group-hover:text-amber-400" strokeWidth={1.4} />
-                  {site.contact.phone}
-                </a>
-              </li>
+              {site.contact.phones.map((ph) => (
+                <li key={ph}>
+                  <a
+                    href={`tel:${ph.replace(/\s/g, "")}`}
+                    className="group flex items-center gap-3 text-[0.875rem] text-foreground/70 transition-colors duration-300 hover:text-amber-300"
+                  >
+                    <Phone className="h-4 w-4 text-amber-500 transition-colors duration-300 group-hover:text-amber-400" strokeWidth={1.4} />
+                    {ph}
+                  </a>
+                </li>
+              ))}
               <li className="flex items-center gap-3 text-[0.875rem] text-foreground/70">
                 <MapPin className="h-4 w-4 text-amber-500" strokeWidth={1.4} />
                 {site.contact.location}

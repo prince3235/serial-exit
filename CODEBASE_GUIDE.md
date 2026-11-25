@@ -72,6 +72,7 @@ d:\serial-exit\
 │   │   ├── core-idea/              # 12 responsive CoreIdea background variants (cube-{640..3840}.{avif,webp})
 │   │   ├── hero/                   # 12 responsive hero poster variants (hero-{640,1024,1536,1920,2560,3840}.{avif,webp})
 │   │   ├── opportunities/          # 4 responsive seal badge assets (seal-{320,640}.{avif,webp})
+│   │   ├── partners/               # 2 principal partner portrait WebPs (brijesh-patel.webp, sunil-sen.webp, 512x512)
 │   │   ├── glowing-cube.webp       # 3840x2160 4K master source for CoreIdea
 │   │   ├── grain.png               # 160x160 film grain tile
 │   │   ├── hero-monolith.webp      # 3840x2160 4K master source for hero poster optimization
@@ -398,11 +399,8 @@ d:\serial-exit\
 
 ## 18. Known Issues & Limitations
 
-- **Placeholder content remaining in `src/content/site.ts`:**
-  - `site.contact.email` (`partners@serialexit.com`), `site.contact.phone` (`+91 00000 00000`), and `site.contact.linkedin` (`https://www.linkedin.com/company/serialexit`) are marked as placeholders.
-  - `ourPartners.people` contains placeholder entries (`[Partner 1 Name]`, `[Partner 2 Name]`, `[Partner 1 Designation]`, `[Partner 2 Designation]`, empty `photo: ""`, placeholder bios).
-- **Placeholder portal & Firebase configs:**
-  - `src/content/portal-cases.ts` holds illustrative sample mandates rather than live database mandates.
+- **Illustrative / sample showcase data & Firebase config:**
+  - `showcase.cards` in `src/content/site.ts` and `src/content/portal-cases.ts` hold illustrative sample mandates/deals (clearly labeled as illustrative).
   - `.firebaserc` holds `"YOUR_FIREBASE_PROJECT_ID"`.
 - **Unconfigured secrets & partial i18n coverage:**
   - No `.env.local` exists in the repo; `PORTAL_ACCESS_KEY`, Firestore credentials, `RESEND_API_KEY`, Meta WhatsApp credentials, `GOOGLE_SHEETS_SPREADSHEET_ID`, partner recipients, and `CRON_SECRET` must be provisioned before live execution.

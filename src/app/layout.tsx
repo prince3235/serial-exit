@@ -100,7 +100,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-/** Structured data. Contact details are intentionally omitted until real values are in content/site.ts. */
+/** Structured data for Serial Exit organization and website. */
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -111,6 +111,8 @@ const jsonLd = {
       alternateName: "Serial Exit Deal Origination",
       url: SITE_URL,
       logo: `${SITE_URL}/icons/icon-512.png`,
+      email: "teamserialexit@gmail.com",
+      sameAs: ["https://www.linkedin.com/company/serial-exit/"],
       description:
         "Verified off-market deal origination platform connecting M&A advisors, investment firms and strategic acquirers with confidential, verified business opportunities in India.",
       areaServed: { "@type": "Country", name: "India" },
