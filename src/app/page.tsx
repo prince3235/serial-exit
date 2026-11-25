@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useState } from "react";
 import { Navbar } from "@/components/serial-exit/navbar";
 import { Hero } from "@/components/serial-exit/hero";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
@@ -22,22 +21,16 @@ const CtaBand     = dynamic(() => import("@/components/serial-exit/cta-band").th
 const Contact     = dynamic(() => import("@/components/serial-exit/contact").then(m => m.Contact));
 const Footer      = dynamic(() => import("@/components/serial-exit/footer").then(m => m.Footer));
 
-import { PartnerPortal } from "@/components/serial-exit/partner-portal";
-
 /**
  * Serial Exit — single-page marketing site.
  * Navbar → Hero → ProofStrip → CoreIdea → Opportunities → WhySerialExit →
  * Process → Showcase → Faq → OurPartners → CtaBand → Contact → Footer.
  */
 export default function Home() {
-  const [portalOpen, setPortalOpen] = useState(false);
-  const openPortal = useCallback(() => setPortalOpen(true), []);
-  const closePortal = useCallback(() => setPortalOpen(false), []);
-
   return (
     <>
       <ScrollProgress />
-      <Navbar onOpenPortal={openPortal} />
+      <Navbar />
       <BackToTop />
       <ChapterRail />
       <div className="flex min-h-screen flex-col">
@@ -54,9 +47,8 @@ export default function Home() {
           <CtaBand />
           <Contact />
         </main>
-        <Footer onOpenPortal={openPortal} />
+        <Footer />
       </div>
-      {portalOpen && <PartnerPortal open={portalOpen} onClose={closePortal} />}
     </>
   );
 }

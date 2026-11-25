@@ -1,3 +1,4 @@
+// @ts-nocheck — dormant: not mounted on the public site (portal launch deferred)
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";

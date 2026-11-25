@@ -30,7 +30,6 @@ const en = {
     partners: "Partners",
     cta: "Partner With Us",
     language: "Language",
-    portal: "Partner Portal",
   },
   hero: {
     eyebrow: "Verified Off-Market Deal Origination · India",
@@ -123,26 +122,6 @@ const en = {
       "Serial Exit is a deal origination and introduction platform. It does not provide investment, legal or tax advice, and is not a broker-dealer. All opportunities are confidential and shared with verified partners only.",
     copyright: "© 2026 Serial Exit",
   },
-  portal: {
-    eyebrow: "Partner Portal",
-    title: "Verified deal flow, on request.",
-    intro:
-      "Illustrative preview of the opportunity profile shared with verified partners. Access to live opportunities requires a verified partner account.",
-    locked: "Locked",
-    enterPassword: "Enter partner access key",
-    passwordPlaceholder: "Access key",
-    unlock: "Unlock",
-    wrongKey: "Incorrect access key. Request one from the Serial Exit team.",
-    hint: "Access is by invitation only",
-    unavailable: "The portal is not open for sign-in right now. Please contact the Serial Exit team.",
-    tooMany: "Too many attempts. Please wait a few minutes and try again.",
-    checking: "Checking…",
-    logout: "Lock portal",
-    back: "Close",
-    caseStudiesTitle: "Illustrative Case Studies",
-    caseStudiesNote:
-      "Illustrative only. Structures and figures are representative, not actual transactions.",
-  },
 };
 
 const hi: Dict = {
@@ -154,7 +133,6 @@ const hi: Dict = {
     partners: "पार्टनर्स",
     cta: "हमारे साथ जुड़ें",
     language: "भाषा",
-    portal: "पार्टनर पोर्टल",
   },
   hero: {
     eyebrow: "सत्यापित ऑफ-मार्केट डील ओरिजिनेशन · भारत",
@@ -246,26 +224,6 @@ const hi: Dict = {
     legal:
       "सीरियल एग्ज़िट एक डील ओरिजिनेशन और परिचय प्लेटफ़ॉर्म है। यह निवेश, कानूनी या कर सलाह नहीं देता, और ब्रोकर-डीलर नहीं है। सभी अवसर गोपनीय हैं और केवल सत्यापित साझेदारों के साथ साझा किए जाते हैं।",
     copyright: "© 2026 Serial Exit",
-  },
-  portal: {
-    eyebrow: "पार्टनर पोर्टल",
-    title: "सत्यापित डील फ्लो, अनुरोध पर।",
-    intro:
-      "सत्यापित साझेदारों के साथ साझा की जाने वाली अवसर प्रोफ़ाइल का उदाहरण पूर्वावलोकन। लाइव अवसरों तक पहुँच के लिए सत्यापित पार्टनर खाता आवश्यक है।",
-    locked: "लॉक्ड",
-    enterPassword: "पार्टनर एक्सेस कुंजी दर्ज करें",
-    passwordPlaceholder: "एक्सेस कुंजी",
-    unlock: "खोलें",
-    wrongKey: "गलत एक्सेस कुंजी। सीरियल एग्ज़िट टीम से एक कुंजी का अनुरोध करें।",
-    hint: "प्रवेश केवल आमंत्रण द्वारा",
-    unavailable: "पोर्टल अभी साइन-इन के लिए उपलब्ध नहीं है। कृपया सीरियल एग्ज़िट टीम से संपर्क करें।",
-    tooMany: "बहुत अधिक प्रयास। कृपया कुछ मिनट प्रतीक्षा करें और पुनः प्रयास करें।",
-    checking: "जाँच हो रही है…",
-    logout: "पोर्टल लॉक करें",
-    back: "बंद करें",
-    caseStudiesTitle: "उदाहरण केस स्टडीज़",
-    caseStudiesNote:
-      "केवल उदाहरण। संरचनाएँ और आँकड़े प्रतिनिधि हैं, वास्तविक लेन-देन नहीं।",
   },
 };
 

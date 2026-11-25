@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
-import { Menu, X, Globe, Lock } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { nav } from "@/content/site";
 import { useI18n, localeNames, type Locale } from "@/i18n/provider";
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-export function Navbar({ onOpenPortal }: { onOpenPortal?: () => void }) {
+export function Navbar() {
   const { t, locale, setLocale } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -179,11 +179,6 @@ export function Navbar({ onOpenPortal }: { onOpenPortal?: () => void }) {
               </AnimatePresence>
             </div>
 
-            <button type="button" onClick={() => onOpenPortal?.()} className={chip}>
-              <Lock className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
-              <span className="font-mono-display text-[0.625rem] tracking-[0.2em]">{t.nav.portal}</span>
-            </button>
-
             <Button href={nav.cta.href} size="sm" withArrow>
               {t.nav.cta}
             </Button>
@@ -271,17 +266,7 @@ export function Navbar({ onOpenPortal }: { onOpenPortal?: () => void }) {
                   </button>
                 ))}
               </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setOpen(false);
-                  onOpenPortal?.();
-                }}
-                className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 border border-white/10 px-4 text-[0.75rem] text-foreground/80 hover:border-amber-500/60"
-              >
-                <Lock className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
-                <span className="font-mono-display text-[0.625rem] tracking-[0.2em]">{t.nav.portal}</span>
-              </button>
+
             </div>
 
             <div className="shrink-0 px-5 pb-10 sm:px-8">

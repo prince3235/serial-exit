@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Linkedin, Mail, Phone, MapPin, Lock } from "lucide-react";
+import { Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { footer, site } from "@/content/site";
 import { useI18n } from "@/i18n/provider";
 import { Reveal } from "./reveal";
@@ -12,7 +12,7 @@ import { Reveal } from "./reveal";
  * legal disclaimer, copyright. Sticks to bottom via the page wrapper
  * (mt-auto on the footer element, applied in page.tsx).
  */
-export function Footer({ onOpenPortal }: { onOpenPortal?: () => void }) {
+export function Footer() {
   const { t } = useI18n();
   return (
     <footer className="mt-auto border-t border-white/[0.08] bg-[#050505]">
@@ -60,15 +60,6 @@ export function Footer({ onOpenPortal }: { onOpenPortal?: () => void }) {
               {t.footer.engage}
             </h3>
             <ul className="mt-5 flex flex-col gap-3">
-              <li>
-                <button
-                  onClick={onOpenPortal}
-                  className="group inline-flex items-center gap-2 text-[0.875rem] text-foreground/70 transition-colors duration-300 hover:text-amber-300"
-                >
-                  <Lock className="h-3.5 w-3.5 text-amber-500 transition-colors duration-300 group-hover:text-amber-400" strokeWidth={1.4} />
-                  {t.nav.portal}
-                </button>
-              </li>
               {footer.navColumns[1].links.map((l) => (
                 <li key={l.href}>
                   <Link

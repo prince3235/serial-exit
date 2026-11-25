@@ -161,7 +161,7 @@ export async function sendPartnerAlertEmail(
     `Message:`,
     lead.latestMessage,
     ``,
-    `Manage this lead in the Partner Portal: ${SITE_URL}`,
+    `Reply to this email to respond to the sender directly.`,
   ].join("\n");
 
   const html = `
@@ -182,7 +182,7 @@ export async function sendPartnerAlertEmail(
       </table>
       <div style="margin-top:16px;padding:14px;border:1px solid rgba(255,255,255,0.08);background:#050505;font-size:13px;line-height:1.6;color:#f4f1ec;white-space:pre-wrap;">${escapeHtml(lead.latestMessage)}</div>
       <p style="margin:18px 0 0;font-size:12px;color:#a8a29a;">
-        Open the Partner Portal at <a href="${escapeHtml(SITE_URL)}" style="color:#ffb37a;">${escapeHtml(SITE_URL)}</a> to update status or reply directly.
+        Reply to this email to respond to the sender directly.
       </p>
     </div>
   </div>`;
