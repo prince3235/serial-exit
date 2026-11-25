@@ -40,6 +40,7 @@ export const hero = {
   ctas: {
     primary: { label: "For Advisors & Investors", href: "#contact?tab=partner" },
     secondary: { label: "For Business Owners", href: "#contact?tab=owner" },
+    trustNote: "Confidential by design.",
   },
   stripLabels: ["Verified", "Confidential", "Relationship-Driven", "India-Focused"],
 } as const;

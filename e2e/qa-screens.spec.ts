@@ -1,12 +1,19 @@
 import { test } from "@playwright/test";
 
 test.describe("QA Screenshots", () => {
-  for (const w of [360, 768, 1440]) {
-    test(`Capture P2 at ${w}px`, async ({ page }) => {
-      await page.setViewportSize({ width: w, height: w === 768 ? 1024 : 900 });
+  const viewports = [
+    { name: "360", width: 360, height: 740 },
+    { name: "768", width: 768, height: 1024 },
+    { name: "1366", width: 1366, height: 768 },
+    { name: "1440", width: 1440, height: 900 },
+  ];
+
+  for (const vp of viewports) {
+    test(`Capture C1-C2 hero fold at ${vp.name}px`, async ({ page }) => {
+      await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto("/");
-      await page.waitForLoadState("networkidle");
-      await page.screenshot({ path: `qa-screens/P2-${w}.png`, fullPage: false });
+      await page.waitForLoadState("load");
+      await page.screenshot({ path: `qa-screens/C2-${vp.name}.png`, fullPage: false });
     });
   }
 });

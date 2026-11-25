@@ -98,18 +98,18 @@ export function Hero() {
         <Hero3D onReady={onReady} onFail={onFail} />
       </div>
 
-      {/* Contrast scrims (keep body text ≥ 4.5:1 over imagery) */}
+      {/* Contrast scrims (keep headline & body text ≥ 4.5:1 over imagery and 3D scene) */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-[2] lg:hidden"
-        style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.82) 0%, rgba(5,5,5,0.6) 35%, rgba(5,5,5,0.7) 70%, #050505 100%)" }}
+        style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.88) 0%, rgba(5,5,5,0.72) 35%, rgba(5,5,5,0.85) 70%, #050505 100%)" }}
       />
       <div
         aria-hidden="true"
         className="absolute inset-0 z-[2] hidden lg:block"
         style={{
           background:
-            "linear-gradient(90deg, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0.62) 38%, rgba(5,5,5,0.12) 72%, transparent 100%), linear-gradient(180deg, rgba(5,5,5,0.55) 0%, transparent 22%, transparent 70%, #050505 100%)",
+            "linear-gradient(90deg, rgba(5,5,5,0.96) 0%, rgba(5,5,5,0.85) 32%, rgba(5,5,5,0.45) 55%, rgba(5,5,5,0.1) 75%, transparent 100%), linear-gradient(180deg, rgba(5,5,5,0.6) 0%, transparent 25%, transparent 68%, #050505 100%)",
         }}
       />
 
@@ -159,22 +159,27 @@ export function Hero() {
             {t.hero.subtext}
           </p>
 
-          <div className="se-rise flex flex-wrap items-center gap-3 sm:gap-4" style={d(0.65)}>
-            <Button href={hero.ctas.primary.href} size="lg" withArrow>
-              {t.hero.ctaPrimary}
-            </Button>
-            <Button href={hero.ctas.secondary.href} variant="ghost" size="lg">
-              {t.hero.ctaSecondary}
-            </Button>
+          <div className="se-rise flex flex-col gap-3" style={d(0.65)}>
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <Button href={hero.ctas.primary.href} variant="solid" size="lg" withArrow>
+                {t.hero.ctaPrimary}
+              </Button>
+              <Button href={hero.ctas.secondary.href} variant="ghost" size="lg">
+                {t.hero.ctaSecondary}
+              </Button>
+            </div>
+            <p className="font-mono-display text-[0.6875rem] tracking-[0.24em] text-foreground/75">
+              {t.hero.ctaMicro}
+            </p>
           </div>
         </div>
 
-        <div className="se-fade flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between" style={d(0.9)}>
+        <div className="se-fade flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between" style={d(0.9)}>
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 sm:gap-x-10">
             {t.hero.strip.map((label) => (
               <li
                 key={label}
-                className="flex items-center gap-2 font-mono-display text-[0.6875rem] tracking-[0.28em] text-foreground/85 sm:text-[0.75rem]"
+                className="flex items-center gap-2 font-mono-display text-[0.6875rem] tracking-[0.26em] text-foreground/85 sm:text-[0.75rem]"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden="true" />
                 {label}
@@ -183,7 +188,7 @@ export function Hero() {
           </ul>
 
           <a href="#core-idea" aria-label="Scroll to content" className="group hidden flex-col items-center gap-2 sm:flex">
-            <span className="font-mono-display text-[0.625rem] tracking-[0.3em] text-foreground/75 group-hover:text-amber-400">
+            <span className="font-mono-display text-[0.6875rem] tracking-[0.28em] text-foreground/75 group-hover:text-amber-400">
               {t.hero.scroll}
             </span>
             <span className="relative flex h-8 w-4.5 items-start justify-center rounded-full border border-white/25">
