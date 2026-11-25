@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Eyebrow — monospace, uppercase, wide-tracked label.
+ * Eyebrow — monospace, uppercase, wide-tracked label (min 11px floor for a11y).
  * Optionally prefixed with a section index like "01 / VERIFIED".
  */
 export function Eyebrow({
@@ -23,14 +23,14 @@ export function Eyebrow({
       )}
     >
       {index && (
-        <span className="font-mono-display text-[0.6875rem] tracking-[0.28em] text-amber-500">
+        <span className="font-mono-display text-[0.6875rem] tracking-[0.28em] text-amber-500 font-medium">
           {index}
         </span>
       )}
       {index && withLine && (
-        <span className="h-px w-6 bg-amber-500/40" aria-hidden="true" />
+        <span className="h-px w-6 bg-amber-500/50" aria-hidden="true" />
       )}
-      <span className="font-mono-display text-[0.6875rem] tracking-[0.28em] uppercase text-amber-500">
+      <span className="font-mono-display text-[0.6875rem] tracking-[0.28em] uppercase text-amber-400 font-medium">
         {children}
       </span>
     </div>

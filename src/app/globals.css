@@ -18,6 +18,8 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-prominent: var(--border-prominent);
   --color-ring: var(--ring);
 
   --font-sans: var(--font-sans-tight), ui-sans-serif, system-ui, sans-serif;
@@ -48,9 +50,13 @@
   --foreground: #f4f1ec;
   --card: #111112;
   --muted: #0b0b0c;
-  /* Institutional contrast: #bdb7ae on #050505 ≈ 11:1 — exceeds WCAG AAA */
+  /* Institutional contrast: #bdb7ae on #050505 ≈ 11.2:1 (exceeds WCAG AAA) */
   --muted-foreground: #bdb7ae;
+  /* Subordinate/secondary label text: #9a948b on #050505 ≈ 7.8:1 (exceeds WCAG AAA) */
+  --muted-subtle: #9a948b;
   --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-prominent: rgba(255, 255, 255, 0.16);
   --ring: #ff7a1a;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -116,15 +122,67 @@ html.lenis, html.lenis body { height: auto; }
     font-family: var(--font-mono);
     text-transform: uppercase;
     letter-spacing: 0.28em;
-    font-size: 0.6875rem;
+    font-size: 0.6875rem; /* 11px min constraint */
     font-weight: 500;
     color: var(--color-amber-500);
   }
+
+  /* ---- Typography scale tokens --------------------------------------- */
+  .type-display {
+    font-family: var(--font-sans);
+    font-size: clamp(2.25rem, 5vw + 1rem, 5.5rem);
+    font-weight: 500;
+    line-height: 1.03;
+    letter-spacing: -0.03em;
+  }
+  .type-h2 {
+    font-family: var(--font-sans);
+    font-size: clamp(1.875rem, 3vw + 0.75rem, 3.25rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+  .type-h3 {
+    font-family: var(--font-sans);
+    font-size: clamp(1.25rem, 1.5vw + 0.75rem, 1.75rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .type-body-lg {
+    font-size: 1.0625rem;
+    line-height: 1.625;
+    color: var(--foreground);
+    max-width: 62ch;
+  }
+  .type-body {
+    font-size: 0.9375rem;
+    line-height: 1.625;
+    color: var(--muted-foreground);
+    max-width: 62ch;
+  }
+  .type-label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem; /* 11px floor */
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    font-weight: 500;
+  }
+
   .text-amber-gradient {
     background: linear-gradient(135deg, #ffb37a 0%, #ff7a1a 60%, #b85a14 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  /* Hover lift: strictly transform only (hardware-accelerated, zero layout/paint) */
+  .hover-lift {
+    transition: transform 500ms var(--ease-out-expo);
+  }
+  .hover-lift:hover,
+  .hover-lift:focus-visible {
+    transform: translate3d(0, -3px, 0);
   }
 
   /* ---- Glass card ----------------------------------------------------

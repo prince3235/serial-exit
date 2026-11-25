@@ -17,8 +17,8 @@ export function GlassCard({
   return (
     <div
       className={cn(
-        "glass-dark relative",
-        hover && "glass-dark-hover",
+        "glass-dark relative rounded-[4px] border border-border-subtle",
+        hover && "glass-dark-hover hover-lift",
         className
       )}
       {...rest}
