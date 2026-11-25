@@ -31,22 +31,16 @@ export function Process() {
   const reduce = useReducedMotion();
 
   return (
-    <SectionShell id="process" className="border-t border-white/[0.06] bg-[#050505] pb-8 pt-12 sm:pb-12 sm:pt-16 lg:pb-16 lg:pt-20">
-      <SectionHeading index={process.index} eyebrow={process.eyebrow} title={process.title} intro={process.intro} />
-      
+    <SectionShell id="process" className="relative border-t border-white/[0.06] bg-[#050505]">
       {reduce ? (
-        <div className="mt-12">
-          <StaticProcess />
+        <div className="py-12 sm:py-16">
+          <SectionHeading index={process.index} eyebrow={process.eyebrow} title={process.title} intro={process.intro} />
+          <div className="mt-12">
+            <StaticProcess />
+          </div>
         </div>
       ) : (
-        <>
-          <div className="mt-4 hidden lg:mt-6 lg:block">
-            <PinnedSequence />
-          </div>
-          <div className="mt-10 lg:hidden">
-            <VerticalStepper />
-          </div>
-        </>
+        <ProcessTimeline />
       )}
     </SectionShell>
   );
@@ -98,7 +92,7 @@ function presence(i: number, shown = 1, hidden = 0, enterFrom = 28, exitTo = -28
   return { input: safeRange(input), op, y };
 }
 
-function PinnedSequence() {
+function ProcessTimeline() {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
@@ -118,46 +112,55 @@ function PinnedSequence() {
   const fill = useTransform(progress, railIn, railY.map((v) => v / ((N - 1) * ROW)));
 
   return (
-    <div ref={ref} style={{ height: `${N * 92}vh` }} className="relative">
-      <div className="sticky top-0 flex h-[100svh] items-center justify-between overflow-hidden">
-        {/* Left rail */}
-        <div className="relative w-[38%] pr-10">
-          <div className="relative" style={{ height: N * ROW }}>
-            {/* track, filled line and gliding marker — all share x = 0 with the row dots */}
-            <span aria-hidden="true" className="absolute left-0 w-px bg-white/10" style={{ top: ROW / 2, height: (N - 1) * ROW }} />
-            <motion.span
-              aria-hidden="true"
-              className="absolute left-0 w-px origin-top bg-amber-500"
-              style={{ top: ROW / 2, height: (N - 1) * ROW, scaleY: fill, boxShadow: "0 0 14px rgba(255,122,26,0.7)" }}
-            />
-            <motion.span
-              aria-hidden="true"
-              className="absolute left-0 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-500"
-              style={{ top: ROW / 2, y: markerY, boxShadow: "0 0 16px 2px rgba(255,122,26,0.8)" }}
-            />
-            <ol>
-              {STEPS.map((step, i) => (
-                <StepLabel key={step.key} i={i} n={step.n} title={step.title} progress={progress} current={i === active} />
-              ))}
-            </ol>
-          </div>
-        </div>
+    <div ref={ref} className="relative py-12 sm:py-16 lg:h-[420vh] lg:py-0">
+      <div className="lg:sticky lg:top-0 lg:flex lg:h-[100svh] lg:flex-col lg:justify-center lg:overflow-hidden lg:py-8">
+        <SectionHeading index={process.index} eyebrow={process.eyebrow} title={process.title} intro={process.intro} />
 
-        {/* Right: step detail (all stacked, cross-fading) + the evolving shard (focal moment) */}
-        <div className="flex min-w-0 flex-1 items-center justify-between gap-8 pl-4">
-          <div className="relative h-[48vh] min-w-0 flex-1">
-            {STEPS.map((step, i) => (
-              <StepDetail key={step.key} i={i} n={step.n} title={step.title} desc={step.desc} progress={progress} />
-            ))}
+        <div className="mt-8 hidden items-center justify-between xl:mt-10 lg:flex">
+          {/* Left rail */}
+          <div className="relative w-[36%] max-w-[340px] shrink-0 pr-8">
+            <div className="relative" style={{ height: N * ROW }}>
+              {/* track, filled line and gliding marker — all share x = 0 with the row dots */}
+              <span aria-hidden="true" className="absolute left-0 w-px bg-white/10" style={{ top: ROW / 2, height: (N - 1) * ROW }} />
+              <motion.span
+                aria-hidden="true"
+                className="absolute left-0 w-px origin-top bg-amber-500"
+                style={{ top: ROW / 2, height: (N - 1) * ROW, scaleY: fill, boxShadow: "0 0 14px rgba(255,122,26,0.7)" }}
+              />
+              <motion.span
+                aria-hidden="true"
+                className="absolute left-0 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-500"
+                style={{ top: ROW / 2, y: markerY, boxShadow: "0 0 16px 2px rgba(255,122,26,0.8)" }}
+              />
+              <ol>
+                {STEPS.map((step, i) => (
+                  <StepLabel key={step.key} i={i} n={step.n} title={step.title} progress={progress} current={i === active} />
+                ))}
+              </ol>
+            </div>
           </div>
-          <JourneyShard progress={progress} />
+
+          {/* Right: step detail (all stacked, cross-fading) + the evolving shard (focal moment) */}
+          <div className="flex min-w-0 flex-1 items-center justify-between gap-8 pl-4">
+            <div className="relative h-[220px] min-w-0 flex-1">
+              {STEPS.map((step, i) => (
+                <StepDetail key={step.key} i={i} n={step.n} title={step.title} desc={step.desc} progress={progress} />
+              ))}
+            </div>
+            <JourneyShard progress={progress} />
+          </div>
         </div>
 
         {/* Background numeral cross-fades with the step — visible ghost outline */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 hidden items-center justify-center lg:flex">
           {STEPS.map((step, i) => (
             <Numeral key={step.key} i={i} n={step.n} progress={progress} />
           ))}
+        </div>
+
+        {/* Mobile vertical stepper */}
+        <div className="mt-10 lg:hidden">
+          <VerticalStepper />
         </div>
       </div>
     </div>

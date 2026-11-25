@@ -63,6 +63,7 @@ function PartnerCard({ person }: { person: Partner }) {
               src={person.photo}
               alt={`${person.name} — ${person.designation}`}
               fill
+              unoptimized
               className="object-cover object-center grayscale contrast-[1.08] brightness-[0.98] transition-all duration-500 group-hover:grayscale-0 group-hover:contrast-100"
               sizes="(min-width: 640px) 256px, 224px"
               quality={95}
