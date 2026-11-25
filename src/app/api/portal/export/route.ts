@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isFirestoreExplicitlyConfigured } from "@/lib/firestore";
 import { SESSION_COOKIE, portalKey, verifySession } from "@/lib/portal-session";
 import { listAllForExport } from "@/lib/comms/store";
 import { buildLeadsWorkbookBuffer } from "@/lib/integrations/excel-export";
@@ -15,6 +16,13 @@ export async function GET(req: NextRequest) {
   const ok = verifySession(req.cookies.get(SESSION_COOKIE)?.value, portalKey());
   if (!ok) {
     return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
+  }
+
+  if (!isFirestoreExplicitlyConfigured()) {
+    return NextResponse.json(
+      { ok: false, error: "Firestore credentials not configured in this environment." },
+      { status: 500 }
+    );
   }
 
   try {

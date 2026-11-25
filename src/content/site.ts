@@ -131,8 +131,6 @@ export const showcase = {
   title: "Every opportunity is verified before it is introduced.",
   intro:
     "What reaches a partner is not a listing — it is a qualified, verified opportunity, introduced with the context required to act on it.",
-  imageAlt:
-    "Verified Business Opportunity deal card with a VERIFIED OFF-MARKET seal, stacked with Growth Capital, Acquisition Opportunity and Debt Funding cards.",
   disclaimer:
     "Illustrative example. Actual opportunities are shared only with verified partners.",
   cards: [
@@ -167,38 +165,12 @@ export const showcase = {
   ],
 } as const;
 
-export const comparison = {
-  index: "05",
-  eyebrow: "Serial Exit vs Public Marketplaces",
-  title: "Two different models. Two different outcomes.",
-  left: {
-    label: "Public Listing Platforms",
-    rows: [
-      "Open to all participants",
-      "Listings are unverified",
-      "Mass distribution of deal details",
-      "Opportunities appear after the market already sees them",
-      "No control over who sees the information",
-    ],
-  },
-  right: {
-    label: "Serial Exit",
-    rows: [
-      "Access restricted to verified partners",
-      "Every opportunity is verified before introduction",
-      "Matched, one-to-one introductions",
-      "Early access, before anything is public",
-      "Confidentiality built into every step",
-    ],
-  },
-} as const;
-
 /**
  * Our Partners — two principal business partners.
  * PLACEHOLDER DATA: Replace all bracketed placeholders with client-provided details.
  */
 export const ourPartners = {
-  index: "07",
+  index: "06",
   eyebrow: "Our Partners",
   title: "Principal Partners",
   intro: "",
@@ -239,7 +211,7 @@ export const ourPartners = {
 };
 
 export const contact = {
-  index: "06",
+  index: "05",
   eyebrow: "Contact",
   title: "Let's discuss what's next.",
   intro:
@@ -310,7 +282,6 @@ export const footer = {
       links: [
         { label: "Partner With Us", href: "#contact" },
         { label: "Verified Opportunities", href: "#showcase" },
-        { label: "Comparison", href: "#comparison" },
         { label: "Our Partners", href: "#our-partners" },
       ],
     },

@@ -18,12 +18,15 @@ test.describe("Homepage", () => {
     await page.goto("/");
     await page.waitForLoadState("load");
     const headings = page.locator("h2");
-    await expect(headings).toHaveCount(6);
+    await expect(headings).toHaveCount(5);
     await expect(headings.nth(0)).toContainText("transaction spectrum");
-    await expect(headings.nth(4)).toContainText("Let's discuss");
-    await expect(headings.nth(5)).toContainText("Principal Partners");
+    await expect(headings.nth(2)).toContainText("Every opportunity is verified");
+    await expect(headings.nth(3)).toContainText("Let's discuss");
+    await expect(headings.nth(4)).toContainText("Principal Partners");
     await expect(page.locator("#partners")).toHaveCount(0);
     await expect(page.locator("#mission")).toHaveCount(0);
+    await expect(page.locator("#comparison")).toHaveCount(0);
+    await expect(page.locator("#showcase picture")).toHaveCount(0);
 
     const cards = page.locator("#our-partners article");
     await expect(cards).toHaveCount(2);

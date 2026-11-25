@@ -48,10 +48,12 @@ for (const m of media.matchAll(/base: "([^"]+)".*?widths: \[([\d, ]+)\]/g)) {
     }
   }
 }
-// hero variants built by scripts/optimize-hero.mjs
-for (const w of [640, 1024, 1536, 1672]) for (const ext of ["avif", "webp"]) {
-  const p = `/images/hero/hero-${w}.${ext}`;
-  if (!existsExact(p)) missing.add(`${p}   (hero)`);
+// hero + core-idea variants built by scripts/optimize-hero.mjs
+for (const w of [640, 1024, 1536, 1920, 2560, 3840]) for (const ext of ["avif", "webp"]) {
+  const heroPath = `/images/hero/hero-${w}.${ext}`;
+  if (!existsExact(heroPath)) missing.add(`${heroPath}   (hero)`);
+  const cubePath = `/images/core-idea/cube-${w}.${ext}`;
+  if (!existsExact(cubePath)) missing.add(`${cubePath}   (core-idea)`);
 }
 
 if (missing.size) {

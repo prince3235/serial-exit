@@ -285,17 +285,6 @@ html.lenis, html.lenis body { height: auto; }
 }
 .se-skip:focus { transform: translate3d(0, 0, 0); }
 
-/* ---- Luxury frame: hairline outer border + inset brass line ---------- */
-.se-frame { position: relative; border: 1px solid rgba(255, 255, 255, 0.1); background: #050505; }
-.se-frame::before {
-  content: "";
-  position: absolute;
-  inset: 6px;
-  z-index: 25;
-  pointer-events: none;
-  border: 1px solid rgba(217, 166, 90, 0.28);
-}
-
 /* ---- Brass diamond on section hairlines ------------------------------ */
 .se-ornament { position: absolute; left: 50%; top: 0; z-index: 3; width: 168px; height: 9px; transform: translate(-50%, -50%); pointer-events: none; }
 .se-ornament::before {
@@ -308,9 +297,6 @@ html.lenis, html.lenis body { height: auto; }
   background: #050505; border: 1px solid rgba(217, 166, 90, 0.85);
 }
 
-/* ---- Looping layers pause automatically when off-screen --------------- */
-[data-inview="false"] .se-loop { animation-play-state: paused; }
-
 /* ---- Content-visibility: skip rendering off-screen sections ----------- */
 /* Sections below the fold defer paint+layout until near-viewport.
    auto lets the browser decide when to do the work (native lazy rendering). */
@@ -319,23 +305,13 @@ html.lenis, html.lenis body { height: auto; }
   contain-intrinsic-size: 0 600px;
 }
 
-/* ---- Photo-layer motion (transform / opacity only) --------------------- */
-@keyframes se-rays { from { transform: translate3d(0, 0, 0); opacity: 0.55; } to { transform: translate3d(24px, 16px, 0); opacity: 0.85; } }
-@keyframes se-flicker {
-  0%, 100% { opacity: 0.9; } 8% { opacity: 0.78; } 14% { opacity: 1; } 30% { opacity: 0.86; }
-  41% { opacity: 0.97; } 57% { opacity: 0.8; } 72% { opacity: 1; } 86% { opacity: 0.88; }
-}
-@keyframes se-kenburns { from { transform: scale(1); } to { transform: scale(1.05); } }
+/* ---- Seal stamp & reveal motion (transform / opacity only) ------------- */
 @keyframes se-stamp {
   from { opacity: 0; transform: rotate(-12deg) scale(1.5); }
   to { opacity: 1; transform: rotate(-6deg) scale(1); }
 }
 @keyframes se-shine { from { transform: translate3d(-160%, 0, 0) skewX(-18deg); } to { transform: translate3d(320%, 0, 0) skewX(-18deg); } }
-@keyframes se-card-in { from { opacity: 0; transform: translate3d(0, 24px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
 @keyframes se-fade-up { from { opacity: 0; transform: translate3d(0, 8px, 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
-.se-rays { animation: se-rays 14s ease-in-out infinite alternate; will-change: transform, opacity; }
-.se-flicker { animation: se-flicker 7s linear infinite; }
-.se-kb { animation: se-kenburns 18s ease-in-out infinite alternate; will-change: transform; }
 .se-stamp { animation: se-stamp 450ms var(--ease-lux) both; }
 .se-seal-shine {
   position: absolute; top: 0; bottom: 0; left: 0; width: 32%;
@@ -344,10 +320,6 @@ html.lenis, html.lenis body { height: auto; }
   animation: se-shine 700ms ease-out 450ms both;
 }
 .se-fade-up { animation: se-fade-up 500ms var(--ease-lux) both; }
-/* entrance for stacked photo layers: hidden until the frame has been seen, then staggered by --d */
-.se-ent { opacity: 0; }
-[data-seen="true"] .se-ent { animation: se-fade 900ms var(--ease-lux) both; animation-delay: var(--d, 0s); }
-[data-seen="true"] .se-ent-card { opacity: 0; animation: se-card-in 800ms var(--ease-lux) both; animation-delay: var(--d, 0s); }
 
 /* ---- Primary CTA: one gold shine sweep on hover/focus ------------------ */
 .se-cta-shine { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
@@ -370,6 +342,4 @@ html.lenis, html.lenis body { height: auto; }
     scroll-behavior: auto !important;
   }
   .se-ember, .se-grain, .se-spotlight, .se-cursor-ring { display: none; }
-  .se-rays, .se-flicker, .se-kb { animation: none !important; }
-  .se-ent, .se-ent-card { opacity: 1 !important; animation: none !important; }
 }

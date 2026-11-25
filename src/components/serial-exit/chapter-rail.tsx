@@ -10,7 +10,6 @@ const CHAPTERS = [
   { id: "opportunities", label: "What we originate" },
   { id: "process", label: "How it works" },
   { id: "showcase", label: "Verified deals" },
-  { id: "comparison", label: "Why Serial Exit" },
   { id: "contact", label: "Contact" },
   { id: "our-partners", label: "Our Partners" },
 ] as const;

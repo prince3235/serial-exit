@@ -14,7 +14,6 @@ const CoreIdea    = dynamic(() => import("@/components/serial-exit/core-idea").t
 const Opportunities = dynamic(() => import("@/components/serial-exit/opportunities").then(m => m.Opportunities));
 const Process     = dynamic(() => import("@/components/serial-exit/process").then(m => m.Process));
 const Showcase    = dynamic(() => import("@/components/serial-exit/showcase").then(m => m.Showcase));
-const Comparison  = dynamic(() => import("@/components/serial-exit/comparison").then(m => m.Comparison));
 const OurPartners = dynamic(() => import("@/components/serial-exit/our-partners").then(m => m.OurPartners));
 const Contact     = dynamic(() => import("@/components/serial-exit/contact").then(m => m.Contact));
 const Footer      = dynamic(() => import("@/components/serial-exit/footer").then(m => m.Footer));
@@ -27,7 +26,7 @@ const PartnerPortal = dynamic(() => import("@/components/serial-exit/partner-por
 /**
  * Serial Exit — single-page marketing site.
  * Navbar → Hero → CoreIdea → Opportunities → Process → Showcase →
- * Comparison → Contact → OurPartners → Footer, plus a server-gated Partner Portal overlay.
+ * Contact → OurPartners → Footer, plus a server-gated Partner Portal overlay.
  */
 export default function Home() {
   const [portalOpen, setPortalOpen] = useState(false);
@@ -47,7 +46,6 @@ export default function Home() {
           <Opportunities />
           <Process />
           <Showcase />
-          <Comparison />
           <Contact />
           <OurPartners />
         </main>

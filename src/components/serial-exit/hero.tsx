@@ -20,7 +20,7 @@ const EMBERS = [
   { left: "94%", size: 3, dur: 16, delay: 8.5, o: 0.6 },
 ] as const;
 
-const WIDTHS = [640, 1024, 1536, 1672] as const;
+const WIDTHS = [640, 1024, 1536, 1920, 2560, 3840] as const;
 const HERO_AVIF = WIDTHS.map((w) => `/images/hero/hero-${w}.avif ${w}w`).join(", ");
 const HERO_WEBP = WIDTHS.map((w) => `/images/hero/hero-${w}.webp ${w}w`).join(", ");
 const HERO_SIZES = "(min-width: 1024px) 80vw, 100vw";
@@ -81,10 +81,10 @@ export function Hero() {
             <source type="image/avif" srcSet={HERO_AVIF} sizes={HERO_SIZES} />
             <source type="image/webp" srcSet={HERO_WEBP} sizes={HERO_SIZES} />
             <img
-              src="/images/hero/hero-1024.webp"
+              src="/images/hero/hero-1536.webp"
               alt=""
-              width={1672}
-              height={941}
+              width={3840}
+              height={2160}
               fetchPriority="high"
               decoding="async"
               className="absolute inset-0 h-full w-full object-cover object-center"

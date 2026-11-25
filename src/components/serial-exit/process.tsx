@@ -176,12 +176,12 @@ function Layer({ progress, input, op, children }: { progress: MotionValue<number
   return <motion.g style={{ opacity }}>{children}</motion.g>;
 }
 
-/* Deterministic scatter (no Math.random: SSR and client must agree) */
+/* Deterministic scatter (rounded so SSR Node and client V8 match identically) */
 const frac = (n: number) => n - Math.floor(n);
 const SCATTER = Array.from({ length: 34 }, (_, i) => ({
-  x: 24 + frac(Math.sin(i * 12.9898) * 43758.5453) * 352,
-  y: 24 + frac(Math.sin(i * 78.233) * 43758.5453) * 352,
-  r: 1 + frac(Math.sin(i * 37.719) * 43758.5453) * 1.7,
+  x: Number((24 + frac(Math.sin(i * 12.9898) * 43758.5453) * 352).toFixed(2)),
+  y: Number((24 + frac(Math.sin(i * 78.233) * 43758.5453) * 352).toFixed(2)),
+  r: Number((1 + frac(Math.sin(i * 37.719) * 43758.5453) * 1.7).toFixed(2)),
 }));
 const A = "158,52 232,98 250,184 200,282 118,262 84,168 110,92"; // the opportunity (shard A)
 const A_CENTER: [number, number] = [160, 170];

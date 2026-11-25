@@ -7,7 +7,7 @@
  * Bump CACHE_VERSION to evict old caches. Served with `Cache-Control: no-cache`
  * (see firebase.json / next.config.ts) so updates roll out on the next visit.
  */
-const CACHE_VERSION = "se-v3";
+const CACHE_VERSION = "se-v4";
 const STATIC = `${CACHE_VERSION}-static`;
 const PAGES = `${CACHE_VERSION}-pages`;
 const STATIC_RE = /^\/(_next\/static|fonts|images|icons)\//;

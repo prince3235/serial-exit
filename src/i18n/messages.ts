@@ -72,15 +72,8 @@ const en = {
     disclaimer:
       "Illustrative example. Actual opportunities are shared only with verified partners.",
   },
-  comparison: {
-    index: "05",
-    eyebrow: "Serial Exit vs Public Marketplaces",
-    title: "Two different models. Two different outcomes.",
-    leftLabel: "Public Listing Platforms",
-    rightLabel: "Serial Exit",
-  },
   contact: {
-    index: "06",
+    index: "05",
     eyebrow: "Contact",
     title: "Let's discuss what's next.",
     intro:
@@ -179,15 +172,8 @@ const hi: Dict = {
     disclaimer:
       "उदाहरण मात्र। वास्तविक अवसर केवल सत्यापित साझेदारों के साथ साझा किए जाते हैं।",
   },
-  comparison: {
-    index: "05",
-    eyebrow: "सीरियल एग्ज़िट बनाम सार्वजनिक मार्केटप्लेस",
-    title: "दो अलग मॉडल। दो अलग परिणाम।",
-    leftLabel: "सार्वजनिक लिस्टिंग प्लेटफ़ॉर्म",
-    rightLabel: "सीरियल एग्ज़िट",
-  },
   contact: {
-    index: "06",
+    index: "05",
     eyebrow: "संपर्क",
     title: "आइए आगे क्या है उस पर चर्चा करें।",
     intro:

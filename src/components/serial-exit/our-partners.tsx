@@ -16,7 +16,7 @@ export function OurPartners() {
   return (
     <SectionShell
       id="our-partners"
-      className="border-t border-white/[0.06] bg-[#050505] py-14 sm:py-16 md:py-16 lg:py-20 xl:py-20"
+      className="border-t border-white/[0.06] bg-[#0B0B0C] py-14 sm:py-16 md:py-16 lg:py-20 xl:py-20"
     >
       {/* Compact centered header */}
       <div className="flex flex-col items-center gap-3 text-center">

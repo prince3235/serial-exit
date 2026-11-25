@@ -71,6 +71,17 @@ export async function GET(req: NextRequest) {
   const source = (req.nextUrl.searchParams.get("source") || "all") as LeadSource | "all";
   const search = req.nextUrl.searchParams.get("search") || "";
 
+  if (!isFirestoreExplicitlyConfigured()) {
+    return json({
+      ok: true,
+      leads: [],
+      communications: [],
+      logs: [],
+      integrations: getIntegrationHealth(),
+      storageError: "Firestore credentials not configured in this environment.",
+    });
+  }
+
   try {
     if (leadId) {
       const history = await getLeadHistory(leadId);

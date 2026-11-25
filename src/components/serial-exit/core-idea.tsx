@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { coreIdea, showcase } from "@/content/site";
@@ -8,6 +7,10 @@ import { VaultLayer } from "./vault-layer";
 import { SectionShell } from "./section-shell";
 import { Eyebrow } from "./eyebrow";
 import { Reveal } from "./reveal";
+
+const CUBE_WIDTHS = [640, 1024, 1536, 1920, 2560, 3840] as const;
+const CUBE_AVIF = CUBE_WIDTHS.map((w) => `/images/core-idea/cube-${w}.avif ${w}w`).join(", ");
+const CUBE_WEBP = CUBE_WIDTHS.map((w) => `/images/core-idea/cube-${w}.webp ${w}w`).join(", ");
 
 /**
  * CoreIdea — large statement typography that illuminates progressively as the
@@ -37,13 +40,19 @@ export function CoreIdea() {
       {/* Background image — cubes with one glowing amber */}
       <div className="absolute inset-0 z-0">
         <motion.div className="absolute inset-0" style={{ scale: imgScale, y: imgY }}>
-          <Image
-            src="/images/glowing-cube.webp"
-            alt={coreIdea.imageAlt}
-            fill
-            sizes="100vw"
-            className="object-cover object-center"
-          />
+          <picture>
+            <source type="image/avif" srcSet={CUBE_AVIF} sizes="100vw" />
+            <source type="image/webp" srcSet={CUBE_WEBP} sizes="100vw" />
+            <img
+              src="/images/core-idea/cube-1920.webp"
+              alt={coreIdea.imageAlt}
+              width={3840}
+              height={2160}
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover object-center"
+            />
+          </picture>
         </motion.div>
         <div
           className="absolute inset-0"
