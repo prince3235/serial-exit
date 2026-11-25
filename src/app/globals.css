@@ -129,16 +129,11 @@ html.lenis, html.lenis body { height: auto; }
 
   /* ---- Glass card ----------------------------------------------------
      No backdrop-filter on cards: they sit on flat near-black, where a blur
-     is invisible but costs GPU every scroll frame. Use `.glass-blur` only
-     where a card genuinely overlaps imagery. */
+     is invisible but costs GPU every scroll frame. */
   .glass-dark {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.008) 100%);
     border: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
-  }
-  .glass-blur {
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
   }
   /* Hover: an amber edge-light pseudo-element fades in (opacity) and the card
      lifts (transform). Nothing that repaints is animated. */
@@ -169,12 +164,10 @@ html.lenis, html.lenis body { height: auto; }
   }
   .mask-line { overflow: hidden; display: block; }
 
-  .animate-float { animation: se-float 8s ease-in-out infinite; }
   .animate-scroll-dot { animation: se-scroll-dot 2.2s var(--ease-out-expo) infinite; }
 }
 
 /* ---- Keyframes (transform / opacity only) ---------------------------- */
-@keyframes se-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -8px, 0); } }
 @keyframes se-scroll-dot {
   0% { transform: translate3d(0, 0, 0); opacity: 0; }
   30% { opacity: 1; }

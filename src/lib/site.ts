@@ -12,5 +12,5 @@ export const SITE_URL = rawUrl.replace(/\/+$/, "");
 export const SITE_NAME = "Serial Exit";
 export const SITE_TITLE = "Serial Exit — Verified Off-Market Deal Origination | India";
 export const SITE_DESCRIPTION =
-  "Serial Exit is a verified off-market deal origination platform connecting M&A advisors, investment firms and strategic acquirers with confidential, verified business opportunities in India — before they reach the public market.";
+  "Built for M&A advisors, private equity sponsors, family offices, and ambitious founders — Serial Exit originates confidential, verified off-market business opportunities across India before they reach the public market.";
 export const THEME_COLOR = "#050505";

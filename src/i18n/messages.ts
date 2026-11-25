@@ -39,8 +39,8 @@ const en = {
     line3: "the market.",
     subtext:
       "Serial Exit connects M&A advisors, investment firms and strategic acquirers with confidential, verified business opportunities, before they become public.",
-    ctaPrimary: "Partner With Us",
-    ctaSecondary: "How It Works",
+    ctaPrimary: "For Advisors & Investors",
+    ctaSecondary: "For Business Owners",
     strip: ["Verified", "Confidential", "Relationship-Driven", "India-Focused"],
     scroll: "Scroll",
   },
@@ -74,8 +74,30 @@ const en = {
     disclaimer:
       "Illustrative example. Actual opportunities are shared only with verified partners.",
   },
-  contact: {
+  faq: {
     index: "05",
+    eyebrow: "Frequently Asked Questions",
+    title: "Institutional Origination Clarity",
+    intro:
+      "Direct answers regarding our bilateral discretion protocols, partner qualification criteria, and off-market mandate execution.",
+  },
+  ourPartners: {
+    index: "06",
+    eyebrow: "Our Partners",
+    title: "Principal Partners",
+    intro:
+      "The principals leading Serial Exit's origination network and partner mandate execution across India.",
+  },
+  ctaBand: {
+    eyebrow: "Institutional Origination Access",
+    title: "Ready to explore verified off-market deal flow?",
+    intro:
+      "Whether deploying strategic growth capital or evaluating a confidential succession exit, our principals coordinate private bilateral introductions under complete discretion.",
+    ctaPrimary: "For Advisors & Investors",
+    ctaSecondary: "For Business Owners",
+  },
+  contact: {
+    index: "07",
     eyebrow: "Contact",
     title: "Let's discuss what's next.",
     intro:
@@ -141,8 +163,8 @@ const hi: Dict = {
     line3: "।",
     subtext:
       "सीरियल एग्ज़िट M&A सलाहकारों, निवेश फर्मों और रणनीतिक अधिग्रहणकर्ताओं को गोपनीय, सत्यापित व्यावसायिक अवसरों से जोड़ता है — उनके सार्वजनिक होने से पहले।",
-    ctaPrimary: "हमारे साथ जुड़ें",
-    ctaSecondary: "कैसे काम करता है",
+    ctaPrimary: "सलाहकारों और निवेशकों के लिए",
+    ctaSecondary: "व्यवसाय मालिकों के लिए",
     strip: ["सत्यापित", "गोपनीय", "संबंध-आधारित", "भारत-केंद्रित"],
     scroll: "स्क्रॉल",
   },
@@ -176,8 +198,30 @@ const hi: Dict = {
     disclaimer:
       "उदाहरण मात्र। वास्तविक अवसर केवल सत्यापित साझेदारों के साथ साझा किए जाते हैं।",
   },
-  contact: {
+  faq: {
     index: "05",
+    eyebrow: "अक्सर पूछे जाने वाले प्रश्न",
+    title: "संस्थागत उत्पत्ति स्पष्टता",
+    intro:
+      "हमारे द्विपक्षीय गोपनीयता प्रोटोकॉल, पार्टनर योग्यता मानदंड और ऑफ-मार्केट मैंडेट निष्पादन के बारे में सीधे उत्तर।",
+  },
+  ourPartners: {
+    index: "06",
+    eyebrow: "हमारे पार्टनर्स",
+    title: "प्रमुख पार्टनर्स",
+    intro:
+      "भारत भर में सीरियल एग्ज़िट के ओरिजिनेशन नेटवर्क और पार्टनर मैंडेट निष्पादन का नेतृत्व करने वाले प्रमुख।",
+  },
+  ctaBand: {
+    eyebrow: "संस्थागत ओरिजिनेशन एक्सेस",
+    title: "क्या आप सत्यापित ऑफ-मार्केट डील फ्लो तलाशने के लिए तैयार हैं?",
+    intro:
+      "चाहे रणनीतिक विकास पूंजी तैनात करना हो या गोपनीय उत्तराधिकार निकास का मूल्यांकन करना हो, हमारे प्रमुख पूर्ण विवेक के तहत निजी द्विपक्षीय परिचय का समन्वय करते हैं।",
+    ctaPrimary: "सलाहकारों और निवेशकों के लिए",
+    ctaSecondary: "व्यवसाय मालिकों के लिए",
+  },
+  contact: {
+    index: "07",
     eyebrow: "संपर्क",
     title: "आइए आगे क्या है उस पर चर्चा करें।",
     intro:

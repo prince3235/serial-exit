@@ -30,17 +30,19 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       if (!link || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
       const hash = link.getAttribute("href");
       if (!hash || hash === "#") return;
-      const target = document.querySelector<HTMLElement>(hash);
+      const targetSelector = hash.split("?")[0];
+      const target = document.querySelector<HTMLElement>(targetSelector);
       if (!target) return;
       e.preventDefault();
 
-      const offset = hash === "#top" ? 0 : -64;
+      const offset = targetSelector === "#top" ? 0 : -64;
       if (lenis) lenis.scrollTo(target, { offset, duration: 1.4 });
       else target.scrollIntoView();
 
       if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
       target.focus({ preventScroll: true });
       history.replaceState(null, "", hash);
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
     };
 
     document.addEventListener("click", onClick);

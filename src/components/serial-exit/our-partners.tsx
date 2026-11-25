@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Linkedin } from "lucide-react";
+import { useI18n } from "@/i18n/provider";
 import { ourPartners } from "@/content/site";
 import { SectionShell } from "./section-shell";
 import { SectionHeading } from "./section-heading";
@@ -14,6 +15,8 @@ import { cn } from "@/lib/utils";
  * left-aligned section header, verified LinkedIn links, and optional credentials support.
  */
 export function OurPartners() {
+  const { t } = useI18n();
+
   return (
     <SectionShell
       id="our-partners"
@@ -21,10 +24,10 @@ export function OurPartners() {
     >
       {/* Left-aligned header matching other major sections */}
       <SectionHeading
-        index={ourPartners.index}
-        eyebrow={ourPartners.eyebrow}
-        title={ourPartners.title}
-        intro={ourPartners.intro}
+        index={t.ourPartners.index}
+        eyebrow={t.ourPartners.eyebrow}
+        title={t.ourPartners.title}
+        intro={t.ourPartners.intro}
       />
 
       {/* Balanced 2-column side-by-side grid */}

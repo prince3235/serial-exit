@@ -38,8 +38,8 @@ export const hero = {
   subtext:
     "Serial Exit connects M&A advisors, investment firms and strategic acquirers with confidential, verified business opportunities, before they become public.",
   ctas: {
-    primary: { label: "Partner With Us", href: "#contact" },
-    secondary: { label: "How It Works", href: "#process" },
+    primary: { label: "For Advisors & Investors", href: "#contact?tab=partner" },
+    secondary: { label: "For Business Owners", href: "#contact?tab=owner" },
   },
   stripLabels: ["Verified", "Confidential", "Relationship-Driven", "India-Focused"],
 } as const;
@@ -233,7 +233,7 @@ export const ourPartners = {
 };
 
 export const contact = {
-  index: "05",
+  index: "07",
   eyebrow: "Contact",
   title: "Let's discuss what's next.",
   intro:

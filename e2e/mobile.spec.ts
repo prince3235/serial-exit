@@ -10,7 +10,7 @@ test.describe("Mobile", () => {
     await page.getByRole("button", { name: /open menu/i }).click();
     await page.waitForTimeout(800);
     await expect(page.getByRole("link", { name: /how it works/i }).first()).toBeVisible();
-    await expect(page.getByRole("link", { name: /opportunities/i }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /what we do/i }).first()).toBeVisible();
   });
 
   test("no horizontal scroll on mobile", async ({ page }) => {

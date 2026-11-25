@@ -42,7 +42,6 @@ export function WhySerialExit() {
   return (
     <SectionShell id="why-serial-exit" className="border-t border-white/[0.06] bg-[#070708]">
       <SectionHeading
-        index="03"
         eyebrow="The Institutional Advantage"
         title="Why Serial Exit vs. Public Listing Networks"
         intro="Traditional platforms treat M&A like retail marketplaces. Serial Exit operates on an institutional bilateral origination standard designed to protect enterprise value."

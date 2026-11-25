@@ -16,19 +16,18 @@ const Opportunities = dynamic(() => import("@/components/serial-exit/opportuniti
 const WhySerialExit = dynamic(() => import("@/components/serial-exit/why-serial-exit").then(m => m.WhySerialExit));
 const Process     = dynamic(() => import("@/components/serial-exit/process").then(m => m.Process));
 const Showcase    = dynamic(() => import("@/components/serial-exit/showcase").then(m => m.Showcase));
+const Faq         = dynamic(() => import("@/components/serial-exit/faq").then(m => m.Faq));
 const OurPartners = dynamic(() => import("@/components/serial-exit/our-partners").then(m => m.OurPartners));
+const CtaBand     = dynamic(() => import("@/components/serial-exit/cta-band").then(m => m.CtaBand));
 const Contact     = dynamic(() => import("@/components/serial-exit/contact").then(m => m.Contact));
 const Footer      = dynamic(() => import("@/components/serial-exit/footer").then(m => m.Footer));
 
-/* The portal is only needed after a click — keep it out of the initial bundle. */
-const PartnerPortal = dynamic(() => import("@/components/serial-exit/partner-portal").then((m) => m.PartnerPortal), {
-  ssr: false,
-});
+import { PartnerPortal } from "@/components/serial-exit/partner-portal";
 
 /**
  * Serial Exit — single-page marketing site.
- * Navbar → Hero → CoreIdea → Opportunities → Process → Showcase →
- * Contact → OurPartners → Footer, plus a server-gated Partner Portal overlay.
+ * Navbar → Hero → ProofStrip → CoreIdea → Opportunities → WhySerialExit →
+ * Process → Showcase → Faq → OurPartners → CtaBand → Contact → Footer.
  */
 export default function Home() {
   const [portalOpen, setPortalOpen] = useState(false);
@@ -50,8 +49,10 @@ export default function Home() {
           <WhySerialExit />
           <Process />
           <Showcase />
-          <Contact />
+          <Faq />
           <OurPartners />
+          <CtaBand />
+          <Contact />
         </main>
         <Footer onOpenPortal={openPortal} />
       </div>

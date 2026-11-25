@@ -18,11 +18,14 @@ test.describe("Homepage", () => {
     await page.goto("/");
     await page.waitForLoadState("load");
     const headings = page.locator("h2");
-    await expect(headings).toHaveCount(5);
-    await expect(headings.nth(0)).toContainText("transaction spectrum");
-    await expect(headings.nth(2)).toContainText("Every opportunity is verified");
-    await expect(headings.nth(3)).toContainText("Let's discuss");
-    await expect(headings.nth(4)).toContainText("Principal Partners");
+    await expect(headings).toHaveCount(8);
+    await expect(page.locator("#opportunities h2")).toContainText("transaction spectrum");
+    await expect(page.locator("#why-serial-exit h2")).toContainText("Why Serial Exit vs. Public Listing Networks");
+    await expect(page.locator("#process h2")).toContainText("measured path");
+    await expect(page.locator("#showcase h2")).toContainText("Every opportunity is verified");
+    await expect(page.locator("#faq h2")).toContainText("Institutional Origination Clarity");
+    await expect(page.locator("#our-partners h2")).toContainText("Principal Partners");
+    await expect(page.locator("#contact h2")).toContainText("Let's discuss");
     await expect(page.locator("#partners")).toHaveCount(0);
     await expect(page.locator("#mission")).toHaveCount(0);
     await expect(page.locator("#comparison")).toHaveCount(0);
@@ -30,6 +33,7 @@ test.describe("Homepage", () => {
 
     const cards = page.locator("#our-partners article");
     await expect(cards).toHaveCount(2);
+    await cards.first().scrollIntoViewIfNeeded();
     const box1 = await cards.nth(0).boundingBox();
     const box2 = await cards.nth(1).boundingBox();
     expect(box1).toBeTruthy();

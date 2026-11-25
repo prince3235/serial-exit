@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck, Mail, Phone, MapPin } from "lucide-react";
 import { contact, site } from "@/content/site";
@@ -53,6 +53,21 @@ export function Contact() {
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  // Synchronize active tab from hash query param (e.g. #contact?tab=owner)
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash;
+      if (hash.includes("tab=owner")) {
+        setTab("owner");
+      } else if (hash.includes("tab=partner")) {
+        setTab("partner");
+      }
+    };
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
 
   const activeTab = contact.tabs.find((t) => t.key === tab)!;
 
