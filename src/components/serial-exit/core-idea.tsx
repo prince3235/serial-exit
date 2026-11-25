@@ -78,11 +78,11 @@ export function CoreIdea() {
           <Eyebrow index={coreIdea.index}>{coreIdea.eyebrow}</Eyebrow>
         </Reveal>
 
-        <div className="relative mt-12 max-w-5xl lg:mt-16">
+        <div className="relative mt-10 max-w-5xl lg:mt-12">
           {/* Subtle radial dark backing to ensure 100% legibility over any background texture */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -inset-6 -z-10 rounded-3xl bg-[radial-gradient(ellipse_at_30%_50%,rgba(5,5,5,0.92)_0%,rgba(5,5,5,0.65)_60%,transparent_85%)] sm:-inset-10"
+            className="pointer-events-none absolute -inset-6 -z-10 rounded-3xl bg-[radial-gradient(ellipse_at_30%_50%,rgba(5,5,5,0.95)_0%,rgba(5,5,5,0.72)_60%,transparent_85%)] sm:-inset-10"
           />
 
           {/* Line one — muted, large */}
@@ -93,7 +93,7 @@ export function CoreIdea() {
           </Reveal>
 
           {/* Line two — illuminates word-by-word on scroll */}
-          <p className="mt-6 font-sans text-[1.625rem] font-medium leading-[1.18] tracking-[-0.02em] sm:text-[2.25rem] md:text-[2.75rem] lg:mt-10 lg:text-[3.25rem] xl:text-[3.75rem]">
+          <p className="mt-6 font-sans text-[1.625rem] font-medium leading-[1.18] tracking-[-0.02em] sm:text-[2.25rem] md:text-[2.75rem] lg:mt-8 lg:text-[3.25rem] xl:text-[3.75rem]">
             {words.map((word, i) => {
               const start = i / words.length;
               const end = start + 1 / words.length;
@@ -108,6 +108,14 @@ export function CoreIdea() {
               );
             })}
           </p>
+
+          {/* Quiet closing hairline + note so scroll exit feels clean and intentional */}
+          <Reveal delay={0.2} className="mt-12 flex items-center gap-4 lg:mt-16">
+            <span className="h-px w-12 bg-amber-500/40" aria-hidden="true" />
+            <span className="font-mono-display text-[0.6875rem] tracking-[0.24em] text-muted-foreground">
+              Off-Market Bilateral Mandates
+            </span>
+          </Reveal>
         </div>
       </div>
     </SectionShell>

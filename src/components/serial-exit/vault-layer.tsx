@@ -117,10 +117,10 @@ export function VaultLayer({ lines }: { lines: string[] }) {
     <div
       ref={ref}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-[1] overflow-hidden [mask-image:radial-gradient(ellipse_80%_65%_at_50%_50%,transparent_25%,rgba(0,0,0,0.6)_65%,black_100%)] [-webkit-mask-image:radial-gradient(ellipse_80%_65%_at_50%_50%,transparent_25%,rgba(0,0,0,0.6)_65%,black_100%)]"
+      className="pointer-events-none absolute inset-0 z-[1] overflow-hidden opacity-90 [mask-image:radial-gradient(ellipse_75%_60%_at_50%_50%,transparent_30%,rgba(0,0,0,0.5)_65%,black_100%)] [-webkit-mask-image:radial-gradient(ellipse_75%_60%_at_50%_50%,transparent_30%,rgba(0,0,0,0.5)_65%,black_100%)]"
     >
-      {/* base layer: subtle texture, masked out from text center */}
-      <VaultText lines={lines} className="text-brass/[0.10]" />
+      {/* base layer: subtle texture (opacity ~0.08-0.12), masked out from text center */}
+      <VaultText lines={lines} className="text-brass/[0.09]" />
 
       {/* lens: bright copy, counter-translated so it stays registered */}
       <div

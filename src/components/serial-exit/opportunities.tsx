@@ -43,7 +43,7 @@ export function Opportunities() {
               delay={i * 0.07}
               className={cn(wide ? "lg:col-span-4" : "lg:col-span-2")}
             >
-              <GlassCard className="group flex h-full min-h-[240px] flex-col justify-between p-6 sm:p-7">
+              <GlassCard className="group flex h-full min-h-[220px] flex-col justify-between p-6 sm:p-7">
                 {/* Top header: glyph icon + index + interactive amber hairline */}
                 <div>
                   <div className="flex items-center justify-between">
@@ -59,23 +59,23 @@ export function Opportunities() {
                   </div>
 
                   {/* Title with strictly aligned baselines */}
-                  <div className="mt-6">
+                  <div className="mt-5">
                     <h3 className="font-sans text-xl font-medium tracking-[-0.01em] text-foreground sm:text-2xl">
                       {item.title}
                     </h3>
-                    <p className="mt-2.5 text-[0.875rem] leading-relaxed text-muted-foreground">
+                    <p className="mt-2 text-[0.875rem] leading-relaxed text-muted-foreground max-w-[56ch]">
                       {item.desc}
                     </p>
                   </div>
                 </div>
 
-                {/* Bottom line: "Typical for: ..." institutional qualification */}
-                <div className="mt-6 border-t border-white/[0.06] pt-3.5">
+                {/* Bottom line: "Typical for: ..." institutional qualification in uniform style */}
+                <div className="mt-5 border-t border-white/[0.06] pt-3.5">
                   <p className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-2">
                     <span className="shrink-0 font-mono-display text-[0.6875rem] tracking-[0.2em] text-amber-400">
                       Typical for:
                     </span>
-                    <span className="text-[0.8125rem] leading-snug text-foreground/75">
+                    <span className="text-[0.8125rem] leading-snug text-foreground/80">
                       {(item as { typicalFor?: string }).typicalFor}
                     </span>
                   </p>
