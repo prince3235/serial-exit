@@ -2,8 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, type FormEvent } from "react";
-import { ArrowRight, ShieldCheck } from "lucide-react";
-import { contact } from "@/content/site";
+import { ArrowRight, ShieldCheck, Mail, Phone, MapPin } from "lucide-react";
+import { contact, site } from "@/content/site";
 import { SectionShell } from "./section-shell";
 import { SectionHeading } from "./section-heading";
 import { Reveal } from "./reveal";
@@ -118,7 +118,7 @@ export function Contact() {
   return (
     <SectionShell id="contact" className="border-t border-white/[0.06] bg-[#050505]">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
-        {/* Left: heading + confidentiality */}
+        {/* Left: heading + "what happens next" timeline + direct contact */}
         <div className="lg:col-span-5">
           <SectionHeading
             index={contact.index}
@@ -127,11 +127,83 @@ export function Contact() {
             intro={contact.intro}
           />
 
-          <Reveal delay={0.2} className="mt-10">
+          {/* Single clear confidentiality commitment */}
+          <Reveal delay={0.15} className="mt-8">
             <div className="flex items-start gap-3 border border-white/[0.08] bg-white/[0.015] p-5">
               <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" strokeWidth={1.5} />
-              <p className="text-[0.8125rem] leading-relaxed text-foreground/70">
+              <p className="text-[0.8125rem] leading-relaxed text-foreground/80">
                 {contact.confidentiality}
+              </p>
+            </div>
+          </Reveal>
+
+          {/* "What happens next" 3-step timeline */}
+          <Reveal delay={0.22} className="mt-6">
+            <div className="border border-white/[0.08] bg-white/[0.015] p-6">
+              <h3 className="font-mono-display text-[0.6875rem] tracking-[0.28em] text-amber-400">
+                What Happens Next
+              </h3>
+              <ol className="mt-5 flex flex-col gap-4">
+                <li className="flex items-start gap-3.5">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-amber-500/40 bg-amber-500/10 font-mono-display text-[0.625rem] font-semibold text-amber-300">
+                    1
+                  </span>
+                  <div>
+                    <h4 className="font-sans text-[0.875rem] font-medium text-foreground">Review within 24h</h4>
+                    <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+                      Our principals evaluate your mandate parameters or business profile against active off-market deal flow.
+                    </p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3.5">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-amber-500/40 bg-amber-500/10 font-mono-display text-[0.625rem] font-semibold text-amber-300">
+                    2
+                  </span>
+                  <div>
+                    <h4 className="font-sans text-[0.875rem] font-medium text-foreground">Verification Call</h4>
+                    <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+                      A discreet 15-minute briefing to calibrate strategic criteria, deal size parameters, and confidentiality protocols.
+                    </p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3.5">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-amber-500/40 bg-amber-500/10 font-mono-display text-[0.625rem] font-semibold text-amber-300">
+                    3
+                  </span>
+                  <div>
+                    <h4 className="font-sans text-[0.875rem] font-medium text-foreground">Confidential Introduction</h4>
+                    <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">
+                      Targeted one-to-one introductions under bilateral NDA — zero public listings or broadcast distributions.
+                    </p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </Reveal>
+
+          {/* Direct partner contact & trust note */}
+          <Reveal delay={0.28} className="mt-6">
+            <div className="flex flex-col gap-3 border border-white/[0.08] bg-white/[0.015] p-5">
+              <div className="flex flex-col gap-2 font-mono-display text-[0.6875rem] tracking-[0.2em] text-foreground/80">
+                <div className="flex items-center gap-2.5">
+                  <Mail className="h-3.5 w-3.5 text-amber-400" />
+                  <a href={`mailto:${site.contact.email}`} className="transition-colors hover:text-amber-300">
+                    {site.contact.email}
+                  </a>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <Phone className="h-3.5 w-3.5 text-amber-400" />
+                  <a href={`tel:${site.contact.phone.split(',')[0].trim()}`} className="transition-colors hover:text-amber-300">
+                    {site.contact.phone}
+                  </a>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <MapPin className="h-3.5 w-3.5 text-amber-400" />
+                  <span>{site.contact.location}</span>
+                </div>
+              </div>
+              <p className="border-t border-white/[0.06] pt-3 text-[0.75rem] leading-relaxed text-muted-foreground">
+                Strict discretion guaranteed. We never broadcast deal teasers, mass-distribute decks, or publicly list partner mandates.
               </p>
             </div>
           </Reveal>
@@ -294,7 +366,7 @@ export function Contact() {
                           value={form.role}
                           onChange={(e) => update("role", e.target.value)}
                           className={cn(
-                            "w-full appearance-none border border-white/[0.1] bg-[#050505] px-4 py-3.5 text-[0.9375rem] text-foreground transition-colors duration-300 focus:border-amber-500/60 focus:outline-none",
+                            "w-full appearance-none border border-white/[0.16] bg-[#050505] px-4 py-3.5 text-[0.9375rem] text-foreground transition-colors duration-300 hover:border-white/[0.28] focus:border-amber-500/80 focus:outline-none",
                             !form.role && "text-foreground/65"
                           )}
                         >
@@ -330,7 +402,7 @@ export function Contact() {
                             : contact.fields.messageOwnerPlaceholder
                         }
                         className={cn(
-                          "w-full resize-none border border-white/[0.1] bg-[#050505] px-4 py-3.5 text-[0.9375rem] text-foreground placeholder:text-foreground/65 transition-colors duration-300 focus:border-amber-500/60 focus:outline-none"
+                          "w-full resize-none border border-white/[0.16] bg-[#050505] px-4 py-3.5 text-[0.9375rem] text-foreground placeholder:text-foreground/50 transition-colors duration-300 hover:border-white/[0.28] focus:border-amber-500/80 focus:outline-none"
                         )}
                       />
                       {errors.message && <p className="text-[0.75rem] text-amber-400">{errors.message}</p>}
@@ -340,8 +412,8 @@ export function Contact() {
                       <Button type="submit" size="lg" withArrow magnetic={false}>
                         {submitting ? "Sending…" : contact.submit}
                       </Button>
-                      <p className="font-mono-display text-[0.5625rem] tracking-[0.25em] text-foreground/65">
-                        Encrypted in transit · Confidential
+                      <p className="font-mono-display text-[0.625rem] tracking-[0.25em] text-foreground/70">
+                        Encrypted in transit · Bilateral NDA
                       </p>
                     </div>
                   </motion.form>
@@ -388,7 +460,9 @@ function Field({
         aria-describedby={error ? `${label}-err` : undefined}
         className={cn(
           "w-full border bg-[#050505] px-4 py-3.5 text-[0.9375rem] text-foreground transition-colors duration-300 focus:outline-none",
-          error ? "border-amber-500/70" : "border-white/[0.1] focus:border-amber-500/60"
+          error
+            ? "border-amber-500/80"
+            : "border-white/[0.16] hover:border-white/[0.28] focus:border-amber-500/80"
         )}
       />
       {error && (

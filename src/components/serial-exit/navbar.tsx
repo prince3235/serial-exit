@@ -26,7 +26,7 @@ export function Navbar({ onOpenPortal }: { onOpenPortal?: () => void }) {
 
   useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 24));
 
-  // Scroll-spy
+  // Scroll-spy — accurately highlights active section; clears when none in view
   useEffect(() => {
     const sections = nav.links
       .map((l) => document.getElementById(l.href.slice(1)))
@@ -34,10 +34,12 @@ export function Navbar({ onOpenPortal }: { onOpenPortal?: () => void }) {
     if (!sections.length) return;
     const obs = new IntersectionObserver(
       (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive("#" + visible.target.id);
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        setActive(visible ? "#" + visible.target.id : "");
       },
-      { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] }
+      { rootMargin: "-30% 0px -40% 0px", threshold: [0, 0.15, 0.3, 0.5] }
     );
     sections.forEach((s) => obs.observe(s));
     return () => obs.disconnect();
@@ -63,8 +65,10 @@ export function Navbar({ onOpenPortal }: { onOpenPortal?: () => void }) {
 
   const navLabelMap: Record<string, string> = {
     Platform: t.nav.platform,
+    "What We Do": t.nav.whatWeDo,
     "How It Works": t.nav.howItWorks,
-    Opportunities: t.nav.opportunities,
+    Deals: t.nav.deals,
+    Partners: t.nav.partners,
   };
 
   const chip =

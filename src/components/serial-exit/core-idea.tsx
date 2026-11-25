@@ -7,6 +7,7 @@ import { VaultLayer } from "./vault-layer";
 import { SectionShell } from "./section-shell";
 import { Eyebrow } from "./eyebrow";
 import { Reveal } from "./reveal";
+import { safeRange } from "@/lib/scroll-range";
 
 const CUBE_WIDTHS = [640, 1024, 1536, 1920, 2560, 3840] as const;
 const CUBE_AVIF = CUBE_WIDTHS.map((w) => `/images/core-idea/cube-${w}.avif ${w}w`).join(", ");
@@ -77,10 +78,16 @@ export function CoreIdea() {
           <Eyebrow index={coreIdea.index}>{coreIdea.eyebrow}</Eyebrow>
         </Reveal>
 
-        <div className="mt-12 max-w-5xl lg:mt-16">
+        <div className="relative mt-12 max-w-5xl lg:mt-16">
+          {/* Subtle radial dark backing to ensure 100% legibility over any background texture */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-6 -z-10 rounded-3xl bg-[radial-gradient(ellipse_at_30%_50%,rgba(5,5,5,0.92)_0%,rgba(5,5,5,0.65)_60%,transparent_85%)] sm:-inset-10"
+          />
+
           {/* Line one — muted, large */}
           <Reveal delay={0.1}>
-            <p className="font-sans text-[1.625rem] font-medium leading-[1.18] tracking-[-0.02em] text-foreground/65 sm:text-[2.25rem] md:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.75rem]">
+            <p className="font-sans text-[1.625rem] font-medium leading-[1.18] tracking-[-0.02em] text-foreground/80 sm:text-[2.25rem] md:text-[2.75rem] lg:text-[3.25rem] xl:text-[3.75rem]">
               {coreIdea.lineOne}
             </p>
           </Reveal>
@@ -116,9 +123,10 @@ function Word({
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
   range: [number, number];
 }) {
-  // One compositor-friendly property per word. (Previously opacity AND two
-  // colour interpolations were evaluated for every word on every frame.)
-  const opacity = useTransform(progress, range, [0.2, 1]);
+  // Safe scroll range clamped strictly monotonically
+  const endpoints = safeRange(range) as [number, number];
+  // Minimum illuminated word opacity raised to 0.35 for superior legibility
+  const opacity = useTransform(progress, endpoints, [0.35, 1]);
   const isAmber = children.replace(/[^a-zA-Z]/g, "").toLowerCase() === "next";
   return (
     <motion.span

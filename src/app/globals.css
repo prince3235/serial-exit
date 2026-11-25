@@ -48,8 +48,8 @@
   --foreground: #f4f1ec;
   --card: #111112;
   --muted: #0b0b0c;
-  /* #a8a29a on #050505 ≈ 8.4:1 — passes WCAG AA for body text */
-  --muted-foreground: #a8a29a;
+  /* Institutional contrast: #bdb7ae on #050505 ≈ 11:1 — exceeds WCAG AAA */
+  --muted-foreground: #bdb7ae;
   --border: rgba(255, 255, 255, 0.08);
   --ring: #ff7a1a;
 
@@ -74,6 +74,8 @@
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.625;
     font-feature-settings: "ss01", "cv11";
     overflow-x: clip; /* clip (not hidden) so position:sticky keeps working */
   }

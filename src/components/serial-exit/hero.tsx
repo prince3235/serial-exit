@@ -133,15 +133,15 @@ export function Hero() {
         ))}
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1440px] flex-col justify-between px-5 pb-10 pt-28 sm:px-8 sm:pb-14 sm:pt-32 lg:px-12 lg:pb-20 lg:pt-40">
+      {/* Content — vertically balanced for laptop & desktop 100svh folds */}
+      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1440px] flex-col justify-between px-5 pb-8 pt-24 sm:px-8 sm:pb-10 sm:pt-28 lg:px-12 lg:pb-10 lg:pt-28 xl:pb-12 xl:pt-32">
         <div className="se-rise flex items-center gap-3" style={d(0.1)}>
-          <span className="h-px w-8 bg-amber-500/60" aria-hidden="true" />
-          <span className="font-mono-display text-[0.6875rem] tracking-[0.28em] text-amber-400">{t.hero.eyebrow}</span>
+          <span className="h-px w-8 bg-amber-500/80" aria-hidden="true" />
+          <span className="font-mono-display text-[0.75rem] font-medium tracking-[0.28em] text-amber-300 sm:text-[0.8125rem]">{t.hero.eyebrow}</span>
         </div>
 
-        <div className="flex max-w-4xl flex-col gap-8 py-12">
-          <h1 className="font-sans text-[2.5rem] font-medium leading-[1.02] tracking-[-0.03em] text-foreground sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6rem]">
+        <div className="flex max-w-4xl flex-col gap-6 py-4 sm:py-6 lg:gap-6 lg:py-5 xl:gap-8 xl:py-8">
+          <h1 className="font-sans text-[2.25rem] font-medium leading-[1.03] tracking-[-0.03em] text-foreground sm:text-[3.25rem] md:text-[4rem] lg:text-[4.75rem] xl:text-[5.5rem]">
             {headlineLines.map((line, i) => (
               // padding/negative-margin keeps descenders (g, y) from being clipped by the mask
               <span key={i} className="mask-line -mb-[0.1em] pb-[0.1em]">
@@ -153,7 +153,7 @@ export function Hero() {
           </h1>
 
           <p
-            className="se-rise max-w-xl text-[0.9375rem] leading-relaxed text-foreground/75 sm:text-base lg:text-[1.0625rem]"
+            className="se-rise max-w-xl text-[0.9375rem] leading-relaxed text-foreground/85 sm:text-base lg:text-[1.0625rem]"
             style={d(0.5)}
           >
             {t.hero.subtext}
@@ -169,25 +169,25 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="se-fade flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between" style={d(0.9)}>
+        <div className="se-fade flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between" style={d(0.9)}>
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 sm:gap-x-10">
             {t.hero.strip.map((label) => (
               <li
                 key={label}
-                className="flex items-center gap-2 font-mono-display text-[0.625rem] tracking-[0.28em] text-foreground/70"
+                className="flex items-center gap-2 font-mono-display text-[0.6875rem] tracking-[0.28em] text-foreground/85 sm:text-[0.75rem]"
               >
-                <span className="h-1 w-1 rounded-full bg-amber-500/80" aria-hidden="true" />
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden="true" />
                 {label}
               </li>
             ))}
           </ul>
 
           <a href="#core-idea" aria-label="Scroll to content" className="group hidden flex-col items-center gap-2 sm:flex">
-            <span className="font-mono-display text-[0.5625rem] tracking-[0.3em] text-foreground/60 group-hover:text-amber-400">
+            <span className="font-mono-display text-[0.625rem] tracking-[0.3em] text-foreground/75 group-hover:text-amber-400">
               {t.hero.scroll}
             </span>
-            <span className="relative flex h-9 w-5 items-start justify-center rounded-full border border-white/20">
-              <span className="mt-1.5 h-1.5 w-1 rounded-full bg-amber-500 animate-scroll-dot" />
+            <span className="relative flex h-8 w-4.5 items-start justify-center rounded-full border border-white/25">
+              <span className="mt-1 h-1.5 w-1 rounded-full bg-amber-400 animate-scroll-dot" />
             </span>
           </a>
         </div>

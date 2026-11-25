@@ -24,8 +24,10 @@ type Dict = typeof en;
 const en = {
   nav: {
     platform: "Platform",
+    whatWeDo: "What We Do",
     howItWorks: "How It Works",
-    opportunities: "Opportunities",
+    deals: "Deals",
+    partners: "Partners",
     cta: "Partner With Us",
     language: "Language",
     portal: "Partner Portal",
@@ -124,8 +126,10 @@ const en = {
 const hi: Dict = {
   nav: {
     platform: "प्लेटफ़ॉर्म",
+    whatWeDo: "हम क्या करते हैं",
     howItWorks: "कैसे काम करता है",
-    opportunities: "अवसर",
+    deals: "डील्स",
+    partners: "पार्टनर्स",
     cta: "हमारे साथ जुड़ें",
     language: "भाषा",
     portal: "पार्टनर पोर्टल",

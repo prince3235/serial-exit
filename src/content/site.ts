@@ -22,8 +22,10 @@ export const site = {
 export const nav = {
   links: [
     { label: "Platform", href: "#core-idea" },
+    { label: "What We Do", href: "#opportunities" },
     { label: "How It Works", href: "#process" },
-    { label: "Opportunities", href: "#showcase" },
+    { label: "Deals", href: "#showcase" },
+    { label: "Partners", href: "#our-partners" },
   ],
   cta: { label: "Partner With Us", href: "#contact" },
 } as const;
@@ -272,17 +274,17 @@ export const footer = {
     {
       heading: "Platform",
       links: [
-        { label: "Core Idea", href: "#core-idea" },
-        { label: "Opportunities", href: "#opportunities" },
-        { label: "Process", href: "#process" },
+        { label: "Platform", href: "#core-idea" },
+        { label: "What We Do", href: "#opportunities" },
+        { label: "How It Works", href: "#process" },
       ],
     },
     {
       heading: "Engage",
       links: [
         { label: "Partner With Us", href: "#contact" },
-        { label: "Verified Opportunities", href: "#showcase" },
-        { label: "Our Partners", href: "#our-partners" },
+        { label: "Deals", href: "#showcase" },
+        { label: "Partners", href: "#our-partners" },
       ],
     },
   ],

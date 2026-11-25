@@ -7,15 +7,15 @@ Standard: Institutional-Grade Luxury Aesthetic (#050505, #ff7a1a, #d9a65a)
 
 ## P0 — Core Fixes (Highest Impact)
 
-- [ ] **P0-1** Core Idea legibility: background ticker opacity (~0.08–0.12) with radial/linear mask; raise illuminated-word min opacity from 0.2 to ~0.35.
+- [x] **P0-1** Core Idea legibility: background ticker opacity (~0.08–0.12) with radial/linear mask; raise illuminated-word min opacity from 0.2 to ~0.35.
   - *Acceptance Criteria*: Headline fully legible across 360px–1440px; ticker remains subtle background texture; zero collision.
-- [ ] **P0-2** Navbar & Scroll-spy: New labels: Platform (`#core-idea`), What We Do (`#opportunities`), How It Works (`#process`), Deals (`#showcase`), Partners (`#our-partners`). Scroll-spy highlights active section and clears when none in view. Footer and i18n (en/hi) aligned.
+- [x] **P0-2** Navbar & Scroll-spy: New labels: Platform (`#core-idea`), What We Do (`#opportunities`), How It Works (`#process`), Deals (`#showcase`), Partners (`#our-partners`). Scroll-spy highlights active section and clears when none in view. Footer and i18n (en/hi) aligned.
   - *Acceptance Criteria*: Navbar links route correctly; scroll spy reflects viewport accurately; footer matches; en/hi messages match.
-- [ ] **P0-3** Hero fold responsiveness: Ensure tag row and scroll cue are visible on laptop screens (1366x768, 1440x900) via `min-h-[100svh]` and vertical balance. Raise eyebrow contrast and size.
+- [x] **P0-3** Hero fold responsiveness: Ensure tag row and scroll cue are visible on laptop screens (1366x768, 1440x900) via `min-h-[100svh]` and vertical balance. Raise eyebrow contrast and size.
   - *Acceptance Criteria*: Tag row and cue visible at 1366x768 and 1440x900; eyebrow contrast ratio >= 4.5:1.
-- [ ] **P0-4** Contact section & Trust block: Remove duplicate confidence disclaimer. Add "What happens next" 3-step block (Review within 24h -> Verification call -> Confidential introduction), direct email/phone from site.ts, and trust note. Strengthen input borders. Preserve honeypot, validation, POST /api/contact behavior, and e2e test pass.
+- [x] **P0-4** Contact section & Trust block: Remove duplicate confidence disclaimer. Add "What happens next" 3-step block (Review within 24h -> Verification call -> Confidential introduction), direct email/phone from site.ts, and trust note. Strengthen input borders. Preserve honeypot, validation, POST /api/contact behavior, and e2e test pass.
   - *Acceptance Criteria*: No duplicate copy; left column features 3-step timeline and direct contact; input borders crisp; contact test passes.
-- [ ] **P0-4b** Typography & Contrast tokens: Body 15–16px, labels >= 11px, body color ~#bdb7ae on dark. Tokenized in globals.css.
+- [x] **P0-4b** Typography & Contrast tokens: Body 15–16px, labels >= 11px, body color ~#bdb7ae on dark. Tokenized in globals.css.
   - *Acceptance Criteria*: Contrast ratio >= 4.5:1 for body copy; labels >= 11px; tokenized via CSS variables.
 
 ---
