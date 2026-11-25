@@ -65,14 +65,15 @@ function PartnerCard({ person }: { person: Partner }) {
           aria-hidden="true"
           className="pointer-events-none absolute -inset-1.5 rounded-full border border-brass/45 opacity-35 transition-opacity duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100"
         />
-        <div className="relative h-24 w-24 overflow-hidden rounded-full border border-white/[0.12] bg-[#0B0B0C] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] sm:h-28 sm:w-28">
+        <div className="relative h-28 w-28 overflow-hidden rounded-full border border-white/[0.12] bg-[#0B0B0C] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03] sm:h-32 sm:w-32">
           {person.photo ? (
             <Image
               src={person.photo}
               alt={`${person.name} — ${person.designation}`}
               fill
-              className="object-cover object-top"
-              sizes="112px"
+              unoptimized
+              className="object-cover object-center"
+              sizes="(min-width: 640px) 256px, 224px"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_25%,rgba(255,122,26,0.12),transparent_70%)]">
