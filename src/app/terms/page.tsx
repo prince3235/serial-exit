@@ -21,6 +21,7 @@ export default function TermsPage() {
               src="/images/logo-white.png"
               alt="Serial Exit"
               fill
+              unoptimized
               className="object-contain object-left"
               sizes="170px"
             />

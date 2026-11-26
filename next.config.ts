@@ -50,6 +50,7 @@ const nextConfig: NextConfig = {
   compress: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 95],
     deviceSizes: [640, 828, 1080, 1280, 1536, 1920, 2560],
     minimumCacheTTL: 60 * 60 * 24 * 365,
   },

@@ -34,12 +34,15 @@ test.describe("Homepage", () => {
     const cards = page.locator("#our-partners article");
     await expect(cards).toHaveCount(2);
     await cards.first().scrollIntoViewIfNeeded();
-    const box1 = await cards.nth(0).boundingBox();
-    const box2 = await cards.nth(1).boundingBox();
-    expect(box1).toBeTruthy();
-    expect(box2).toBeTruthy();
-    expect(box2!.x).toBeGreaterThan(box1!.x);
-    expect(Math.abs(box1!.y - box2!.y)).toBeLessThan(10);
+    await expect
+      .poll(async () => {
+        const b1 = await cards.nth(0).boundingBox();
+        const b2 = await cards.nth(1).boundingBox();
+        if (!b1 || !b2) return 999;
+        expect(b2.x).toBeGreaterThan(b1.x);
+        return Math.abs(b1.y - b2.y);
+      })
+      .toBeLessThan(10);
   });
 
   test("nav links smooth-scroll to sections", async ({ page }) => {
@@ -66,5 +69,78 @@ test.describe("Homepage", () => {
     const footer = page.locator("footer");
     await expect(footer).toContainText("not a broker-dealer");
     await expect(footer).toContainText("© 2026 Serial Exit");
+  });
+
+  test("hero CTA 'For Business Owners' scrolls to contact and activates owner tab", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("load");
+
+    const ownerBtn = page.locator('a[href="#contact?tab=owner"]').first();
+    await expect(ownerBtn).toBeVisible();
+    await ownerBtn.click();
+
+    const contact = page.locator("#contact");
+    await expect(contact).toBeInViewport({ ratio: 0.1, timeout: 10_000 });
+    await expect(page.getByRole("tab", { name: /business owner/i })).toHaveAttribute("aria-selected", "true");
+    const select = page.getByRole("combobox", { name: /role/i });
+    const options = await select.locator("option").allTextContents();
+    expect(options).toContain("Business Sale");
+    expect(options).not.toContain("Private Equity Firm");
+  });
+
+  test("hero CTA 'For Advisors & Investors' scrolls to contact and activates partner tab", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("load");
+
+    const partnerBtn = page.locator('a[href="#contact?tab=partner"]').first();
+    await expect(partnerBtn).toBeVisible();
+    await partnerBtn.click();
+
+    const contact = page.locator("#contact");
+    await expect(contact).toBeInViewport({ ratio: 0.1, timeout: 10_000 });
+    await expect(page.getByRole("tab", { name: /partner/i })).toHaveAttribute("aria-selected", "true");
+    const select = page.getByRole("combobox", { name: /role/i });
+    const options = await select.locator("option").allTextContents();
+    expect(options).toContain("Private Equity Firm");
+  });
+
+  test("CTA band buttons switch tabs and scroll to contact", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("load");
+
+    const bandOwner = page.locator('section[aria-label="Direct Mandate Initiation"] a[href="#contact?tab=owner"]');
+    await bandOwner.scrollIntoViewIfNeeded();
+    await bandOwner.click();
+    await expect(page.locator("#contact")).toBeInViewport({ ratio: 0.1, timeout: 10_000 });
+    await expect(page.getByRole("tab", { name: /business owner/i })).toHaveAttribute("aria-selected", "true");
+
+    const bandPartner = page.locator('section[aria-label="Direct Mandate Initiation"] a[href="#contact?tab=partner"]');
+    await bandPartner.scrollIntoViewIfNeeded();
+    await bandPartner.click();
+    await expect(page.locator("#contact")).toBeInViewport({ ratio: 0.1, timeout: 10_000 });
+    await expect(page.getByRole("tab", { name: /partner/i })).toHaveAttribute("aria-selected", "true");
+  });
+
+  test("navbar does not contain language switcher (EN)", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("load");
+    const langBtn = page.locator('button[aria-label="Language"]');
+    await expect(langBtn).toHaveCount(0);
+    const globeIcon = page.locator("header svg.lucide-globe");
+    await expect(globeIcon).toHaveCount(0);
+  });
+
+  test("proof strip renders 4 compact institutional points", async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("load");
+    const strip = page.locator('section[aria-label="Institutional Standards"]');
+    await expect(strip).toBeVisible();
+    await expect(strip).toContainText("Transaction Types");
+    await expect(strip).toContainText("Off-Market");
+    await expect(strip).toContainText("Coverage");
+    await expect(strip).toContainText("Verified Introductions");
+    const box = await strip.boundingBox();
+    expect(box).toBeTruthy();
+    expect(box!.height).toBeLessThan(140);
   });
 });

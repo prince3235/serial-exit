@@ -25,31 +25,98 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
           autoRaf: true,
         });
 
-    const onClick = (e: MouseEvent) => {
-      const link = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
-      if (!link || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-      const hash = link.getAttribute("href");
-      if (!hash || hash === "#") return;
-      const targetSelector = hash.split("?")[0];
-      const target = document.querySelector<HTMLElement>(targetSelector);
-      if (!target) return;
-      e.preventDefault();
+    const parseTab = (hash: string): "owner" | "partner" | null => {
+      const query = hash.split("?")[1];
+      if (!query) return null;
+      const tab = new URLSearchParams(query).get("tab");
+      return tab === "owner" || tab === "partner" ? tab : null;
+    };
 
-      const offset = targetSelector === "#top" ? 0 : window.innerWidth < 1024 ? -68 : -80;
-      setTimeout(() => {
-        if (lenis) lenis.scrollTo(target, { offset, duration: 1.2 });
-        else target.scrollIntoView();
-      }, 20);
+    const scrollToHash = (hash: string) => {
+      if (!hash || hash === "#") return false;
+      const targetId = hash.split("?")[0].replace(/^#/, "");
+      if (!targetId) return false;
+      const target = document.getElementById(targetId);
+      if (!target) return false;
+
+      const offset = targetId === "top" ? 0 : window.innerWidth < 1024 ? -68 : -80;
+      if (lenis) {
+        lenis.resize();
+        lenis.scrollTo(target, { offset, duration: 0.9 });
+      } else {
+        const top = target.getBoundingClientRect().top + window.scrollY + offset;
+        window.scrollTo({ top, behavior: reduce ? "auto" : "smooth" });
+      }
 
       if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
       target.focus({ preventScroll: true });
-      history.replaceState(null, "", hash);
+
+      const tab = parseTab(hash);
+      if (tab) {
+        window.dispatchEvent(new CustomEvent("serial-exit:tab", { detail: tab }));
+      }
+      return true;
+    };
+
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      const link = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
+      if (!link) return;
+      const hash = link.getAttribute("href");
+      if (!hash || hash === "#") return;
+
+      const targetId = hash.split("?")[0].replace(/^#/, "");
+      if (!targetId || !document.getElementById(targetId)) return;
+
+      e.preventDefault();
+      if (window.location.hash !== hash) {
+        history.pushState(null, "", hash);
+      }
       window.dispatchEvent(new HashChangeEvent("hashchange"));
+
+      // If a modal/drawer (e.g. mobile nav) just locked <html> overflow and is closing
+      // in this click's React state update, wait for overflow unlock before scrolling.
+      if (document.documentElement.style.overflow === "hidden") {
+        requestAnimationFrame(() => requestAnimationFrame(() => scrollToHash(hash)));
+      } else {
+        scrollToHash(hash);
+      }
+    };
+
+    const onScrollTop = () => {
+      if (lenis) {
+        lenis.resize();
+        lenis.scrollTo(0, { duration: 0.9 });
+      } else {
+        window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      }
+    };
+
+    const onPopState = () => {
+      if (window.location.hash && window.location.hash !== "#") {
+        scrollToHash(window.location.hash);
+      }
     };
 
     document.addEventListener("click", onClick);
+    window.addEventListener("serial-exit:scroll-top", onScrollTop);
+    window.addEventListener("popstate", onPopState);
+
+    // Handle initial hash on page landing (e.g. /#contact?tab=owner)
+    const initialHash = window.location.hash;
+    if (initialHash && initialHash !== "#") {
+      const tryInitial = (attempts: number) => {
+        if (!scrollToHash(initialHash) && attempts > 0) {
+          setTimeout(() => tryInitial(attempts - 1), 80);
+        }
+      };
+      requestAnimationFrame(() => tryInitial(15));
+    }
+
     return () => {
       document.removeEventListener("click", onClick);
+      window.removeEventListener("serial-exit:scroll-top", onScrollTop);
+      window.removeEventListener("popstate", onPopState);
       lenis?.destroy();
     };
   }, []);

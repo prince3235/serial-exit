@@ -66,10 +66,20 @@ export function Hero3D({ onReady, onFail }: { onReady: () => void; onFail: () =>
 function hasWebGL(): boolean {
   try {
     const c = document.createElement("canvas");
-    const gl = (c.getContext("webgl2") || c.getContext("webgl")) as WebGLRenderingContext | null;
+    const opts: WebGLContextAttributes = { failIfMajorPerformanceCaveat: true };
+    const gl = (c.getContext("webgl2", opts) || c.getContext("webgl", opts)) as WebGLRenderingContext | null;
+    if (!window.WebGLRenderingContext || !gl) return false;
+    const dbg = gl.getExtension("WEBGL_debug_renderer_info");
+    if (dbg) {
+      const renderer = String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) ?? "");
+      if (/swiftshader|llvmpipe|software|basic render driver|mesa offscreen/i.test(renderer)) {
+        gl.getExtension("WEBGL_lose_context")?.loseContext();
+        return false;
+      }
+    }
     // Release the probe context immediately so it doesn't count against the browser's context limit.
-    gl?.getExtension("WEBGL_lose_context")?.loseContext();
-    return !!(window.WebGLRenderingContext && gl);
+    gl.getExtension("WEBGL_lose_context")?.loseContext();
+    return true;
   } catch {
     return false;
   }

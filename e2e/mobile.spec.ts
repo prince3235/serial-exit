@@ -4,13 +4,18 @@ import { test, expect } from "@playwright/test";
  * Mobile (Pixel 7) — responsive layout & menu.
  */
 test.describe("Mobile", () => {
-  test("hamburger opens the full-screen menu", async ({ page }) => {
+  test("hamburger opens the full-screen menu and links close it and scroll", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("load");
     await page.getByRole("button", { name: /open menu/i }).click();
-    await page.waitForTimeout(800);
-    await expect(page.getByRole("link", { name: /how it works/i }).first()).toBeVisible();
-    await expect(page.getByRole("link", { name: /what we do/i }).first()).toBeVisible();
+    const dialog = page.getByRole("dialog", { name: /site menu/i });
+    await expect(dialog).toBeVisible();
+    const howLink = dialog.getByRole("link", { name: /how it works/i });
+    await expect(howLink).toBeVisible();
+    await expect(dialog.getByRole("link", { name: /what we do/i })).toBeVisible();
+    await howLink.click();
+    await expect(dialog).toBeHidden({ timeout: 5_000 });
+    await expect(page.locator("#process")).toBeInViewport({ ratio: 0.1, timeout: 10_000 });
   });
 
   test("no horizontal scroll on mobile", async ({ page }) => {

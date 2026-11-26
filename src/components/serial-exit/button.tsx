@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Magnetic } from "./magnetic";
 
 /**
  * Button — three variants:
@@ -48,7 +47,7 @@ export function Button({
   className,
   onClick,
   type = "button",
-  magnetic = true,
+  magnetic: _magnetic = false,
   withArrow = false,
   ariaLabel,
   disabled,
@@ -117,16 +116,35 @@ export function Button({
     </>
   );
 
+  const isHash = href?.startsWith("#");
   const node = href ? (
-    <Link href={href} aria-label={ariaLabel} onClick={onClick} className={cls} data-cursor={variant === "link" ? undefined : "Open"}>
-      {inner}
-    </Link>
+    isHash ? (
+      <a
+        href={href}
+        aria-label={ariaLabel}
+        onClick={onClick}
+        className={cls}
+        data-cursor={variant === "link" ? undefined : "Open"}
+      >
+        {inner}
+      </a>
+    ) : (
+      <Link
+        href={href}
+        aria-label={ariaLabel}
+        onClick={onClick}
+        className={cls}
+        data-cursor={variant === "link" ? undefined : "Open"}
+      >
+        {inner}
+      </Link>
+    )
   ) : (
     <button type={type} aria-label={ariaLabel} onClick={onClick} disabled={disabled} className={cls}>
       {inner}
     </button>
   );
 
-  if (magnetic && variant !== "link") return <Magnetic strength={0.25}>{node}</Magnetic>;
+  void _magnetic;
   return node;
 }

@@ -25,6 +25,7 @@ export function Footer() {
                 src="/images/logo-white.png"
                 alt="Serial Exit"
                 fill
+                unoptimized
                 className="object-contain object-left"
                 sizes="190px"
               />
@@ -45,12 +46,12 @@ export function Footer() {
             <ul className="mt-5 flex flex-col gap-3">
               {footer.navColumns[0].links.map((l) => (
                 <li key={l.href}>
-                  <Link
+                  <a
                     href={l.href}
                     className="text-[0.875rem] text-foreground/70 transition-colors duration-300 hover:text-amber-300"
                   >
                     {l.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -62,12 +63,12 @@ export function Footer() {
             <ul className="mt-5 flex flex-col gap-3">
               {footer.navColumns[1].links.map((l) => (
                 <li key={l.href}>
-                  <Link
+                  <a
                     href={l.href}
                     className="text-[0.875rem] text-foreground/70 transition-colors duration-300 hover:text-amber-300"
                   >
                     {l.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

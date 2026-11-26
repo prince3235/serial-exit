@@ -102,10 +102,10 @@ export function Showcase() {
                 {/* Dossier Footer / Action prompt */}
                 <div className="flex items-center justify-between border-t border-white/[0.06] bg-black/25 px-5 py-3">
                   <span className="font-mono-display text-[0.6875rem] tracking-[0.2em] text-muted-foreground">
-                    CONFIDENTIALITY: LEVEL 3 STRICT
+                    IDENTITY MASKED · BILATERAL NDA
                   </span>
                   <a
-                    href="#contact"
+                    href="#contact?tab=partner"
                     className="inline-flex items-center gap-1 text-[0.75rem] font-medium text-amber-300 transition-colors hover:text-amber-200"
                   >
                     <span>Request Brief</span>
@@ -136,7 +136,7 @@ export function Showcase() {
                 Active opportunities are never published. Introductions and full dossiers are shared exclusively with verified partners under bilateral NDA.
               </p>
             </div>
-            <Button href="#contact" size="md" withArrow className="shrink-0">
+            <Button href="#contact?tab=partner" size="md" withArrow className="shrink-0">
               Request access to live deal flow
             </Button>
           </div>

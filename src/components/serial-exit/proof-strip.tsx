@@ -2,64 +2,79 @@ import { Reveal } from "./reveal";
 
 const PROOF_POINTS = [
   {
-    kpi: "5",
+    index: "01",
     label: "Transaction Types",
-    detail: "M&A, Acquisitions, Growth Capital, Structured Debt & Strategic Partnerships",
+    value: "5 Mandate Scopes",
+    detail: "Sales, acquisitions, capital, debt & JVs",
   },
   {
-    kpi: "100%",
+    index: "02",
     label: "Off-Market",
-    detail: "Direct founder & sponsor mandates prior to public dissemination",
+    value: "Private Origination",
+    detail: "Direct mandates before public listing",
   },
   {
-    kpi: "Pan-India",
+    index: "03",
     label: "Coverage",
-    detail: "Active origination across core industrial & high-growth economic hubs",
+    value: "Pan-India",
+    detail: "Businesses & partners across India",
   },
   {
-    kpi: "1-to-1",
+    index: "04",
     label: "Verified Introductions",
-    detail: "Curated bilateral counterparties under strict NDA protocols",
+    value: "1-to-1 Bilateral",
+    detail: "Vetted counterparties under NDA",
   },
 ] as const;
 
 /**
- * ProofStrip — 4 structurally-true institutional facts placed immediately under
- * the Hero fold. Aligned to the max-w-[1440px] container grid with equal column widths,
- * mono numerals, hairline dividers, stacking 2x2 on mobile.
+ * ProofStrip — Compact horizontal institutional summary bar placed directly
+ * beneath the Hero fold. Mirrors the site's brass/amber mono index aesthetic
+ * and Showcase data-row hierarchy while remaining low-profile and scannable.
  */
 export function ProofStrip() {
   return (
-    <section aria-label="Institutional Standards" className="border-y border-white/[0.08] bg-[#070708] py-8 sm:py-10">
+    <section
+      aria-label="Institutional Standards"
+      className="border-y border-white/[0.08] bg-[#070708] py-3.5 sm:py-4"
+    >
       <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-12">
-        <Reveal>
-          <div className="grid grid-cols-2 gap-y-8 divide-y divide-white/[0.08] md:grid-cols-4 md:divide-y-0 md:divide-x md:divide-white/[0.08]">
+        <Reveal y={12}>
+          <dl className="grid grid-cols-2 lg:grid-cols-4">
             {PROOF_POINTS.map((p, i) => (
               <div
                 key={p.label}
-                className={`flex flex-col justify-between ${
-                  i % 2 === 1 ? "border-l border-white/[0.08] pl-4 sm:pl-6 md:border-l-0" : "pr-4 sm:pr-6"
-                } ${i >= 2 ? "pt-6 md:pt-0 md:pl-6 lg:pl-8" : "md:px-6 lg:px-8"} ${
-                  i === 0 ? "md:pl-0" : ""
-                } ${i === PROOF_POINTS.length - 1 ? "md:pr-0" : ""}`}
+                className={[
+                  "flex flex-col justify-center",
+                  i % 2 === 1 ? "border-l border-white/[0.06] pl-4 sm:pl-6" : "pr-4 sm:pr-6",
+                  i < 2 ? "border-b border-white/[0.06] pb-3.5 lg:border-b-0 lg:pb-0" : "pt-3.5 lg:pt-0",
+                  i === 0 ? "lg:pl-0 lg:pr-6" : "",
+                  i === 1 || i === 2 ? "lg:border-l lg:border-white/[0.06] lg:px-6" : "",
+                  i === 3 ? "lg:border-l lg:border-white/[0.06] lg:pl-6 lg:pr-0" : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
               >
-                <div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="font-mono text-2xl font-semibold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-                      {p.kpi}
-                    </span>
-                    <span className="h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden="true" />
-                  </div>
-                  <h3 className="mt-1 font-mono-display text-[0.6875rem] font-medium tracking-[0.24em] text-amber-400">
+                <dt className="flex items-center gap-2">
+                  <span className="font-mono-display text-[0.6875rem] tracking-[0.22em] text-amber-500">
+                    {p.index}
+                  </span>
+                  <span className="h-px w-3 bg-amber-500/45" aria-hidden="true" />
+                  <span className="font-mono-display text-[0.6875rem] font-medium tracking-[0.18em] text-amber-400">
                     {p.label}
-                  </h3>
-                </div>
-                <p className="mt-2 text-[0.8125rem] leading-relaxed text-muted-foreground max-w-[34ch]">
-                  {p.detail}
-                </p>
+                  </span>
+                </dt>
+                <dd className="mt-1">
+                  <span className="block font-sans text-[0.9375rem] font-medium leading-snug tracking-[-0.01em] text-foreground">
+                    {p.value}
+                  </span>
+                  <span className="mt-0.5 block text-[0.75rem] leading-snug text-muted-foreground">
+                    {p.detail}
+                  </span>
+                </dd>
               </div>
             ))}
-          </div>
+          </dl>
         </Reveal>
       </div>
     </section>

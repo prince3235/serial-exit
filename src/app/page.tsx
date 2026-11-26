@@ -3,13 +3,14 @@
 import dynamic from "next/dynamic";
 import { Navbar } from "@/components/serial-exit/navbar";
 import { Hero } from "@/components/serial-exit/hero";
+import { ProofStrip } from "@/components/serial-exit/proof-strip";
+import { Contact } from "@/components/serial-exit/contact";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { ChapterRail } from "@/components/serial-exit/chapter-rail";
 import { BackToTop } from "@/components/serial-exit/back-to-top";
 
-/* All below-the-fold sections are dynamically imported so they are code-split
-   out of the initial JS chunk. The Hero is above-the-fold so it is static. */
-const ProofStrip  = dynamic(() => import("@/components/serial-exit/proof-strip").then(m => m.ProofStrip));
+/* Below-the-fold sections beyond the initial fold are dynamically imported
+   so they are code-split out of the initial JS chunk. */
 const CoreIdea    = dynamic(() => import("@/components/serial-exit/core-idea").then(m => m.CoreIdea));
 const Opportunities = dynamic(() => import("@/components/serial-exit/opportunities").then(m => m.Opportunities));
 const WhySerialExit = dynamic(() => import("@/components/serial-exit/why-serial-exit").then(m => m.WhySerialExit));
@@ -18,7 +19,6 @@ const Showcase    = dynamic(() => import("@/components/serial-exit/showcase").th
 const Faq         = dynamic(() => import("@/components/serial-exit/faq").then(m => m.Faq));
 const OurPartners = dynamic(() => import("@/components/serial-exit/our-partners").then(m => m.OurPartners));
 const CtaBand     = dynamic(() => import("@/components/serial-exit/cta-band").then(m => m.CtaBand));
-const Contact     = dynamic(() => import("@/components/serial-exit/contact").then(m => m.Contact));
 const Footer      = dynamic(() => import("@/components/serial-exit/footer").then(m => m.Footer));
 
 /**

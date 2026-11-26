@@ -54,19 +54,39 @@ export function Contact() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  // Synchronize active tab from hash query param (e.g. #contact?tab=owner)
+  // Synchronize active tab from hash query param (e.g. #contact?tab=owner) or custom event
   useEffect(() => {
+    const applyTab = (next: TabKey) => {
+      setTab((prev) => {
+        if (prev !== next) {
+          setForm((p) => ({ ...p, role: "" }));
+          setErrors({});
+          setSuccess(false);
+        }
+        return next;
+      });
+    };
     const handleHash = () => {
-      const hash = window.location.hash;
-      if (hash.includes("tab=owner")) {
-        setTab("owner");
-      } else if (hash.includes("tab=partner")) {
-        setTab("partner");
+      const query = window.location.hash.split("?")[1];
+      if (!query) return;
+      const param = new URLSearchParams(query).get("tab");
+      if (param === "owner" || param === "partner") {
+        applyTab(param);
+      }
+    };
+    const handleCustomTab = (e: Event) => {
+      const detail = (e as CustomEvent<TabKey>).detail;
+      if (detail === "owner" || detail === "partner") {
+        applyTab(detail);
       }
     };
     handleHash();
     window.addEventListener("hashchange", handleHash);
-    return () => window.removeEventListener("hashchange", handleHash);
+    window.addEventListener("serial-exit:tab", handleCustomTab);
+    return () => {
+      window.removeEventListener("hashchange", handleHash);
+      window.removeEventListener("serial-exit:tab", handleCustomTab);
+    };
   }, []);
 
   const activeTab = contact.tabs.find((t) => t.key === tab)!;
@@ -178,7 +198,7 @@ export function Contact() {
                   <div>
                     <h4 className="font-sans text-[0.875rem] font-medium text-foreground">Verification Call</h4>
                     <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">
-                      A discreet 15-minute briefing to calibrate strategic criteria, deal size parameters, and confidentiality protocols.
+                      A discreet introductory call to calibrate strategic criteria, mandate scope, and confidentiality protocols.
                     </p>
                   </div>
                 </li>
@@ -209,7 +229,7 @@ export function Contact() {
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Phone className="h-3.5 w-3.5 text-amber-400" />
-                  <a href={`tel:${site.contact.phone.split(',')[0].trim()}`} className="transition-colors hover:text-amber-300">
+                  <a href={`tel:${site.contact.phone.split(',')[0].replace(/\s/g, "")}`} className="transition-colors hover:text-amber-300">
                     {site.contact.phone}
                   </a>
                 </div>
@@ -286,6 +306,7 @@ export function Contact() {
                       {contact.success.body}
                     </p>
                     <button
+                      type="button"
                       onClick={reset}
                       className="mt-2 inline-flex items-center gap-2 text-sm text-amber-300 hover:text-amber-200 transition-colors duration-300"
                     >

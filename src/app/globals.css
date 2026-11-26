@@ -350,14 +350,6 @@ html.lenis, html.lenis body { height: auto; }
   background: #050505; border: 1px solid rgba(217, 166, 90, 0.85);
 }
 
-/* ---- Content-visibility: skip rendering off-screen sections ----------- */
-/* Sections below the fold defer paint+layout until near-viewport.
-   auto lets the browser decide when to do the work (native lazy rendering). */
-.se-section-lazy {
-  content-visibility: auto;
-  contain-intrinsic-size: 0 600px;
-}
-
 /* ---- Seal stamp & reveal motion (transform / opacity only) ------------- */
 @keyframes se-stamp {
   from { opacity: 0; transform: rotate(-12deg) scale(1.5); }

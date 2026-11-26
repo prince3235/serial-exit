@@ -94,19 +94,19 @@ export function Hero() {
       </div>
 
       {/* WebGL scene (capable desktops only) — fades in over the poster */}
-      <div className="se-hero-3d absolute inset-0 z-[1]" data-ready={sceneReady} aria-hidden="true">
+      <div className="se-hero-3d pointer-events-none absolute inset-0 z-[1]" data-ready={sceneReady} aria-hidden="true">
         <Hero3D onReady={onReady} onFail={onFail} />
       </div>
 
       {/* Contrast scrims (keep headline & body text ≥ 4.5:1 over imagery and 3D scene) */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-[2] lg:hidden"
+        className="pointer-events-none absolute inset-0 z-[2] lg:hidden"
         style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.88) 0%, rgba(5,5,5,0.72) 35%, rgba(5,5,5,0.85) 70%, #050505 100%)" }}
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-[2] hidden lg:block"
+        className="pointer-events-none absolute inset-0 z-[2] hidden lg:block"
         style={{
           background:
             "linear-gradient(90deg, rgba(5,5,5,0.96) 0%, rgba(5,5,5,0.85) 32%, rgba(5,5,5,0.45) 55%, rgba(5,5,5,0.1) 75%, transparent 100%), linear-gradient(180deg, rgba(5,5,5,0.6) 0%, transparent 25%, transparent 68%, #050505 100%)",

@@ -23,7 +23,7 @@ export const FAQS = [
   },
   {
     q: "What criteria must a business meet to be originated?",
-    a: "We focus on profitable, established Indian enterprises typically with enterprise values ranging between ₹25 Cr and ₹500 Cr across manufacturing, healthcare, industrial distribution, specialty chemicals, and commercial services.",
+    a: "We focus on profitable, established Indian mid-market enterprises with verified financial track records, genuine promoter intent, and transaction readiness across industrial, healthcare, logistics, manufacturing, and commercial sectors.",
   },
   {
     q: "What is the typical timeline from enquiry to bilateral introduction?",
