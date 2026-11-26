@@ -65,7 +65,7 @@ export const opportunities = {
       n: "01",
       title: "Business Sales",
       desc: "Confidentially connect owners of established, profitable businesses with the right acquirers, on terms that protect legacy and value.",
-      typicalFor: "Profitable Indian enterprises (₹50–500 Cr EV) seeking full or majority succession exits.",
+      typicalFor: "Profitable, mid-market Indian enterprises seeking full or majority succession exits.",
       icon: "Building2",
     },
     {

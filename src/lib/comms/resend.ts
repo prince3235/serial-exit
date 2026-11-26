@@ -208,7 +208,7 @@ export async function sendPartnerAlertEmail(
 }
 
 /**
- * Direct reply sent by a partner from the Partner Portal Client Management Dashboard.
+ * Direct reply sent by a partner to a client enquiry.
  */
 export async function sendPortalReplyEmail(params: {
   toEmail: string;

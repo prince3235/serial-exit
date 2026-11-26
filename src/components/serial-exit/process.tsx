@@ -31,7 +31,7 @@ export function Process() {
   const reduce = useReducedMotion();
 
   return (
-    <SectionShell id="process" className="relative border-t border-white/[0.06] bg-[#050505]">
+    <SectionShell id="process" className="relative border-t border-white/[0.06] bg-[#050505] py-0 sm:py-0 md:py-0 lg:py-0 xl:py-0">
       {reduce ? (
         <div className="py-12 sm:py-16">
           <SectionHeading index={process.index} eyebrow={process.eyebrow} title={process.title} intro={process.intro} />
@@ -114,9 +114,16 @@ function ProcessTimeline() {
   return (
     <div ref={ref} className="relative py-12 sm:py-16 lg:h-[420vh] lg:py-0">
       <div className="lg:sticky lg:top-0 lg:flex lg:h-[100svh] lg:flex-col lg:justify-center lg:overflow-hidden lg:py-8">
-        <SectionHeading index={process.index} eyebrow={process.eyebrow} title={process.title} intro={process.intro} />
+        <SectionHeading
+          index={process.index}
+          eyebrow={process.eyebrow}
+          title={process.title}
+          intro={process.intro}
+          className="gap-3 sm:gap-4 max-w-3xl"
+          titleClassName="text-2xl sm:text-3xl lg:text-[2.5rem] leading-[1.12]"
+        />
 
-        <div className="mt-8 hidden items-center justify-between xl:mt-10 lg:flex">
+        <div className="mt-6 hidden items-center justify-between lg:flex xl:mt-8">
           {/* Left rail */}
           <div className="relative w-[36%] max-w-[340px] shrink-0 pr-8">
             <div className="relative" style={{ height: N * ROW }}>

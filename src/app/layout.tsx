@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: "Serial Exit — Verified Off-Market Deal Origination",
     description:
-      "Connect with confidential, verified business opportunities before they reach the public market. Trusted by M&A advisors, investment firms and strategic acquirers across India.",
+      "Connect with confidential, verified business opportunities before they reach the public market. Built for M&A advisors, institutional sponsors, and strategic acquirers across India.",
   },
   twitter: {
     card: "summary_large_image",
