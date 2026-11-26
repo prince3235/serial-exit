@@ -42,20 +42,20 @@ export function Showcase() {
             <Reveal key={card.sector} delay={i * 0.08}>
               <article className="group relative flex h-full flex-col justify-between overflow-hidden rounded-md border border-white/[0.12] bg-[#0E0E10] transition-colors duration-500 hover:border-amber-500/50 hover:bg-[#121214]">
                 {/* Thin paper-like dossier header */}
-                <div className="flex items-center justify-between border-b border-white/[0.08] bg-white/[0.02] px-5 py-3">
+                <div className="flex items-center justify-between border-b border-white/[0.08] bg-white/[0.02] px-4 py-3 sm:px-5">
                   <div className="flex items-center gap-2">
                     <span className="font-mono-display text-[0.6875rem] font-medium tracking-[0.25em] text-amber-400">
                       {(card as { refId?: string }).refId ?? `SE-0${i + 1}42`}
                     </span>
-                    <span className="text-[0.6875rem] text-muted-foreground/60">·</span>
-                    <span className="font-mono-display text-[0.6875rem] tracking-[0.2em] text-muted-foreground">
+                    <span className="hidden text-[0.6875rem] text-muted-foreground/60 sm:inline">·</span>
+                    <span className="hidden font-mono-display text-[0.6875rem] tracking-[0.2em] text-muted-foreground sm:inline">
                       ILLUSTRATIVE DOSSIER 0{i + 1}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {/* "NDA Required" tag */}
-                    <span className="inline-flex items-center gap-1 border border-white/10 bg-black/40 px-2.5 py-0.5 font-mono-display text-[0.6875rem] tracking-[0.2em] text-foreground/80">
+                    <span className="inline-flex items-center gap-1 border border-white/10 bg-black/40 px-2 py-0.5 font-mono-display text-[0.625rem] tracking-[0.18em] text-foreground/80 sm:px-2.5 sm:text-[0.6875rem] sm:tracking-[0.2em]">
                       <Lock className="h-2.5 w-2.5 text-amber-400" />
                       NDA REQUIRED
                     </span>
@@ -91,8 +91,8 @@ export function Showcase() {
                     </span>
                   </div>
 
-                  {/* Mandate specifications in 3-col mono grid */}
-                  <dl className="mt-6 grid grid-cols-3 gap-x-4 gap-y-3 border-t border-white/[0.06] pt-4">
+                  {/* Mandate specifications in responsive grid */}
+                  <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-white/[0.06] pt-4 sm:grid-cols-3">
                     <DataRow label="Target Size" value={card.size} />
                     <DataRow label="Geography" value={card.location} />
                     <DataRow label="Structure" value={card.transaction} />

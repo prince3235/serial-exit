@@ -26,9 +26,9 @@ const interactive =
   "group relative inline-flex items-center justify-center align-middle whitespace-nowrap disabled:pointer-events-none disabled:opacity-50";
 
 const sizes: Record<Size, string> = {
-  sm: "text-[0.8125rem] px-4 py-2.5 tracking-wide",
-  md: "text-sm px-6 py-3.5 tracking-wide",
-  lg: "text-[0.95rem] px-8 py-4 tracking-wide",
+  sm: "text-[0.8125rem] min-h-[44px] px-4 py-2.5 tracking-wide",
+  md: "text-sm min-h-[44px] px-6 py-3.5 tracking-wide",
+  lg: "text-[0.95rem] min-h-[44px] px-8 py-4 tracking-wide",
 };
 
 const surface: Record<Variant, string> = {

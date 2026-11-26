@@ -141,7 +141,7 @@ export function Hero() {
         </div>
 
         <div className="flex max-w-4xl flex-col gap-6 py-4 sm:py-6 lg:gap-6 lg:py-5 xl:gap-8 xl:py-8">
-          <h1 className="font-sans text-[2.25rem] font-medium leading-[1.03] tracking-[-0.03em] text-foreground sm:text-[3.25rem] md:text-[4rem] lg:text-[4.75rem] xl:text-[5.5rem]">
+          <h1 className="font-sans text-[2rem] font-medium leading-[1.05] tracking-[-0.03em] text-foreground sm:text-[3.25rem] md:text-[4rem] lg:text-[4.75rem] xl:text-[5.5rem]">
             {headlineLines.map((line, i) => (
               // padding/negative-margin keeps descenders (g, y) from being clipped by the mask
               <span key={i} className="mask-line -mb-[0.1em] pb-[0.1em]">
@@ -160,11 +160,11 @@ export function Hero() {
           </p>
 
           <div className="se-rise flex flex-col gap-3" style={d(0.65)}>
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-              <Button href={hero.ctas.primary.href} variant="solid" size="lg" withArrow>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+              <Button href={hero.ctas.primary.href} variant="solid" size="lg" withArrow className="w-full sm:w-auto">
                 {t.hero.ctaPrimary}
               </Button>
-              <Button href={hero.ctas.secondary.href} variant="ghost" size="lg">
+              <Button href={hero.ctas.secondary.href} variant="ghost" size="lg" className="w-full sm:w-auto">
                 {t.hero.ctaSecondary}
               </Button>
             </div>

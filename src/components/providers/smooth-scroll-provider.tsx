@@ -35,9 +35,11 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       if (!target) return;
       e.preventDefault();
 
-      const offset = targetSelector === "#top" ? 0 : -64;
-      if (lenis) lenis.scrollTo(target, { offset, duration: 1.4 });
-      else target.scrollIntoView();
+      const offset = targetSelector === "#top" ? 0 : window.innerWidth < 1024 ? -68 : -80;
+      setTimeout(() => {
+        if (lenis) lenis.scrollTo(target, { offset, duration: 1.2 });
+        else target.scrollIntoView();
+      }, 20);
 
       if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
       target.focus({ preventScroll: true });

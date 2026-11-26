@@ -443,7 +443,7 @@ export function Contact() {
                     </div>
 
                     <div className="mt-2 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-                      <Button type="submit" size="lg" withArrow magnetic={false} disabled={submitting}>
+                      <Button type="submit" size="lg" withArrow magnetic={false} disabled={submitting} className="w-full sm:w-auto">
                         {submitting ? "Sending…" : contact.submit}
                       </Button>
                       <p className="font-mono-display text-[0.6875rem] tracking-[0.24em] text-foreground/75">
