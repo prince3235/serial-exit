@@ -58,12 +58,15 @@
 ```text
 d:\serial-exit\
 ├── .github/workflows/ci.yml        # GitHub Actions CI (lint, typecheck, check:assets, build, smoke test)
+├── docs/                           # Project documentation & pre-launch guides
+│   ├── CHANGELOG.md                # Release changelog (v2.0.0–2.2.0)
+│   ├── CODEBASE_GUIDE.md           # Full codebase architecture & component guide
+│   ├── DEPLOYMENT.md               # Firebase Hosting + Cloud Run deployment runbook
+│   └── OWNER_TODO.md               # Pre-launch owner checklist & factual claims audit
 ├── e2e/                            # Playwright end-to-end specs (desktop-chromium & mobile-chrome)
-│   ├── automation.spec.ts
 │   ├── contact.spec.ts
 │   ├── home.spec.ts
-│   ├── mobile.spec.ts
-│   └── portal.spec.ts
+│   └── mobile.spec.ts
 ├── firebase-public/                # Firebase Hosting public placeholder directory
 ├── public/                         # Static public assets served from "/"
 │   ├── fonts/                      # 5 self-hosted WOFF2 font files
@@ -77,7 +80,6 @@ d:\serial-exit\
 │   │   ├── grain.png               # 160x160 film grain tile
 │   │   ├── hero-monolith.webp      # 3840x2160 4K master source for hero poster optimization
 │   │   └── logo-white.png          # Brand header/footer wordmark PNG
-│   ├── logo.svg                    # Vector brand mark
 │   └── sw.js                       # Minimal offline/static cache Service Worker (`se-v4`)
 ├── scripts/
 │   ├── check-assets.mjs            # Case-sensitive static asset existence verifier
@@ -126,9 +128,8 @@ d:\serial-exit\
 │       └── utils.ts                # cn() class merging helper (clsx + tailwind-merge)
 ├── .env.example                    # Template listing all environment variables
 ├── .firebaserc                     # Firebase project alias (currently placeholder YOUR_FIREBASE_PROJECT_ID)
-├── CHANGELOG.md                    # Release changelog (v2.0.0–2.2.0)
+├── AGENTS.md                       # Next.js agent rules block
 ├── cloudbuild.yaml                 # Google Cloud Build Docker pipeline
-├── DEPLOYMENT.md                   # Firebase Hosting + Cloud Run deployment runbook
 ├── Dockerfile                      # 3-stage Node 22 standalone production container
 ├── eslint.config.mjs               # ESLint configuration
 ├── firebase.json                   # Firebase Hosting Cloud Run rewrite + Firestore rules config
@@ -254,7 +255,7 @@ d:\serial-exit\
   - `public/images/logo-white.png` (`760×304` PNG alpha, `29,986` bytes).
   - `public/images/grain.png` (`160×160` PNG alpha noise tile, `19,523` bytes).
 - **Icons (`public/` & `src/app/`):**
-  - `public/logo.svg` (`1,065` bytes), `src/app/favicon.ico` (`3,001` bytes), `src/app/icon.png` (`512×512`), `src/app/apple-icon.png` (`180×180`), `public/icons/icon-192.png` (`192×192`), `public/icons/icon-512.png` (`512×512`), `public/icons/icon-maskable-512.png` (`512×512`).
+  - `src/app/favicon.ico` (`3,001` bytes), `src/app/icon.png` (`512×512`), `src/app/apple-icon.png` (`180×180`), `public/icons/icon-192.png` (`192×192`), `public/icons/icon-512.png` (`512×512`), `public/icons/icon-maskable-512.png` (`512×512`).
 - **Fonts (`public/fonts/`):**
   - `inter-tight-400.woff2`, `inter-tight-500.woff2`, `jetbrains-mono-400.woff2`, `jetbrains-mono-500.woff2`, `instrument-serif-400i.woff2`.
 - **Videos:** None present in the codebase.

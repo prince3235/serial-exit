@@ -5,7 +5,7 @@
 #   PROJECT_ID=my-project SITE_URL=https://www.example.com npm run deploy
 #
 # Prerequisites: gcloud CLI + firebase CLI installed and logged in
-# (`gcloud auth login`, `firebase login`). See DEPLOYMENT.md.
+# (`gcloud auth login`, `firebase login`). See docs/DEPLOYMENT.md.
 #
 # Optional secrets (create once in Secret Manager; this script wires them in if they exist):
 #   portal-access-key, resend-api-key
@@ -82,4 +82,4 @@ firebase deploy --only hosting,firestore:rules --project "$PROJECT_ID"
 
 echo "✔ Done. Cloud Run URL:"
 gcloud run services describe "$SERVICE" --region "$REGION" --format='value(status.url)'
-echo "  Next: connect your custom domain in Firebase Console → Hosting (see DEPLOYMENT.md)."
+echo "  Next: connect your custom domain in Firebase Console → Hosting (see docs/DEPLOYMENT.md)."

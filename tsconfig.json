@@ -38,10 +38,7 @@
   ],
   "exclude": [
     "node_modules",
-    "examples",
-    "skills",
-    "tests",
-    "mini-services",
+    ".next",
     "playwright.config.ts",
     "e2e"
   ]

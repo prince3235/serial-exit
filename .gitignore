@@ -19,6 +19,5 @@ firebase-debug.log*
 .DS_Store
 *.log
 
-.vercel
-
-qa-screens/
+# local Vercel CLI cache
+.vercel/

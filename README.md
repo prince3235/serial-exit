@@ -5,7 +5,7 @@ dark/amber design, scroll-driven storytelling, a lightweight WebGL depth layer, 
 a server-gated Partner Portal and a contact form backed by Firestore.
 
 * **Stack:** Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · Framer Motion · Lenis · three.js (lazy) · Firestore
-* **Deploy:** Firebase Hosting (CDN + custom domain + SSL) → Cloud Run. See **[DEPLOYMENT.md](./DEPLOYMENT.md)**.
+* **Deploy:** Vercel (GitHub CI/CD) or Firebase Hosting + Cloud Run. See **[docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)**.
 
 ## Quick start
 
@@ -38,7 +38,9 @@ src/content/site.ts      all page copy & structured content   ← edit text here
 src/content/portal-cases.ts   server-only portal data
 src/i18n/                EN/HI dictionaries
 src/lib/                 site config, Firestore client, rate limiter, request helpers, portal session
-scripts/                 postbuild, hero image optimizer, deploy.sh
+scripts/                 postbuild, hero image optimizer, asset check, deploy.sh
+e2e/                     Playwright E2E tests (home, contact, mobile)
+docs/                    architecture guide, deployment runbook, changelog, owner launch checklist
 ```
 
 ## Design & performance notes
@@ -49,7 +51,7 @@ scripts/                 postbuild, hero image optimizer, deploy.sh
   desktops a transparent three.js layer (obsidian shards + amber dust, pointer parallax) loads at idle; it pauses when
   off-screen or the tab is hidden, caps DPR at 1.5, self-downgrades on slow frames and falls back on context loss.
   Phones, touch devices, low-end machines and `prefers-reduced-motion` users get the poster only.
-* **Photo sections.** Opportunities and Partners use real photography (AVIF/WebP, listed in `src/content/media.ts`). To add or swap an image: export 640 + 1024px AVIF and WebP into `public/images/...`, then edit `media.ts`. All 7 partner photos are fully integrated.
+* **Photo sections.** Hero, Core Idea, Brass Seal (`src/content/media.ts`), and Principal Partners (`public/images/partners/`) use optimized AVIF/WebP assets. Run `npm run check:assets` after adding or swapping assets.
 * **Wow layer.** Flashlight Vault (`vault-layer.tsx`), Deal Journey shard (inside `process.tsx`), wax-seal stamp (`brass-seal.tsx`), chapter rail (`chapter-rail.tsx`) and cursor labels (add `data-cursor="Word"` to any element). All loops pause off-screen and respect reduced motion.
 * **Hero 3D reliability.** The WebGL layer never self-destructs on slow frames; it steps quality down (tiers 0-3, see `data-hero3d` on the container) and falls back to the poster only on WebGL context loss.
 * **Entrance animation is CSS**, so it plays at first paint instead of waiting for hydration. There is no preloader.
@@ -60,6 +62,9 @@ scripts/                 postbuild, hero image optimizer, deploy.sh
   endpoints check Origin, rate-limit and validate; IPs are stored hashed. Note the CSP allows inline scripts
   (required by Next's bootstrap without per-request nonces, which would disable CDN caching).
 
-## What changed from the previous version
+## Documentation
 
-See [CHANGELOG.md](./CHANGELOG.md).
+* **[docs/CODEBASE_GUIDE.md](./docs/CODEBASE_GUIDE.md)** — architecture, components, APIs & integrations
+* **[docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)** — Firebase Hosting + Cloud Run & env setup
+* **[docs/OWNER_TODO.md](./docs/OWNER_TODO.md)** — pre-launch owner checklist & claims audit
+* **[docs/CHANGELOG.md](./docs/CHANGELOG.md)** — release history
