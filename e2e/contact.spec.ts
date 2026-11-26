@@ -101,4 +101,55 @@ test.describe("Contact API", () => {
     const body = await res.json();
     expect(body.ok).toBe(true);
   });
+
+  test("rejects cross-origin POST with 403 and oversized payload with 413", async ({ request }) => {
+    const cross = await request.post("/api/contact", {
+      headers: { Origin: "https://evil.example" },
+      data: {
+        tab: "partner",
+        name: "Test",
+        company: "Co",
+        email: "test@example.com",
+        role: "Private Equity Firm",
+        message: "Valid length message here",
+      },
+    });
+    expect(cross.status()).toBe(403);
+
+    const big = await request.post("/api/contact", {
+      data: {
+        tab: "partner",
+        name: "Test",
+        company: "Co",
+        email: "test@example.com",
+        role: "Private Equity Firm",
+        message: "a".repeat(25_000),
+      },
+    });
+    expect(big.status()).toBe(413);
+  });
+
+  test("dormant Phase 2 portal & webhook routes are unreachable (404)", async ({ request }) => {
+    const checks = await Promise.all([
+      request.get("/api/portal"),
+      request.post("/api/portal", { data: { key: "test" } }),
+      request.get("/api/portal/leads"),
+      request.get("/api/portal/export"),
+      request.post("/api/automation/retry"),
+      request.get("/api/webhooks/whatsapp"),
+    ]);
+    for (const res of checks) {
+      expect(res.status()).toBe(404);
+    }
+  });
+
+  test("homepage serves hardened security headers", async ({ request }) => {
+    const res = await request.get("/");
+    expect(res.status()).toBe(200);
+    const h = res.headers();
+    expect(h["content-security-policy"]).toContain("default-src 'self'");
+    expect(h["x-frame-options"]).toBe("DENY");
+    expect(h["x-content-type-options"]).toBe("nosniff");
+    expect(h["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+  });
 });

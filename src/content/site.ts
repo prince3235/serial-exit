@@ -200,7 +200,7 @@ export const ourPartners = {
       bio: "Building India's verified off-market deal origination network for M&A advisory, investment banking and venture partners.",
       photo: "/images/partners/brijesh-patel.webp",
       initials: "BP",
-      linkedin: "https://www.linkedin.com/company/serial-exit/",
+      linkedin: "https://www.linkedin.com/in/mrbrijeshpatel/",
       credentials: "", // TODO(owner): Add academic/professional accreditations if desired (e.g., CSUSB alumnus)
     },
     {
@@ -211,7 +211,7 @@ export const ourPartners = {
       bio: "Leading strategic deal origination across investment banking, project & debt financing, and institutional capital mandates.",
       photo: "/images/partners/sunil-sen.webp",
       initials: "SS",
-      linkedin: "https://www.linkedin.com/company/serial-exit/",
+      linkedin: "https://www.linkedin.com/in/sunilsenofficial/",
       credentials: "", // TODO(owner): Add academic/professional accreditations if desired (e.g., IIM Ahmedabad alumnus)
     },
   ],

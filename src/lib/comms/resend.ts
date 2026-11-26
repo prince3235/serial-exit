@@ -17,10 +17,18 @@ function escapeHtml(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-function getResendConfig() {
+function sanitizeHeader(s: string): string {
+  return s.replace(/[\r\n]+/g, " ").trim();
+}
+
+export function getResendConfig() {
   const apiKey = process.env.RESEND_API_KEY?.trim();
   const from = process.env.CONTACT_FROM_EMAIL?.trim() || "Serial Exit <onboarding@resend.dev>";
   return { apiKey, from };
+}
+
+export function isResendSandboxSender(): boolean {
+  return getResendConfig().from.toLowerCase().includes("onboarding@resend.dev");
 }
 
 async function sendViaResend(params: {
@@ -35,6 +43,8 @@ async function sendViaResend(params: {
     return { ok: false, unconfigured: true, error: "RESEND_API_KEY is not configured." };
   }
 
+  const safeReplyTo = params.replyTo ? sanitizeHeader(params.replyTo) : undefined;
+
   try {
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -45,8 +55,8 @@ async function sendViaResend(params: {
       body: JSON.stringify({
         from,
         to: params.to,
-        ...(params.replyTo ? { reply_to: params.replyTo } : {}),
-        subject: params.subject,
+        ...(safeReplyTo ? { reply_to: safeReplyTo } : {}),
+        subject: sanitizeHeader(params.subject),
         text: params.text,
         html: params.html,
       }),
@@ -141,7 +151,7 @@ export async function sendPartnerAlertEmail(
   partner: PartnerDestination
 ): Promise<SendResult & { subject: string; text: string }> {
   const kind = lead.tab === "owner" ? "Business Owner" : lead.source === "whatsapp" ? "WhatsApp Lead" : "Partner";
-  const subject = `[${lead.leadCode}] New ${kind} Enquiry — ${lead.name} (${lead.company})`;
+  const subject = `[${lead.leadCode}][${kind} · ${lead.role}] ${lead.name} (${lead.company})`;
   const consentLabel = lead.whatsappConsent ? `Opted In (${lead.consentSource})` : "No";
 
   const text = [

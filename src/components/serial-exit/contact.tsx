@@ -22,7 +22,6 @@ type FormState = {
   phone: string;
   role: string;
   message: string;
-  whatsappConsent: boolean;
   // honeypot — must stay empty
   website: string;
 };
@@ -35,7 +34,6 @@ const initial: FormState = {
   phone: "",
   role: "",
   message: "",
-  whatsappConsent: false,
   website: "",
 };
 
@@ -91,7 +89,7 @@ export function Contact() {
 
   const activeTab = contact.tabs.find((t) => t.key === tab)!;
 
-  const update = (k: keyof FormState, v: string | boolean) => {
+  const update = (k: keyof FormState, v: string) => {
     setForm((p) => ({ ...p, [k]: v }));
     if (errors[k]) setErrors((p) => ({ ...p, [k]: undefined }));
   };
@@ -418,20 +416,6 @@ export function Contact() {
                         autoComplete="tel"
                       />
                     </div>
-
-                    {/* Explicit WhatsApp opt-in consent (Meta Cloud API policy) grouped with phone */}
-                    <label className="flex cursor-pointer items-start gap-3 border border-white/[0.08] bg-[#050505]/70 px-4 py-3 text-[0.8125rem] text-foreground/80 transition-colors duration-300 hover:border-white/[0.16]">
-                      <input
-                        type="checkbox"
-                        checked={form.whatsappConsent}
-                        onChange={(e) => update("whatsappConsent", e.target.checked)}
-                        className="mt-0.5 h-4 w-4 shrink-0 accent-amber-500"
-                      />
-                      <span className="leading-snug">
-                        I consent to receive confidential enquiry acknowledgements and updates via{" "}
-                        <span className="text-amber-300 font-medium">WhatsApp</span> (optional, requires phone number).
-                      </span>
-                    </label>
 
                     {/* Message */}
                     <div className="flex flex-col gap-2">
