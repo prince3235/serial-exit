@@ -165,7 +165,7 @@ export function Contact() {
                     1
                   </span>
                   <div>
-                    <h4 className="font-sans text-[0.875rem] font-medium text-foreground">Review within 24h</h4>
+                    <h4 className="font-sans text-[0.875rem] font-medium text-foreground">Direct Principal Review</h4>
                     <p className="mt-0.5 text-[0.8125rem] leading-relaxed text-muted-foreground">
                       Our principals evaluate your mandate parameters or business profile against active off-market deal flow.
                     </p>
@@ -219,7 +219,7 @@ export function Contact() {
                 </div>
               </div>
               <p className="border-t border-white/[0.06] pt-3 text-[0.75rem] leading-relaxed text-muted-foreground">
-                Strict discretion guaranteed. We never broadcast deal teasers, mass-distribute decks, or publicly list partner mandates.
+                Strict discretion by design. We never broadcast deal teasers, mass-distribute decks, or publicly list partner mandates.
               </p>
             </div>
           </Reveal>

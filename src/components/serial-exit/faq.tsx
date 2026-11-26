@@ -27,7 +27,7 @@ export const FAQS = [
   },
   {
     q: "What is the typical timeline from enquiry to bilateral introduction?",
-    a: "Initial mandate review occurs within 24 hours. Following a discreet 15-minute briefing to calibrate strategic fit, verified bilateral introductions are arranged within 5 to 7 business days.",
+    a: "Upon receipt, our principals conduct a discreet review to assess strategic fit and mandate criteria. Following preliminary alignment, verified bilateral introductions are scheduled in close coordination with both counterparties.",
   },
   {
     q: "Can business owners explore an exit without notifying staff or competitors?",
@@ -35,7 +35,7 @@ export const FAQS = [
   },
   {
     q: "How does Serial Exit differ from public M&A listing platforms?",
-    a: "Public listing boards broadcast teasers across open networks, eroding pricing leverage and confidentiality. Serial Exit operates an institutional, off-market origination network with 100% pre-verified principal qualification.",
+    a: "Public listing boards broadcast teasers across open networks, risking pricing leverage and confidentiality. Serial Exit operates an institutional, relationship-led network where every party is vetted prior to bilateral introduction.",
   },
 ] as const;
 
